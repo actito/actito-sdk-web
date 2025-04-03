@@ -4,4 +4,4 @@
 
 This is the Actito Core component for the Actito Web SDK.
 
-**This package is not intended for direct usage. Use the official [Actito package](https://www.npmjs.com/package/actito) instead.**
+**This package is not intended for direct usage. Use the official [Actito package](https://www.npmjs.com/package/actito-web) instead.**

@@ -4,4 +4,4 @@
 
 This is the Actito Logger component for the Actito Web SDK.
 
-**This package is not intended for direct usage. Use the official [Actito package](https://www.npmjs.com/package/actito) instead.**
+**This package is not intended for direct usage. Use the official [Actito package](https://www.npmjs.com/package/actito-web) instead.**
