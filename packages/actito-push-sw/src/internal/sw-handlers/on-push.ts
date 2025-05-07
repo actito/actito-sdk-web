@@ -155,6 +155,7 @@ async function showNotificationPreview(notification: ActitoWorkerNotification) {
     tag: notification.id,
     body: notification.alert,
     icon,
+    // @ts-ignore
     image: notification.attachment?.uri,
     requireInteraction: notification.requireInteraction,
     renotify: notification.renotify,
