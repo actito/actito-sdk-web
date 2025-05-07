@@ -1,0 +1,39 @@
+{
+  "name": "@actito/web-in-app-messaging",
+  "version": "4.1.0",
+  "description": "The in-app messaging package for the 'actito-web' umbrella package.",
+  "author": "Actito <mobile@actito.com> (https://actito.com)",
+  "license": "MIT",
+  "main": "dist/commonjs/index.js",
+  "browser": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
+  "esm5": "dist/esm5/index.js",
+  "typings": "dist/commonjs/index.d.ts",
+  "scripts": {
+    "build": "yarn build:sources && yarn build:styles",
+    "build:sources": "rollup -c",
+    "build:styles": "postcss css/actito-in-app-messaging.css --dir dist",
+    "clean": "rm -rf dist/",
+    "dev": "yarn dev:sources & yarn dev:styles",
+    "dev:sources": "rollup -c -w",
+    "dev:styles": "postcss css/actito-in-app-messaging.css --dir dist -w",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@actito/web-cloud-api": "^4.1.0",
+    "@actito/web-core": "^4.1.0",
+    "@actito/web-logger": "^4.1.0",
+    "@actito/web-ui": "^4.1.0",
+    "tslib": "^2.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
