@@ -1,6 +1,6 @@
 {
   "name": "@actito/web-cloud-api",
-  "version": "4.1.0",
+  "version": "5.0.0-canary.1",
   "description": "The Cloud API package for use in the Actito Web SDK.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "dist"
   ],
   "dependencies": {
-    "@actito/web-logger": "^4.1.0",
+    "@actito/web-logger": "^5.0.0-canary.1",
     "tslib": "^2.5.0"
   },
   "devDependencies": {

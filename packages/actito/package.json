@@ -1,6 +1,6 @@
 {
   "name": "actito-web",
-  "version": "4.1.0",
+  "version": "5.0.0-canary.1",
   "description": "The official Actito JS library.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
   "license": "MIT",
@@ -159,14 +159,14 @@
     }
   },
   "dependencies": {
-    "@actito/web-assets": "^4.1.0",
-    "@actito/web-core": "^4.1.0",
-    "@actito/web-geo": "^4.1.0",
-    "@actito/web-in-app-messaging": "^4.1.0",
-    "@actito/web-inbox": "^4.1.0",
-    "@actito/web-push": "^4.1.0",
-    "@actito/web-push-ui": "^4.1.0",
-    "@actito/web-user-inbox": "^4.1.0"
+    "@actito/web-assets": "^5.0.0-canary.1",
+    "@actito/web-core": "^5.0.0-canary.1",
+    "@actito/web-geo": "^5.0.0-canary.1",
+    "@actito/web-in-app-messaging": "^5.0.0-canary.1",
+    "@actito/web-inbox": "^5.0.0-canary.1",
+    "@actito/web-push": "^5.0.0-canary.1",
+    "@actito/web-push-ui": "^5.0.0-canary.1",
+    "@actito/web-user-inbox": "^5.0.0-canary.1"
   },
   "devDependencies": {
     "typescript": "^5.1.6"
