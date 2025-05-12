@@ -1,0 +1,185 @@
+{
+  "name": "actito-web",
+  "version": "5.0.0-canary.1",
+  "description": "The official Actito JS library.",
+  "author": "Actito <mobile@actito.com> (https://actito.com)",
+  "license": "MIT",
+  "typings": "empty.d.ts",
+  "homepage": "https://actito.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actito/actito-sdk-web.git"
+  },
+  "keywords": [
+    "Actito",
+    "actito",
+    "contextual-marketing",
+    "actionable-analytics",
+    "web-push",
+    "remote-notifications",
+    "in-app-messaging",
+    "geo-targeting",
+    "contextual-storage",
+    "inbox"
+  ],
+  "scripts": {
+    "build": "rollup -c && gulp",
+    "clean": "rm -rf .build **/dist **/**/dist",
+    "lint": "eslint ",
+    "prepack": "yarn docs:replace-symbolic-links",
+    "postpack": "yarn docs:create-symbolic-links",
+    "docs:create-symbolic-links": "rm README.md CHANGELOG.md; ln -s ../../README.md ../../CHANGELOG.md .",
+    "docs:replace-symbolic-links": "rm README.md CHANGELOG.md; cp ../../README.md ../../CHANGELOG.md ."
+  },
+  "files": [
+    "**/dist/**",
+    "**/in-app-messaging.css",
+    "**/push.css",
+    "**/push-ui.css",
+    "**/package.json",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    "./core": {
+      "types": "./core/dist/core/index.d.ts",
+      "node": {
+        "require": "./core/dist/index.cjs.js",
+        "import": "./core/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./core/dist/index.cjs.js",
+        "import": "./core/dist/esm/index.esm.js"
+      },
+      "default": "./core/dist/esm/index.esm.js"
+    },
+    "./assets": {
+      "types": "./assets/dist/assets/index.d.ts",
+      "node": {
+        "require": "./assets/dist/index.cjs.js",
+        "import": "./assets/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./assets/dist/index.cjs.js",
+        "import": "./assets/dist/esm/index.esm.js"
+      },
+      "default": "./assets/dist/esm/index.esm.js"
+    },
+    "./geo": {
+      "types": "./geo/dist/geo/index.d.ts",
+      "node": {
+        "require": "./geo/dist/index.cjs.js",
+        "import": "./geo/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./geo/dist/index.cjs.js",
+        "import": "./geo/dist/esm/index.esm.js"
+      },
+      "default": "./geo/dist/esm/index.esm.js"
+    },
+    "./in-app-messaging": {
+      "types": "./in-app-messaging/dist/in-app-messaging/index.d.ts",
+      "node": {
+        "require": "./in-app-messaging/dist/index.cjs.js",
+        "import": "./in-app-messaging/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./in-app-messaging/dist/index.cjs.js",
+        "import": "./in-app-messaging/dist/esm/index.esm.js"
+      },
+      "default": "./in-app-messaging/dist/esm/index.esm.js"
+    },
+    "./in-app-messaging/in-app-messaging.css": {
+      "default": "./in-app-messaging/in-app-messaging.css"
+    },
+    "./inbox": {
+      "types": "./inbox/dist/inbox/index.d.ts",
+      "node": {
+        "require": "./inbox/dist/index.cjs.js",
+        "import": "./inbox/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./inbox/dist/index.cjs.js",
+        "import": "./inbox/dist/esm/index.esm.js"
+      },
+      "default": "./inbox/dist/esm/index.esm.js"
+    },
+    "./push": {
+      "types": "./push/dist/push/index.d.ts",
+      "node": {
+        "require": "./push/dist/index.cjs.js",
+        "import": "./push/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./push/dist/index.cjs.js",
+        "import": "./push/dist/esm/index.esm.js"
+      },
+      "default": "./push/dist/esm/index.esm.js"
+    },
+    "./push/push.css": {
+      "default": "./push/push.css"
+    },
+    "./push/sw": {
+      "types": "./push/sw/dist/push/sw/index.d.ts",
+      "node": {
+        "require": "./push/sw/dist/index.cjs.js",
+        "import": "./push/sw/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./push/sw/dist/index.cjs.js",
+        "import": "./push/sw/dist/esm/index.esm.js"
+      },
+      "default": "./push/sw/dist/esm/index.esm.js"
+    },
+    "./push-ui": {
+      "types": "./push-ui/dist/push-ui/index.d.ts",
+      "node": {
+        "require": "./push-ui/dist/index.cjs.js",
+        "import": "./push-ui/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./push-ui/dist/index.cjs.js",
+        "import": "./push-ui/dist/esm/index.esm.js"
+      },
+      "default": "./push-ui/dist/esm/index.esm.js"
+    },
+    "./push-ui/push-ui.css": {
+      "default": "./push-ui/push-ui.css"
+    },
+    "./user-inbox": {
+      "types": "./user-inbox/dist/user-inbox/index.d.ts",
+      "node": {
+        "require": "./user-inbox/dist/index.cjs.js",
+        "import": "./user-inbox/dist/index.mjs"
+      },
+      "browser": {
+        "require": "./user-inbox/dist/index.cjs.js",
+        "import": "./user-inbox/dist/esm/index.esm.js"
+      },
+      "default": "./user-inbox/dist/esm/index.esm.js"
+    }
+  },
+  "dependencies": {
+    "@actito/web-assets": "^5.0.0-canary.1",
+    "@actito/web-core": "^5.0.0-canary.1",
+    "@actito/web-geo": "^5.0.0-canary.1",
+    "@actito/web-in-app-messaging": "^5.0.0-canary.1",
+    "@actito/web-inbox": "^5.0.0-canary.1",
+    "@actito/web-push": "^5.0.0-canary.1",
+    "@actito/web-push-ui": "^5.0.0-canary.1",
+    "@actito/web-user-inbox": "^5.0.0-canary.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "components": [
+    "core",
+    "assets",
+    "geo",
+    "in-app-messaging",
+    "inbox",
+    "push",
+    "push/sw",
+    "push-ui",
+    "user-inbox"
+  ]
+}

@@ -1,0 +1,86 @@
+import { useEffect, useState } from "react";
+import {
+  disableRemoteNotifications,
+  enableRemoteNotifications,
+  hasRemoteNotificationsEnabled,
+  getAllowedUI,
+  getPushPermissionStatus,
+  ActitoPushPermissionStatus,
+} from "actito-web/push";
+import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registered";
+import { useOnNotificationSettingsChanged } from "@/actito/hooks/events/push/notification-settings-changed";
+import { Card, CardContent, CardHeader } from "@/components/card";
+import { Switch } from "@/components/switch";
+import { logger } from "@/utils/logger";
+
+export function NotificationsCard() {
+  const [enabled, setEnabled] = useState(false);
+  const [allowedUI, setAllowedUI] = useState(false);
+  const [permissionStatus, setPermissionStatus] = useState<ActitoPushPermissionStatus>();
+
+  useEffect(() => {
+    const enabled = hasRemoteNotificationsEnabled();
+    setEnabled(enabled);
+
+    const allowedUI = getAllowedUI();
+    setAllowedUI(allowedUI);
+
+    const permissionStatus = getPushPermissionStatus();
+    setPermissionStatus(permissionStatus);
+  }, []);
+
+  useOnDeviceRegistered(() => {
+    const enabled = hasRemoteNotificationsEnabled();
+    setEnabled(enabled);
+  });
+
+  useOnNotificationSettingsChanged((allowedUI) => {
+    const enabled = hasRemoteNotificationsEnabled();
+    setEnabled(enabled);
+
+    setAllowedUI(allowedUI);
+
+    const permissionStatus = getPushPermissionStatus();
+    setPermissionStatus(permissionStatus);
+  });
+
+  return (
+    <Card>
+      <CardHeader title="Remote notifications" />
+
+      <CardContent>
+        <Switch
+          label="Enabled"
+          checked={enabled}
+          onChange={async (checked) => {
+            setEnabled(checked);
+
+            try {
+              if (checked) {
+                await enableRemoteNotifications();
+              } else {
+                await disableRemoteNotifications();
+              }
+            } catch (e) {
+              logger.error(`Something went wrong: ${e}`);
+            }
+          }}
+        />
+
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
+            Allowed UI
+          </p>
+          <p className="text-sm font-mono lowercase text-gray-400">{allowedUI.toString()}</p>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
+            Permission
+          </p>
+          <p className="text-sm font-mono lowercase text-gray-400">{permissionStatus}</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

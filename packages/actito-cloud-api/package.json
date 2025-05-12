@@ -1,0 +1,32 @@
+{
+  "name": "@actito/web-cloud-api",
+  "version": "5.0.0-canary.1",
+  "description": "The Cloud API package for use in the Actito Web SDK.",
+  "author": "Actito <mobile@actito.com> (https://actito.com)",
+  "license": "MIT",
+  "main": "dist/commonjs/index.js",
+  "browser": "dist/esm/index.js",
+  "module": "dist/esm/index.js",
+  "esm5": "dist/esm5/index.js",
+  "typings": "dist/commonjs/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rm -rf dist/",
+    "dev": "rollup -c -w",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@actito/web-logger": "^5.0.0-canary.1",
+    "tslib": "^2.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
