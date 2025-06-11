@@ -28,6 +28,8 @@ export interface ActitoApplicationWebsitePushConfig {
   readonly info?: ActitoApplicationWebsitePushConfigInfo;
   readonly vapid?: ActitoApplicationWebsitePushConfigVapid;
   readonly launchConfig?: ActitoApplicationWebsitePushConfigLaunchConfig;
+  readonly ignoreTemporaryDevices?: boolean;
+  readonly ignoreUnsupportedWebPushDevices?: boolean;
 }
 
 export interface ActitoApplicationWebsitePushConfigInfo {
