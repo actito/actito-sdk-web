@@ -29,9 +29,7 @@ import {
   ActitoApplicationWebsitePushConfigVapid,
 } from '../../../models/actito-application';
 
-export function convertCloudApplicationToPublic(
-  application: CloudApplication,
-): ActitoApplication {
+export function convertCloudApplicationToPublic(application: CloudApplication): ActitoApplication {
   return {
     // eslint-disable-next-line no-underscore-dangle
     id: application._id,
@@ -83,6 +81,8 @@ function convertWebsitePushConfigToPublic(
     info: convertWebsitePushConfigInfoToPublic(websitePushConfig.info),
     vapid: convertWebsitePushConfigVapidToPublic(websitePushConfig.vapid),
     launchConfig: convertWebsitePushConfigLaunchConfigToPublic(websitePushConfig.launchConfig),
+    ignoreTemporaryDevices: websitePushConfig.ignoreTemporaryDevices,
+    ignoreUnsupportedWebPushDevices: websitePushConfig.ignoreUnsupportedWebPushDevices,
   };
 }
 

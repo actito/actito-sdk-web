@@ -17,8 +17,12 @@ import {
 import { launch as launchSession, unlaunch as unlaunchSession } from '../internal-api-session';
 import { isReady } from '../launch-state';
 import { logger } from '../logger';
-import { getOptions } from '../options';
-import { asPublicDevice, getStoredDevice, setStoredDevice } from '../storage/local-storage';
+import {
+  asPublicDevice,
+  getStoredApplication,
+  getStoredDevice,
+  setStoredDevice,
+} from '../storage/local-storage';
 import { getApplicationVersion } from '../utils';
 
 /* eslint-disable class-methods-use-this */
@@ -36,10 +40,10 @@ export class DeviceComponent extends Component {
   async launch(): Promise<void> {
     await upgradeToLongLivedDeviceWhenNeeded();
 
+    const application = getStoredApplication();
     const device = getStoredDevice();
-    const options = getOptions();
 
-    if (!device && !options?.ignoreTemporaryDevices) {
+    if (!device && !application?.websitePushConfig?.ignoreTemporaryDevices) {
       logger.debug('New install detected.');
 
       try {
@@ -60,7 +64,7 @@ export class DeviceComponent extends Component {
           logger.debug('Resetting local storage.');
           await this.resetLocalStorage();
 
-          if (!options?.ignoreTemporaryDevices) {
+          if (!application?.websitePushConfig?.ignoreTemporaryDevices) {
             logger.debug('Creating a new device.');
             await this.handleCreateDeviceWithSession();
           }

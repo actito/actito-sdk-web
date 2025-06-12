@@ -2,8 +2,7 @@ import { logApplicationClose, logApplicationOpen } from './internal-api-events';
 import { getSession, StoredSession, storeSession } from './internal-api-session-shared';
 import { isReady } from './launch-state';
 import { logger } from './logger';
-import { getOptions } from './options';
-import { getStoredDevice } from './storage/local-storage';
+import { getStoredApplication, getStoredDevice } from './storage/local-storage';
 import { randomUUID } from './utils';
 
 const TEN_MINUTES_MILLISECONDS = 600000;
@@ -51,9 +50,11 @@ export async function unlaunch() {
 export async function handleDocumentVisibilityChanged() {
   if (!isReady()) return;
 
-  const options = getOptions();
+  const application = getStoredApplication();
+  if (!application) return;
+
   const device = getStoredDevice();
-  if (options?.ignoreTemporaryDevices && !device) return;
+  if (application.websitePushConfig?.ignoreTemporaryDevices && !device) return;
 
   const session = getSession();
   const { visibilityState } = document;

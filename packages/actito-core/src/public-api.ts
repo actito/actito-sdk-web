@@ -9,11 +9,7 @@ import {
   request,
   uploadCloudNotificationReplyMedia,
 } from '@actito/web-cloud-api';
-import {
-  LogLevel,
-  LogLevelString,
-  setLogLevel as setLogLevelInternal,
-} from '@actito/web-logger';
+import { LogLevel, LogLevelString, setLogLevel as setLogLevelInternal } from '@actito/web-logger';
 import { ActitoDeviceUnavailableError } from './errors/actito-device-unavailable-error';
 import { ActitoNotConfiguredError } from './errors/actito-not-configured-error';
 import { ActitoNotReadyError } from './errors/actito-not-ready-error';
@@ -51,10 +47,7 @@ import { hasWebPushSupport } from './internal/utils';
 import { SDK_VERSION as SDK_VERSION_INTERNAL } from './internal/version';
 import { ActitoApplication } from './models/actito-application';
 import { ActitoDynamicLink } from './models/actito-dynamic-link';
-import {
-  ActitoNotification,
-  ActitoNotificationAction,
-} from './models/actito-notification';
+import { ActitoNotification, ActitoNotificationAction } from './models/actito-notification';
 import { ActitoOptions } from './options';
 
 export const SDK_VERSION: string = SDK_VERSION_INTERNAL;
@@ -138,8 +131,6 @@ export function configure(options: ActitoOptions) {
     applicationKey: options.applicationKey,
     applicationSecret: options.applicationSecret,
     applicationVersion: options.applicationVersion ?? '1.0.0',
-    ignoreTemporaryDevices: options.ignoreTemporaryDevices,
-    ignoreUnsupportedWebPushDevices: options.ignoreUnsupportedWebPushDevices,
     applicationHost: `${window.location.protocol}//${window.location.host}`,
     language: options.language,
     serviceWorker: options.serviceWorker,
@@ -192,20 +183,6 @@ export async function launch(): Promise<void> {
   const options = getOptions();
   if (options == null) throw new Error('Unable to load options from /notificare-services.json.');
 
-  if (options.ignoreUnsupportedWebPushDevices) {
-    let isWebPushCapable = false;
-
-    try {
-      logger.debug('Checking for web push support.');
-      isWebPushCapable = await hasWebPushSupport();
-    } catch (e) {
-      logger.warning('Failed to check for web push support.', e);
-    }
-
-    if (!isWebPushCapable)
-      throw new Error('Unable to launch Actito when the device is not capable of Web Push.');
-  }
-
   try {
     setLaunchState(LaunchState.LAUNCHING);
 
@@ -227,6 +204,10 @@ export async function launch(): Promise<void> {
     }
 
     setStoredApplication(application);
+
+    if (application.websitePushConfig?.ignoreUnsupportedWebPushDevices) {
+      await ensureWebPushSupport();
+    }
 
     // eslint-disable-next-line no-restricted-syntax
     for (const component of components.values()) {
@@ -526,4 +507,18 @@ async function fetchApplicationInternal({
   }
 
   return application;
+}
+
+async function ensureWebPushSupport() {
+  let isWebPushCapable = false;
+
+  try {
+    logger.debug('Checking for web push support.');
+    isWebPushCapable = await hasWebPushSupport();
+  } catch (e) {
+    logger.warning('Failed to check for web push support.', e);
+  }
+
+  if (!isWebPushCapable)
+    throw new Error('Unable to launch Actito when the device is not capable of Web Push.');
 }

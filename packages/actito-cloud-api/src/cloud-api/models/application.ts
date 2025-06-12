@@ -30,6 +30,8 @@ export interface CloudApplicationWebsitePushConfig {
   readonly info?: CloudApplicationWebsitePushConfigInfo;
   readonly vapid?: CloudApplicationWebsitePushConfigVapid;
   readonly launchConfig?: CloudApplicationWebsitePushConfigLaunchConfig;
+  readonly ignoreTemporaryDevices?: boolean;
+  readonly ignoreUnsupportedWebPushDevices?: boolean;
 }
 
 export interface CloudApplicationWebsitePushConfigInfo {

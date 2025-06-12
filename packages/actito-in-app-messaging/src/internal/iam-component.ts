@@ -1,4 +1,4 @@
-import { Component, getCurrentDevice, getOptions } from '@actito/web-core';
+import { Component, getApplication, getCurrentDevice } from '@actito/web-core';
 import { evaluateContext, handleDocumentVisibilityChanged } from './internal-api';
 import { dismissMessage } from './ui/message-presenter';
 
@@ -16,9 +16,9 @@ export class IamComponent extends Component {
   }
 
   async launch(): Promise<void> {
-    const options = getOptions();
+    const application = getApplication();
     const device = getCurrentDevice();
-    if (options?.ignoreTemporaryDevices && !device) return;
+    if (application?.websitePushConfig?.ignoreTemporaryDevices && !device) return;
 
     evaluateContext('launch');
   }
