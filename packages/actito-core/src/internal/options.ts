@@ -22,8 +22,6 @@ export interface ActitoInternalOptions {
   applicationSecret: string;
   applicationHost: string;
   applicationVersion: string;
-  ignoreTemporaryDevices?: boolean;
-  ignoreUnsupportedWebPushDevices?: boolean;
   language?: string;
   serviceWorker?: string;
   serviceWorkerScope?: string;

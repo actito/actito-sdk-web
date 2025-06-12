@@ -131,8 +131,6 @@ export function configure(options: ActitoOptions) {
     applicationKey: options.applicationKey,
     applicationSecret: options.applicationSecret,
     applicationVersion: options.applicationVersion ?? '1.0.0',
-    ignoreTemporaryDevices: options.ignoreTemporaryDevices,
-    ignoreUnsupportedWebPushDevices: options.ignoreUnsupportedWebPushDevices,
     applicationHost: `${window.location.protocol}//${window.location.host}`,
     language: options.language,
     serviceWorker: options.serviceWorker,
