@@ -90,7 +90,7 @@ export async function enableRemoteNotifications(): Promise<void> {
     if (hasWebPushSupport()) {
       let token = await enableWebPushNotifications(application, options);
 
-      if (!device && options.ignoreTemporaryDevices) {
+      if (!device && application.websitePushConfig.ignoreTemporaryDevices) {
         await executeComponentCommand({
           component: 'device',
           command: 'createDevice',
@@ -119,7 +119,7 @@ export async function enableRemoteNotifications(): Promise<void> {
     } else if (hasSafariPushSupport()) {
       const token = await enableSafariPushNotifications();
 
-      if (!device && options.ignoreTemporaryDevices) {
+      if (!device && application.websitePushConfig.ignoreTemporaryDevices) {
         await executeComponentCommand({
           component: 'device',
           command: 'createDevice',
@@ -228,12 +228,13 @@ async function updateDeviceSubscription({
   token?: string;
   keys?: object;
 }) {
+  const application = getApplication();
+  if (!application) throw new ActitoApplicationUnavailableError();
+
   const device = getCurrentDevice();
   if (!device) throw new ActitoDeviceUnavailableError();
 
-  const options = getOptions();
-
-  if (transport === 'Notificare' && options?.ignoreTemporaryDevices) {
+  if (transport === 'Notificare' && application.websitePushConfig?.ignoreTemporaryDevices) {
     await executeComponentCommand({
       component: 'device',
       command: 'deleteDevice',

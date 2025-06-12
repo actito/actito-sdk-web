@@ -5,7 +5,6 @@ import {
   fetchNotification,
   getApplication,
   getCurrentDevice,
-  getOptions,
   logNotificationOpen,
 } from '@actito/web-core';
 import { logger } from '../logger';
@@ -90,7 +89,7 @@ export class PushComponent extends Component {
   }
 
   async launch(): Promise<void> {
-    const options = getOptions();
+    const application = getApplication();
 
     const device = getCurrentDevice();
     const transport = retrieveTransport();
@@ -101,7 +100,11 @@ export class PushComponent extends Component {
     const canEnableRemoteNotifications =
       getRemoteNotificationsEnabled() !== false && getPushPermissionStatus() === 'granted';
 
-    if (options?.ignoreTemporaryDevices && isTemporaryDevice && !canEnableRemoteNotifications) {
+    if (
+      application?.websitePushConfig?.ignoreTemporaryDevices &&
+      isTemporaryDevice &&
+      !canEnableRemoteNotifications
+    ) {
       try {
         await executeComponentCommand({
           component: 'device',

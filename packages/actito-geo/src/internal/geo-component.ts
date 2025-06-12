@@ -1,4 +1,4 @@
-import { Component, getCurrentDevice, getOptions } from '@actito/web-core';
+import { Component, getApplication, getCurrentDevice } from '@actito/web-core';
 import { logger } from '../logger';
 import { clearLocation, startLocationUpdates } from './internal-api';
 import {
@@ -32,9 +32,9 @@ export class GeoComponent extends Component {
   }
 
   async launch(): Promise<void> {
-    const options = getOptions();
+    const application = getApplication();
     const device = getCurrentDevice();
-    if (options?.ignoreTemporaryDevices && !device) return;
+    if (application?.websitePushConfig?.ignoreTemporaryDevices && !device) return;
 
     if (getLocationServicesEnabled()) {
       logger.debug('Automatically starting location updates.');
