@@ -2,7 +2,6 @@ import { logApplicationClose, logApplicationOpen } from './internal-api-events';
 import { getSession, StoredSession, storeSession } from './internal-api-session-shared';
 import { isReady } from './launch-state';
 import { logger } from './logger';
-import { getOptions } from './options';
 import { getStoredApplication, getStoredDevice } from './storage/local-storage';
 import { randomUUID } from './utils';
 
