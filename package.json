@@ -9,7 +9,7 @@
     ]
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "build": "lerna run --scope @actito/* --scope actito-web build",
     "build:sample-app": "lerna run --scope sample-next build",
     "clean": "lerna run --scope @actito/* --scope actito-web clean",
@@ -40,7 +40,7 @@
     "gulp-replace": "^1.1.4",
     "gulp-s3-upload": "^1.7.3",
     "gulp-sourcemaps": "^3.0.0",
-    "husky": "^8.0.3",
+    "husky": "^9.1.7",
     "lerna": "^7.1.5",
     "lint-staged": "^14.0.1",
     "postcss": "^8.4.28",
