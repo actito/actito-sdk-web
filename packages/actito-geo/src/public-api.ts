@@ -15,8 +15,8 @@ import { logger } from './logger';
 export {
   onLocationUpdated,
   onLocationUpdateError,
-  OnLocationUpdatedCallback,
-  OnLocationUpdateErrorCallback,
+  type OnLocationUpdatedCallback,
+  type OnLocationUpdateErrorCallback,
 } from './internal/consumer-events';
 
 /**

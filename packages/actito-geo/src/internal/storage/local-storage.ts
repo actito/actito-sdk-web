@@ -1,5 +1,5 @@
 import { logger } from '../../logger';
-import { ActitoLocation } from '../../models/actito-location';
+import type { ActitoLocation } from '../../models/actito-location';
 
 export function getLocationServicesEnabled(): boolean {
   const enabledStr = localStorage.getItem('re.notifica.geo.location_services_enabled');

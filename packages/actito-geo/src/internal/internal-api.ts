@@ -6,7 +6,7 @@ import {
   getCloudApiEnvironment,
 } from '@actito/web-core';
 import { logger } from '../logger';
-import { ActitoLocation } from '../models/actito-location';
+import type { ActitoLocation } from '../models/actito-location';
 import { notifyLocationUpdated, notifyLocationUpdateError } from './consumer-events';
 import { getCurrentLocation, setCurrentLocation } from './storage/local-storage';
 
