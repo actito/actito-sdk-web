@@ -1,9 +1,9 @@
 import {
   callNotificationWebhook,
   createNotificationReply,
-  ActitoNotification,
-  ActitoNotificationAction,
-  NotificationReplyData,
+  type ActitoNotification,
+  type ActitoNotificationAction,
+  type NotificationReplyData,
 } from '@actito/web-core';
 import { logger } from '../../logger';
 import {

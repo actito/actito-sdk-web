@@ -1,4 +1,4 @@
-import { ActitoNotification, ActitoNotificationAction } from '@actito/web-core';
+import type { ActitoNotification, ActitoNotificationAction } from '@actito/web-core';
 import { presentAction as presentActionInternal } from './internal/ui/action-presenter';
 import { notificationPresenter } from './internal/ui/notification-presenter';
 
@@ -11,14 +11,14 @@ export {
   onActionExecuted,
   onActionFailedToExecute,
   onCustomActionReceived,
-  OnNotificationWillPresentCallback,
-  OnNotificationPresentedCallback,
-  OnNotificationFinishedPresentingCallback,
-  OnNotificationFailedToPresentCallback,
-  OnActionWillExecuteCallback,
-  OnActionExecutedCallback,
-  OnActionFailedToExecuteCallback,
-  OnCustomActionReceivedCallback,
+  type OnNotificationWillPresentCallback,
+  type OnNotificationPresentedCallback,
+  type OnNotificationFinishedPresentingCallback,
+  type OnNotificationFailedToPresentCallback,
+  type OnActionWillExecuteCallback,
+  type OnActionExecutedCallback,
+  type OnActionFailedToExecuteCallback,
+  type OnCustomActionReceivedCallback,
 } from './internal/consumer-events';
 
 /**

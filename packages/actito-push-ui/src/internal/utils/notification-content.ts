@@ -1,4 +1,4 @@
-import { ActitoNotificationContent } from '@actito/web-core';
+import type { ActitoNotificationContent } from '@actito/web-core';
 
 export function sanitizeContentUrl(content: ActitoNotificationContent): string {
   const url = content.data?.trim();

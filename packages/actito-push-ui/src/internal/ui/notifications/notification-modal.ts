@@ -1,4 +1,4 @@
-import { ActitoNotification, ActitoNotificationAction } from '@actito/web-core';
+import type { ActitoNotification, ActitoNotificationAction } from '@actito/web-core';
 import {
   createBackdrop,
   createButton,

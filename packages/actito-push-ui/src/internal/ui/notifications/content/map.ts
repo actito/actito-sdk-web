@@ -1,4 +1,4 @@
-import { ActitoNotification } from '@actito/web-core';
+import type { ActitoNotification } from '@actito/web-core';
 
 export async function createMapContent(notification: ActitoNotification): Promise<HTMLElement> {
   const content = notification.content.filter(({ type }) => type === 're.notifica.content.Marker');
