@@ -1,6 +1,6 @@
-import { CloudAsset, CloudAssetButton } from '@actito/web-cloud-api';
+import type { CloudAsset, CloudAssetButton } from '@actito/web-cloud-api';
 import { getOptions } from '@actito/web-core';
-import { ActitoAsset, ActitoAssetButton } from '../../models/actito-asset';
+import type { ActitoAsset, ActitoAssetButton } from '../../models/actito-asset';
 
 export function convertCloudAssetToPublic(asset: CloudAsset): ActitoAsset {
   return {
