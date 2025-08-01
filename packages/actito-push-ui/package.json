@@ -4,24 +4,24 @@
   "description": "The push ui package for the 'actito-web' umbrella package.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
   "license": "MIT",
-  "main": "dist/commonjs/index.js",
-  "browser": "dist/esm/index.js",
-  "module": "dist/esm/index.js",
-  "esm5": "dist/esm5/index.js",
-  "typings": "dist/commonjs/index.d.ts",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.cts",
   "scripts": {
-    "build": "yarn build:sources && yarn build:styles",
+    "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
-    "build:styles": "postcss css/actito-push-ui.css --dir dist",
+    "build:types": "tsc",
     "clean": "rm -rf dist/",
-    "dev": "yarn dev:sources & yarn dev:styles",
+    "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
     "dev:sources": "rollup -c -w",
-    "dev:styles": "postcss css/actito-push-ui.css --dir dist -w",
+    "dev:types": "tsc --watch",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "lint:types": "attw --pack ."
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/intermediate"
   ],
   "dependencies": {
     "@actito/web-cloud-api": "^5.0.0-canary.1",
@@ -31,8 +31,7 @@
     "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@types/google.maps": "^3.52.6",
-    "typescript": "^5.1.6"
+    "@types/google.maps": "^3.52.6"
   },
   "publishConfig": {
     "access": "public"
