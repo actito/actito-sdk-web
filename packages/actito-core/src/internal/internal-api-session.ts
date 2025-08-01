@@ -1,5 +1,5 @@
 import { logApplicationClose, logApplicationOpen } from './internal-api-events';
-import { getSession, StoredSession, storeSession } from './internal-api-session-shared';
+import { getSession, type StoredSession, storeSession } from './internal-api-session-shared';
 import { isReady } from './launch-state';
 import { logger } from './logger';
 import { getStoredApplication, getStoredDevice } from './storage/local-storage';

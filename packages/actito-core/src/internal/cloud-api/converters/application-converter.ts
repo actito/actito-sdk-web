@@ -1,4 +1,4 @@
-import {
+import type {
   CloudApplication,
   CloudApplicationActionCategory,
   CloudApplicationActionCategoryAction,
@@ -13,7 +13,7 @@ import {
   CloudApplicationWebsitePushConfigLaunchConfigFloatingButton,
   CloudApplicationWebsitePushConfigVapid,
 } from '@actito/web-cloud-api';
-import {
+import type {
   ActitoApplicationActionCategory,
   ActitoApplicationActionCategoryAction,
   ActitoApplicationActionCategoryActionIcon,

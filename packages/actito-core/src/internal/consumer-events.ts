@@ -1,6 +1,6 @@
-import { EventSubscription } from '../event-subscription';
-import { ActitoApplication } from '../models/actito-application';
-import { ActitoDevice } from '../models/actito-device';
+import type { EventSubscription } from '../event-subscription';
+import type { ActitoApplication } from '../models/actito-application';
+import type { ActitoDevice } from '../models/actito-device';
 import { logger } from './logger';
 
 let onReadyCallback: OnReadyCallback | undefined;

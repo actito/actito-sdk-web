@@ -1,7 +1,7 @@
-import { ActitoApplication } from '../../models/actito-application';
-import { ActitoDevice } from '../../models/actito-device';
+import type { ActitoApplication } from '../../models/actito-application';
+import type { ActitoDevice } from '../../models/actito-device';
 import { logger } from '../logger';
-import { StoredDevice } from './entities/stored-device';
+import type { StoredDevice } from './entities/stored-device';
 
 export function getStoredApplication(): ActitoApplication | undefined {
   const applicationStr = localStorage.getItem('re.notifica.application');

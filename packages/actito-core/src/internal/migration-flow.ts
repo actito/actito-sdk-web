@@ -1,6 +1,6 @@
 import { components } from './component-cache';
 import { logger } from './logger';
-import { StoredDevice } from './storage/entities/stored-device';
+import type { StoredDevice } from './storage/entities/stored-device';
 import { setStoredDevice } from './storage/local-storage';
 
 export function isLatestStorageStructure(): boolean {

@@ -1,8 +1,8 @@
 import {
-  CloudCreateDevicePayload,
-  CloudCreateDeviceResponse,
-  CloudDeviceUpdateBaseAttributesPayload,
-  CloudUpgradeToLongLivedDevicePayload,
+  type CloudCreateDevicePayload,
+  type CloudCreateDeviceResponse,
+  type CloudDeviceUpdateBaseAttributesPayload,
+  type CloudUpgradeToLongLivedDevicePayload,
   createCloudDevice,
   deleteCloudDevice,
   registerCloudTestDevice,

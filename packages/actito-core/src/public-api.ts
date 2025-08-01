@@ -1,6 +1,6 @@
 import {
   callCloudNotificationWebhook,
-  CloudNotificationWebhookPayload,
+  type CloudNotificationWebhookPayload,
   createCloudNotificationReply,
   fetchCloudApplication,
   fetchCloudDynamicLink,
@@ -9,7 +9,11 @@ import {
   request,
   uploadCloudNotificationReplyMedia,
 } from '@actito/web-cloud-api';
-import { LogLevel, LogLevelString, setLogLevel as setLogLevelInternal } from '@actito/web-logger';
+import {
+  LogLevel,
+  type LogLevelString,
+  setLogLevel as setLogLevelInternal,
+} from '@actito/web-logger';
 import { ActitoDeviceUnavailableError } from './errors/actito-device-unavailable-error';
 import { ActitoNotConfiguredError } from './errors/actito-not-configured-error';
 import { ActitoNotReadyError } from './errors/actito-not-ready-error';
@@ -34,7 +38,7 @@ import {
   DEFAULT_REST_API_HOST,
   getOptions,
   isDefaultHosts,
-  ActitoInternalOptionsHosts,
+  type ActitoInternalOptionsHosts,
   setOptions,
 } from './internal/options';
 import {
@@ -45,10 +49,10 @@ import {
 } from './internal/storage/local-storage';
 import { hasWebPushSupport } from './internal/utils';
 import { SDK_VERSION as SDK_VERSION_INTERNAL } from './internal/version';
-import { ActitoApplication } from './models/actito-application';
-import { ActitoDynamicLink } from './models/actito-dynamic-link';
-import { ActitoNotification, ActitoNotificationAction } from './models/actito-notification';
-import { ActitoOptions } from './options';
+import type { ActitoApplication } from './models/actito-application';
+import type { ActitoDynamicLink } from './models/actito-dynamic-link';
+import type { ActitoNotification, ActitoNotificationAction } from './models/actito-notification';
+import type { ActitoOptions } from './options';
 
 export const SDK_VERSION: string = SDK_VERSION_INTERNAL;
 
@@ -56,9 +60,9 @@ export {
   onReady,
   onUnlaunched,
   onDeviceRegistered,
-  OnDeviceRegisteredCallback,
-  OnReadyCallback,
-  OnUnlaunchedCallback,
+  type OnDeviceRegisteredCallback,
+  type OnReadyCallback,
+  type OnUnlaunchedCallback,
 } from './internal/consumer-events';
 
 /**
