@@ -16,7 +16,8 @@
     "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
     "dev:sources": "rollup -c -w",
     "dev:types": "tsc --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:types": "attw --pack ."
   },
   "files": [
     "dist",
