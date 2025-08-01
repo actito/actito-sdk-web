@@ -4,26 +4,26 @@
   "description": "A logger package for use in the Actito Web SDK.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
   "license": "MIT",
-  "main": "dist/commonjs/index.js",
-  "browser": "dist/esm/index.js",
-  "module": "dist/esm/index.js",
-  "esm5": "dist/esm5/index.js",
-  "typings": "dist/commonjs/index.d.ts",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.cts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "yarn build:types && yarn build:sources",
+    "build:sources": "rollup -c",
+    "build:types": "tsc",
     "clean": "rm -rf dist/",
-    "dev": "rollup -c -w",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
+    "dev:sources": "rollup -c -w",
+    "dev:types": "tsc --watch",
+    "lint": "eslint ."
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/intermediate"
   ],
   "dependencies": {
     "tslib": "^2.5.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.1.6"
   },
   "publishConfig": {
     "access": "public"
