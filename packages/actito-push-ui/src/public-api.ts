@@ -42,9 +42,6 @@ export function presentNotification(notification: ActitoNotification) {
  * @param {ActitoNotificationAction} action  - The {@link ActitoNotificationAction} to
  * execute.
  */
-export function presentAction(
-  notification: ActitoNotification,
-  action: ActitoNotificationAction,
-) {
+export function presentAction(notification: ActitoNotification, action: ActitoNotificationAction) {
   presentActionInternal(notification, action);
 }

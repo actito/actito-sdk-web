@@ -175,10 +175,7 @@ function presentInAppBrowser(notification: ActitoNotification) {
   window.location.href = sanitizeContentUrl(content);
 }
 
-async function presentPassbook(
-  options: ActitoInternalOptions,
-  notification: ActitoNotification,
-) {
+async function presentPassbook(options: ActitoInternalOptions, notification: ActitoNotification) {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.PKPass');
   if (!content) throw new Error('Invalid notification content.');
 

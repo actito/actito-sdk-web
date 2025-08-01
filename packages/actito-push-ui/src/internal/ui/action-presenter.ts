@@ -17,10 +17,7 @@ import { createCameraCallbackModal } from './actions/callback-camera';
 import { createKeyboardCallbackModal } from './actions/callback-keyboard';
 import { ensureCleanState } from './root';
 
-export function presentAction(
-  notification: ActitoNotification,
-  action: ActitoNotificationAction,
-) {
+export function presentAction(notification: ActitoNotification, action: ActitoNotificationAction) {
   ensureCleanState();
 
   presentActionAsync(notification, action).catch((e) =>
