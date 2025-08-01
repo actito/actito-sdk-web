@@ -1,3 +1,3 @@
-import { CloudNotificationResponse } from './notification';
+import type { CloudNotificationResponse } from './notification';
 
 export type CloudUserInboxNotificationResponse = CloudNotificationResponse;

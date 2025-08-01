@@ -1,13 +1,13 @@
-import {
+import type {
   CloudCreateDevicePayload,
   CloudUpgradeToLongLivedDevicePayload,
 } from '../payloads/device-registration';
-import { CloudDeviceUpdatePayload } from '../payloads/device-update';
-import { cloudRequest, CloudRequestParams } from '../request';
-import { CloudCreateDeviceResponse } from '../responses/device';
-import { CloudDeviceDoNotDisturbResponse } from '../responses/device-do-not-disturb';
-import { CloudDeviceTagsResponse } from '../responses/device-tags';
-import { CloudDeviceUserDataResponse } from '../responses/device-user-data';
+import type { CloudDeviceUpdatePayload } from '../payloads/device-update';
+import { cloudRequest, type CloudRequestParams } from '../request';
+import type { CloudCreateDeviceResponse } from '../responses/device';
+import type { CloudDeviceDoNotDisturbResponse } from '../responses/device-do-not-disturb';
+import type { CloudDeviceTagsResponse } from '../responses/device-tags';
+import type { CloudDeviceUserDataResponse } from '../responses/device-user-data';
 
 export async function createCloudDevice(
   params: CreateCloudDeviceParams,

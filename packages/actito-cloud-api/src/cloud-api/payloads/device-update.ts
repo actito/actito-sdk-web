@@ -1,4 +1,4 @@
-import { CloudDoNotDisturb } from '../models/do-not-disturb';
+import type { CloudDoNotDisturb } from '../models/do-not-disturb';
 
 export interface CloudDeviceUpdatePayload {
   readonly userID?: string | null;

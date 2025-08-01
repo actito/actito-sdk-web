@@ -1,5 +1,5 @@
-import { cloudRequest, CloudRequestParams } from '../request';
-import { CloudDynamicLinkResponse } from '../responses/dynamic-link';
+import { cloudRequest, type CloudRequestParams } from '../request';
+import type { CloudDynamicLinkResponse } from '../responses/dynamic-link';
 
 export async function fetchCloudDynamicLink(
   params: FetchCloudDynamicLinkParams,
