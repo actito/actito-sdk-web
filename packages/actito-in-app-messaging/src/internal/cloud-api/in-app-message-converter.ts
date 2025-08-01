@@ -4,9 +4,7 @@ import type {
   ActitoInAppMessageAction,
 } from '../../models/actito-in-app-message';
 
-export function convertCloudInAppMessageToPublic(
-  message: CloudInAppMessage,
-): ActitoInAppMessage {
+export function convertCloudInAppMessageToPublic(message: CloudInAppMessage): ActitoInAppMessage {
   return {
     // eslint-disable-next-line no-underscore-dangle
     id: message._id,

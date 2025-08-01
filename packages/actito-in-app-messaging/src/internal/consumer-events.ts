@@ -1,9 +1,6 @@
 import type { EventSubscription } from '@actito/web-core';
 import { logger } from '../logger';
-import type {
-  ActitoInAppMessage,
-  ActitoInAppMessageAction,
-} from '../models/actito-in-app-message';
+import type { ActitoInAppMessage, ActitoInAppMessageAction } from '../models/actito-in-app-message';
 
 let messagePresentedCallback: OnMessagePresentedCallback | undefined;
 let messageFinishedPresentingCallback: OnMessageFinishedPresentingCallback | undefined;
