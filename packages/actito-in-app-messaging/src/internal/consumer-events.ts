@@ -1,6 +1,6 @@
-import { EventSubscription } from '@actito/web-core';
+import type { EventSubscription } from '@actito/web-core';
 import { logger } from '../logger';
-import {
+import type {
   ActitoInAppMessage,
   ActitoInAppMessageAction,
 } from '../models/actito-in-app-message';

@@ -1,5 +1,5 @@
 import { logger } from '../../logger';
-import {
+import type {
   ActitoInAppMessage,
   ActitoInAppMessageAction,
 } from '../../models/actito-in-app-message';

@@ -1,5 +1,5 @@
-import { CloudInAppMessage, CloudInAppMessageAction } from '@actito/web-cloud-api';
-import {
+import type { CloudInAppMessage, CloudInAppMessageAction } from '@actito/web-cloud-api';
+import type {
   ActitoInAppMessage,
   ActitoInAppMessageAction,
 } from '../../models/actito-in-app-message';
