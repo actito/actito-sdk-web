@@ -1,7 +1,7 @@
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
-import svg from 'rollup-plugin-svg-import';
 import postcss from 'rollup-plugin-postcss';
+import svg from 'rollup-plugin-svg-import';
 import pkg from './package.json' with { type: 'json' };
 
 export default [
@@ -52,8 +52,6 @@ export default [
         file: 'dist/actito-ui.css',
       },
     ],
-    plugins: [
-      postcss({ extract: true }),
-    ],
+    plugins: [postcss({ extract: true })],
   },
 ];
