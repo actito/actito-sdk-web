@@ -24,9 +24,7 @@ function createAssetUrl({ key }: CloudAsset): string | undefined {
   return `https://${host}/asset/file/${key}`;
 }
 
-function convertCloudAssetButtonToPublic(
-  button?: CloudAssetButton,
-): ActitoAssetButton | undefined {
+function convertCloudAssetButtonToPublic(button?: CloudAssetButton): ActitoAssetButton | undefined {
   if (!button) return undefined;
   if (!button.label && !button.action) return undefined;
 
