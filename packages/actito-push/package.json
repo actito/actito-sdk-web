@@ -4,45 +4,43 @@
   "description": "The push package for the 'actito-web' umbrella package.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
   "license": "MIT",
-  "main": "dist/commonjs/index.js",
-  "browser": "dist/esm/index.js",
-  "module": "dist/esm/index.js",
-  "esm5": "dist/esm5/index.js",
-  "typings": "dist/commonjs/index.d.ts",
-  "exports": {
-    ".": {
-      "node": "./dist/commonjs/index.js",
-      "browser": "./dist/esm/index.js",
-      "module": "./dist/esm/index.js",
-      "default": "./dist/commonjs/index.js"
-    },
-    "./dist/actito-push.css": {
-      "default": "./dist/actito-push.css"
-    }
-  },
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.cts",
   "scripts": {
-    "build": "yarn build:sources && yarn build:styles",
+    "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
-    "build:styles": "postcss css/actito-push.css --dir dist",
+    "build:types": "tsc",
     "clean": "rm -rf dist/",
-    "dev": "yarn dev:sources & yarn dev:styles",
+    "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
     "dev:sources": "rollup -c -w",
-    "dev:styles": "postcss css/actito-push.css --dir dist -w",
+    "dev:types": "tsc --watch",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "lint:types": "attw --pack ."
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/intermediate"
   ],
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
   "dependencies": {
     "@actito/web-cloud-api": "^5.0.0-canary.1",
     "@actito/web-core": "^5.0.0-canary.1",
     "@actito/web-logger": "^5.0.0-canary.1",
     "@actito/web-ui": "^5.0.0-canary.1",
     "tslib": "^2.5.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.1.6"
   },
   "publishConfig": {
     "access": "public"
