@@ -3,14 +3,14 @@ import {
   getCurrentDevice,
   getOptions,
   ActitoApplicationUnavailableError,
-  ActitoInternalOptions,
+  type ActitoInternalOptions,
   ActitoNotConfiguredError,
 } from '@actito/web-core';
 import { logger } from '../../logger';
 import { arrayBufferToBase64Url, base64UrlToUint8Array } from '../utils';
 import { isStandaloneMode } from '../utils/device';
 import { encodeWorkerConfiguration, parseWorkerConfiguration } from './configuration/parser';
-import { WorkerConfiguration } from './configuration/worker-configuration';
+import type { WorkerConfiguration } from './configuration/worker-configuration';
 
 const SUBSCRIPTION_EXPIRATION_TIME_LEEWAY_MILLIS = 432000000;
 

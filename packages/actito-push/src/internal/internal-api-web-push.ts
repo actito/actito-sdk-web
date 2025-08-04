@@ -4,12 +4,12 @@ import {
   fetchNotification,
   isReady,
   logNotificationOpen,
-  ActitoApplication,
-  ActitoInternalOptions,
-  ActitoNotification,
+  type ActitoApplication,
+  type ActitoInternalOptions,
+  type ActitoNotification,
 } from '@actito/web-core';
 import { logger } from '../logger';
-import { ActitoNotificationDeliveryMechanism } from '../models/actito-notification-delivery-mechanism';
+import type { ActitoNotificationDeliveryMechanism } from '../models/actito-notification-delivery-mechanism';
 import {
   notifyNotificationActionOpened,
   notifyNotificationOpened,

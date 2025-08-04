@@ -1,12 +1,12 @@
-import {
+import type {
   EventSubscription,
   ActitoNotification,
   ActitoNotificationAction,
 } from '@actito/web-core';
 import { logger } from '../logger';
-import { ActitoNotificationDeliveryMechanism } from '../models/actito-notification-delivery-mechanism';
-import { ActitoPushSubscription } from '../models/actito-push-subscription';
-import { ActitoSystemNotification } from '../models/actito-system-notification';
+import type { ActitoNotificationDeliveryMechanism } from '../models/actito-notification-delivery-mechanism';
+import type { ActitoPushSubscription } from '../models/actito-push-subscription';
+import type { ActitoSystemNotification } from '../models/actito-system-notification';
 
 let subscriptionChangedCallback: OnSubscriptionChangedCallback | undefined;
 let notificationSettingsChangedCallback: OnNotificationSettingsChangedCallback | undefined;

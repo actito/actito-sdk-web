@@ -1,7 +1,7 @@
 import {
   getOptions,
-  ActitoApplication,
-  ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions,
+  type ActitoApplication,
+  type ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions,
 } from '@actito/web-core';
 import {
   createBackdrop,
