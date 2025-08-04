@@ -1,4 +1,4 @@
-import { ActitoNotification } from '@Actito/web-core';
+import type { ActitoNotification } from '@actito/web-core';
 
 export interface ActitoUserInboxItem {
   readonly id: string;

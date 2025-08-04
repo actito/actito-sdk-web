@@ -1,6 +1,6 @@
 import { registerComponents } from './register-components';
 
-export {
+export type {
   NetworkUserInboxResponse,
   NetworkUserInboxItem,
   NetworkUserInboxItemAttachment,

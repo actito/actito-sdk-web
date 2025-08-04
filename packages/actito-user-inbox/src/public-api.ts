@@ -12,18 +12,18 @@ import {
   ActitoApplicationUnavailableError,
   ActitoDeviceUnavailableError,
   ActitoNotConfiguredError,
-  ActitoNotification,
+  type ActitoNotification,
   ActitoNotReadyError,
   ActitoServiceUnavailableError,
   convertCloudNotificationToPublic,
 } from '@actito/web-core';
 import {
   convertNetworkUserInboxItemToPublic,
-  NetworkUserInboxResponse,
+  type NetworkUserInboxResponse,
 } from './internal/network/responses/user-inbox-response';
 import { logger } from './logger';
-import { ActitoUserInboxItem } from './models/actito-user-inbox-item';
-import { ActitoUserInboxResponse } from './models/actito-user-inbox-response';
+import type { ActitoUserInboxItem } from './models/actito-user-inbox-item';
+import type { ActitoUserInboxResponse } from './models/actito-user-inbox-response';
 
 /**
  * Parses a {@link NetworkUserInboxResponse} object to produce a {@link ActitoUserInboxItem}.
