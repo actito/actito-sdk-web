@@ -60,9 +60,7 @@ async function presentAppNotificationAction(action: ActitoNotificationAction): P
   }
 }
 
-async function presentBrowserNotificationAction(
-  action: ActitoNotificationAction,
-): Promise<void> {
+async function presentBrowserNotificationAction(action: ActitoNotificationAction): Promise<void> {
   const urlStr = action.target?.trim() ? action.target.trim() : '/';
   await self.clients.openWindow(urlStr);
 }
@@ -96,9 +94,7 @@ async function presentSmsNotificationAction(action: ActitoNotificationAction): P
   }
 }
 
-async function presentTelephoneNotificationAction(
-  action: ActitoNotificationAction,
-): Promise<void> {
+async function presentTelephoneNotificationAction(action: ActitoNotificationAction): Promise<void> {
   if (!action.target) throw new Error('Invalid action target.');
 
   try {
