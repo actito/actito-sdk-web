@@ -29,9 +29,7 @@ export type OnNotificationActionOpenedCallback = (
   notification: ActitoNotification,
   action: ActitoNotificationAction,
 ) => void;
-export type OnSystemNotificationReceivedCallback = (
-  notification: ActitoSystemNotification,
-) => void;
+export type OnSystemNotificationReceivedCallback = (notification: ActitoSystemNotification) => void;
 export type OnUnknownNotificationReceivedCallback = (notification: unknown) => void;
 
 /**

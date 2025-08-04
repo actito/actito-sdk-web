@@ -130,9 +130,7 @@ function onPermissionStatusChanged(
     if (element) element.replaceChildren(createCurrentBellIconElement());
   }
 
-  const tooltipElements = floatingButton.getElementsByClassName(
-    'actito__floating-button-tooltip',
-  );
+  const tooltipElements = floatingButton.getElementsByClassName('actito__floating-button-tooltip');
   for (let i = 0; i < tooltipElements.length; i += 1) {
     const element = tooltipElements.item(i);
     if (element) element.innerHTML = getCurrentTooltipText(options);
@@ -142,7 +140,7 @@ function onPermissionStatusChanged(
 }
 
 const FloatingButtonHorizontalAlignmentCssClasses: Record<
-    ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonHorizontalAlignment,
+  ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonHorizontalAlignment,
   string
 > = {
   start: 'actito__floating-button__start',
@@ -151,7 +149,7 @@ const FloatingButtonHorizontalAlignmentCssClasses: Record<
 };
 
 const FloatingButtonVerticalAlignmentCssClasses: Record<
-    ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonVerticalAlignment,
+  ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonVerticalAlignment,
   string
 > = {
   top: 'actito__floating-button__top',
