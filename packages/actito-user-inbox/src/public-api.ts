@@ -1,7 +1,4 @@
-import {
-  fetchCloudUserInboxNotification,
-  removeCloudUserInboxItem,
-} from '@actito/web-cloud-api';
+import { fetchCloudUserInboxNotification, removeCloudUserInboxItem } from '@actito/web-cloud-api';
 import {
   getApplication,
   getCloudApiEnvironment,
@@ -62,9 +59,7 @@ export async function parseInboxResponse(
  * @return {Promise<ActitoNotification>} - A promise that resolves to a
  * {@link ActitoNotification} associated with the opened inbox item.
  */
-export async function openInboxItem(
-  item: ActitoUserInboxItem,
-): Promise<ActitoNotification> {
+export async function openInboxItem(item: ActitoUserInboxItem): Promise<ActitoNotification> {
   checkPrerequisites();
 
   const device = getCurrentDevice();
@@ -143,9 +138,7 @@ function checkPrerequisites() {
   }
 }
 
-async function fetchUserInboxNotification(
-  item: ActitoUserInboxItem,
-): Promise<ActitoNotification> {
+async function fetchUserInboxNotification(item: ActitoUserInboxItem): Promise<ActitoNotification> {
   if (!isConfigured()) throw new ActitoNotConfiguredError();
 
   const device = getCurrentDevice();
