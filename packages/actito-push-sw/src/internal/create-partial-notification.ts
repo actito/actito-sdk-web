@@ -1,5 +1,5 @@
-import { ActitoNotification } from '@actito/web-core';
-import { ActitoWorkerNotification } from './internal-types';
+import type { ActitoNotification } from '@actito/web-core';
+import type { ActitoWorkerNotification } from './internal-types';
 
 export function createPartialNotification(
   message: ActitoWorkerNotification,

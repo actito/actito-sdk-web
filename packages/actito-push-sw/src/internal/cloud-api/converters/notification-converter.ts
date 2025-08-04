@@ -1,10 +1,10 @@
-import {
+import type {
   CloudNotification,
   CloudNotificationAction,
   CloudNotificationAttachment,
   CloudNotificationContent,
 } from '@actito/web-cloud-api';
-import {
+import type {
   ActitoNotification,
   ActitoNotificationAction,
   ActitoNotificationAttachment,
