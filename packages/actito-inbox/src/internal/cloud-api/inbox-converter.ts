@@ -1,6 +1,6 @@
-import { CloudDeviceInboxItem, CloudDeviceInboxItemAttachment } from '@actito/web-cloud-api';
-import { ActitoNotificationAttachment } from '@actito/web-core';
-import { ActitoInboxItem } from '../../models/actito-inbox-item';
+import type { CloudDeviceInboxItem, CloudDeviceInboxItemAttachment } from '@actito/web-cloud-api';
+import type { ActitoNotificationAttachment } from '@actito/web-core';
+import type { ActitoInboxItem } from '../../models/actito-inbox-item';
 
 export function convertCloudInboxItemToPublic(
   inboxItem: CloudDeviceInboxItem,

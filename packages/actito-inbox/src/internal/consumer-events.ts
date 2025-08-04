@@ -1,4 +1,4 @@
-import { EventSubscription } from '@actito/web-core';
+import type { EventSubscription } from '@actito/web-core';
 import { logger } from '../logger';
 
 let inboxUpdatedCallback: OnInboxUpdatedCallback | undefined;
