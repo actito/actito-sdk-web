@@ -1,0 +1,10 @@
+{
+  "name": "@actito/config",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./rollup": "./rollup.library.config.js",
+    "./rollup-umbrella": "./rollup.umbrella.config.js"
+  }
+}

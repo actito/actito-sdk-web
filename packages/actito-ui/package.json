@@ -38,6 +38,9 @@
   "dependencies": {
     "tslib": "^2.5.0"
   },
+  "devDependencies": {
+    "@actito/config": "*"
+  },
   "publishConfig": {
     "access": "public"
   }

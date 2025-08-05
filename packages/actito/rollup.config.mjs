@@ -1,5 +1,4 @@
-import typescript from 'typescript';
-import pkg from './package.json' assert { type: 'json' };
-import { build } from '../../scripts/rollup/rollup.umbrella.config.mjs';
+import { build } from '@actito/config/rollup-umbrella';
+import pkg from './package.json' with { type: 'json' };
 
-export default build(pkg, { typescript, rootDirectory: import.meta.url });
+export default build(pkg);
