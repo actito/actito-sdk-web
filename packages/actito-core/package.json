@@ -17,7 +17,8 @@
     "dev:sources": "rollup -c -w",
     "dev:types": "tsc --watch",
     "lint": "eslint .",
-    "lint:types": "attw --pack ."
+    "lint:types": "attw --pack .",
+    "lint:staged": "lint-staged"
   },
   "files": [
     "dist",

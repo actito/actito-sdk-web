@@ -16,8 +16,8 @@
     "clean": "lerna run --scope @actito/* --scope actito-web clean",
     "dev": "lerna run --scope @actito/* --scope actito-web dev --parallel",
     "lint": "lerna run --scope @actito/* --scope actito-web lint",
-    "sample-app": "lerna run --scope sample-next dev",
-    "typecheck": "lerna run --scope @actito/* --scope actito-web typecheck"
+    "lint:staged": "lerna run --scope @actito/* --scope actito-web lint:staged",
+    "sample-app": "lerna run --scope sample-next dev"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
