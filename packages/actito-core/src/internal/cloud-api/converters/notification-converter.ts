@@ -15,7 +15,6 @@ export function convertCloudNotificationToPublic(
   notification: CloudNotification,
 ): ActitoNotification {
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: notification._id,
     partial: notification.partial ?? false,
     type: notification.type,
@@ -50,7 +49,6 @@ function convertNotificationActionToPublic(
   if (!action.label) return undefined;
 
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: action._id,
     type: action.type,
     label: action.label,

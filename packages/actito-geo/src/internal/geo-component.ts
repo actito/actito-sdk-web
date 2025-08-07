@@ -7,7 +7,6 @@ import {
   setLocationServicesEnabled,
 } from './storage/local-storage';
 
-/* eslint-disable class-methods-use-this */
 export class GeoComponent extends Component {
   constructor() {
     super('geo');

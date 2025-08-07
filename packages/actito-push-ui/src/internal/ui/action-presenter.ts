@@ -180,7 +180,7 @@ async function processCallbackResult(
     }
 
     notifyActionExecuted(notification, action);
-  } catch (e) {
+  } catch {
     notifyActionFailedToExecute(notification, action);
   }
 

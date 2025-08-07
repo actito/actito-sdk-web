@@ -4,7 +4,6 @@ import type { ActitoAsset, ActitoAssetButton } from '../../models/actito-asset';
 
 export function convertCloudAssetToPublic(asset: CloudAsset): ActitoAsset {
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: asset._id,
     title: asset.title,
     description: asset.description ?? undefined,

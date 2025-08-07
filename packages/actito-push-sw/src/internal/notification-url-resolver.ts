@@ -16,7 +16,7 @@ export function resolveUrl(notification: ActitoNotification): UrlResolverResult 
 
   try {
     url = new URL(urlStr);
-  } catch (e) {
+  } catch {
     return UrlResolverResult.NONE;
   }
 

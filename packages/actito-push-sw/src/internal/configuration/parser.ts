@@ -19,7 +19,7 @@ export function parseWorkerConfiguration(): WorkerConfiguration | undefined {
   try {
     const decoded = base64Decode(encodedConfig);
     config = JSON.parse(decoded);
-  } catch (e) {
+  } catch {
     logger.warning('Cannot parse the worker configuration: unable to decode the config.');
     return undefined;
   }

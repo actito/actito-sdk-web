@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@actito/config": "*",
+    "@actito/eslint-config": "*",
     "@types/google.maps": "^3.52.6"
   },
   "publishConfig": {

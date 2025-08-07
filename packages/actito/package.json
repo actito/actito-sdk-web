@@ -154,7 +154,8 @@
     "@actito/web-user-inbox": "^5.0.0-canary.1"
   },
   "devDependencies": {
-    "@actito/config": "*"
+    "@actito/config": "*",
+    "@actito/eslint-config": "*"
   },
   "components": [
     "core",

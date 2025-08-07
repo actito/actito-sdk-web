@@ -51,7 +51,6 @@ export function migrate() {
       localStorage.setItem('re.notifica.preferred_region', region);
     }
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const component of components.values()) {
       logger.debug(`Migrating '${component.name}' component.`);
       component.migrate();

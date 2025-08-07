@@ -8,7 +8,7 @@ export function parseWorkerConfiguration(encoded: string): WorkerConfiguration |
   try {
     const decoded = base64Decode(encoded);
     config = JSON.parse(decoded);
-  } catch (e) {
+  } catch {
     return undefined;
   }
 

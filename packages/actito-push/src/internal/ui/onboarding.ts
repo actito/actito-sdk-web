@@ -27,6 +27,7 @@ export function showOnboarding({
   const root = createRootElement();
   root.classList.add('actito-push-onboarding');
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   root.appendChild(createBackdrop(() => {}));
 
   const modal = root.appendChild(createModal({ alignment: 'top' }));

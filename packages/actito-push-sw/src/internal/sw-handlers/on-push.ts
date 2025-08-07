@@ -23,7 +23,7 @@ export async function onPush(event: PushEvent) {
 
   try {
     workerNotification = event.data.json();
-  } catch (e) {
+  } catch {
     logger.error('Unable to parse the push event data.');
     return;
   }
@@ -161,7 +161,6 @@ async function showNotificationPreview(notification: ActitoWorkerNotification) {
     requireInteraction: notification.requireInteraction,
     renotify: notification.renotify,
     actions: notification.actions?.map((action) => ({
-      // eslint-disable-next-line no-underscore-dangle
       action: action._id,
       title: action.label,
       icon: action.icon,

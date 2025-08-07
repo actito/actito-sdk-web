@@ -109,7 +109,7 @@ function presentAction(message: ActitoInAppMessage, type: ActionType) {
     window.location.href = url;
 
     notifyActionExecuted(message, action);
-  } catch (e) {
+  } catch {
     notifyActionFailedToExecute(message, action);
   }
 

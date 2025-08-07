@@ -6,7 +6,6 @@ import {
 } from '../internal-api-session';
 import { logger } from '../logger';
 
-/* eslint-disable class-methods-use-this */
 export class SessionComponent extends Component {
   constructor() {
     super('session');

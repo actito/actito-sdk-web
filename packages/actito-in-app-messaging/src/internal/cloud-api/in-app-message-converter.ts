@@ -6,7 +6,6 @@ import type {
 
 export function convertCloudInAppMessageToPublic(message: CloudInAppMessage): ActitoInAppMessage {
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: message._id,
     name: message.name,
     type: message.type,

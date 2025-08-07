@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
 let _options: ActitoInternalOptions | undefined;
 
 export const DEFAULT_CLOUD_API_HOST = 'cloud.notifica.re';

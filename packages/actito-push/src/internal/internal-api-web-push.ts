@@ -223,14 +223,22 @@ async function handleServiceWorkerSystemNotificationReceived(event: MessageEvent
 
     const {
       id,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       notificationId,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       notificationType,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       push,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       system,
       systemType,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       urlFormatString,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       'x-sender': xSender,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       application,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       icon,
       ...extra
     } = notification;

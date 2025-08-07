@@ -34,7 +34,7 @@ export function hasLocationServicesEnabled(): boolean {
 export function enableLocationUpdates() {
   try {
     checkPrerequisites();
-  } catch (e) {
+  } catch {
     return;
   }
 
@@ -48,7 +48,7 @@ export function enableLocationUpdates() {
 export function disableLocationUpdates() {
   try {
     checkPrerequisites();
-  } catch (e) {
+  } catch {
     return;
   }
 
