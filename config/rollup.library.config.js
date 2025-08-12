@@ -68,6 +68,7 @@ export function buildTypeDefinitions(options) {
  * @param {Object} options - The configuration options for building the stylesheet.
  * @param {string} options.input - The input file path for the stylesheet.
  * @param {string} options.output - The output file path for the generated stylesheet.
+ * @param {boolean} [options.minimize] - A flag indicating whether to minimize the output CSS.
  * @return {RollupOptions} The configuration object for the stylesheet build process.
  */
 export function buildStylesheet(options) {
@@ -78,7 +79,12 @@ export function buildStylesheet(options) {
         file: options.output,
       },
     ],
-    plugins: [postcss({ extract: true })],
+    plugins: [
+      postcss({
+        extract: true,
+        minimize: options.minimize,
+      }),
+    ],
   };
 }
 

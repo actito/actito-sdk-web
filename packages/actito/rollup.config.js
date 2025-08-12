@@ -1,4 +1,4 @@
 import { build } from '@actito/config/rollup-umbrella';
-import pkg from './package.json' with { type: 'json' };
+import pkg from './package.json';
 
 export default build(pkg);
