@@ -22,8 +22,6 @@ export default function Settings() {
       debugLoggingEnabled,
       applicationVersion: options.applicationVersion ?? "",
       language: options.language ?? "",
-      ignoreTemporaryDevices: options.ignoreTemporaryDevices ?? false,
-      ignoreUnsupportedWebPushDevices: options.ignoreUnsupportedWebPushDevices ?? false,
       serviceWorkerLocation: options.serviceWorker ?? "",
       serviceWorkerScope: options.serviceWorkerScope ?? "",
       geolocationHighAccuracyEnabled: options.geolocation?.enableHighAccuracy ?? false,
