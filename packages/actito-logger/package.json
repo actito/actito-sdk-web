@@ -40,8 +40,7 @@
     "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@actito/config": "*",
-    "@actito/eslint-config": "*"
+    "@actito/library-config": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

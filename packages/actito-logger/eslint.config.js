@@ -1,3 +1,3 @@
-import config from '@actito/eslint-config';
+import config from '@actito/library-config/eslint';
 
 export default config;

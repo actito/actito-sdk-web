@@ -43,9 +43,8 @@
     "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@actito/config": "*",
-    "@actito/eslint-config": "*",
-    "@types/google.maps": "^3.52.6"
+    "@actito/library-config": "workspace:^",
+    "@types/google.maps": "^3.58.1"
   },
   "publishConfig": {
     "access": "public"

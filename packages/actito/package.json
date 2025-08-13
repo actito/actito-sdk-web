@@ -26,7 +26,7 @@
     "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
     "build:types": "tsc",
-    "clean": "rm -rf .build dist **/dist **/**/dist",
+    "clean": "rm -rf .build dist '**/dist' '**/**/dist'",
     "lint": "eslint .",
     "lint:types": "attw --pack .",
     "lint:staged": "lint-staged",
@@ -155,8 +155,7 @@
     "@actito/web-user-inbox": "^5.0.0-canary.1"
   },
   "devDependencies": {
-    "@actito/config": "*",
-    "@actito/eslint-config": "*"
+    "@actito/library-config": "workspace:^"
   },
   "components": [
     "core",
