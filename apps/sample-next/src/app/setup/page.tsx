@@ -13,8 +13,6 @@ export default function Setup() {
     debugLoggingEnabled: true,
     applicationVersion: "",
     language: "",
-    ignoreTemporaryDevices: false,
-    ignoreUnsupportedWebPushDevices: false,
     serviceWorkerLocation: "",
     serviceWorkerScope: "",
     geolocationHighAccuracyEnabled: false,
@@ -25,12 +23,10 @@ export default function Setup() {
   const setup = useCallback(async () => {
     try {
       const response = await fetch("/notificare-services.json");
-      let config: ActitoOptions = await response.json();
+      const config: ActitoOptions = await response.json();
 
       config.applicationVersion = state.applicationVersion.trim() || undefined;
       config.language = state.language.trim() || undefined;
-      config.ignoreTemporaryDevices = state.ignoreTemporaryDevices;
-      config.ignoreUnsupportedWebPushDevices = state.ignoreUnsupportedWebPushDevices;
 
       config.serviceWorker = state.serviceWorkerLocation.trim() || undefined;
       config.serviceWorkerScope = state.serviceWorkerScope.trim() || undefined;

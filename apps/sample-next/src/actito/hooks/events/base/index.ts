@@ -16,6 +16,7 @@ export type IdentifiableListener = Listener & {
   identifier: ListenerIdentifier;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export type TypedListener<Name extends string, Callback extends Function> = {
   event: Name;
   callback: Callback;

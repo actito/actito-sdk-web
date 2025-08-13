@@ -55,8 +55,3 @@ export function StickyNavigation() {
     </div>
   );
 }
-
-type UserInformation = {
-  email: string;
-  name: string;
-};

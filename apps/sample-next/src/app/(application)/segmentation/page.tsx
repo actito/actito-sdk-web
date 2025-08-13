@@ -40,7 +40,7 @@ export default function Segmentation() {
       await addTag(tag);
       setTag("");
       setReloadTrigger((prevState) => prevState + 1);
-    } catch (e) {
+    } catch {
       setSegmentationState({ status: "failure" });
     }
   }, [tag]);
@@ -50,7 +50,7 @@ export default function Segmentation() {
       setSegmentationState({ status: "loading" });
       await removeTag(tag);
       setReloadTrigger((prevState) => prevState + 1);
-    } catch (e) {
+    } catch {
       setSegmentationState({ status: "failure" });
     }
   }, []);

@@ -49,32 +49,6 @@ export function GeneralSettingsCard({ state, onChange }: GeneralSettingsCardProp
             });
           }}
         />
-
-        <Switch
-          label="Ignore temporary devices"
-          description="Prevent the registration of temporary devices."
-          disabled={!onChange}
-          checked={state.ignoreTemporaryDevices}
-          onChange={(checked) => {
-            onChange?.({
-              ...state,
-              ignoreTemporaryDevices: checked,
-            });
-          }}
-        />
-
-        <Switch
-          label="Ignore unsupported WebPush devices"
-          description="Prevent the registration of temporary devices that are not capable of receiving remote notifications."
-          disabled={!onChange}
-          checked={state.ignoreUnsupportedWebPushDevices}
-          onChange={(checked) => {
-            onChange?.({
-              ...state,
-              ignoreUnsupportedWebPushDevices: checked,
-            });
-          }}
-        />
       </CardContent>
     </Card>
   );
@@ -90,8 +64,6 @@ type GeneralSettingsFormState = Pick<
   | "debugLoggingEnabled"
   | "applicationVersion"
   | "language"
-  | "ignoreTemporaryDevices"
-  | "ignoreUnsupportedWebPushDevices"
 >;
 
 type GeneralSettingsOnChange = (state: GeneralSettingsFormState) => void;

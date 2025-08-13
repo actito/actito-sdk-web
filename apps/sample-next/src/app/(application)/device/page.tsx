@@ -21,7 +21,7 @@ export default function Device() {
 
     try {
       await navigator.clipboard.writeText(device.id);
-    } catch (e) {
+    } catch {
       logger.error("Failed to copy the deviceId to the clipboard.");
     }
   }, [device]);
@@ -31,7 +31,7 @@ export default function Device() {
 
     try {
       await navigator.clipboard.writeText(encodeURIComponent(device.id));
-    } catch (e) {
+    } catch {
       logger.error("Failed to copy the deviceId to the clipboard.");
     }
   }, [device]);
