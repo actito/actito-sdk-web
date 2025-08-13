@@ -10,7 +10,7 @@ export function Alert({ variant = "info", message, action }: AlertProps) {
   return (
     <div className={cx("rounded-md p-4", AlertBackgroundColor[variant])}>
       <div className="flex">
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <AlertIcon variant={variant} />
         </div>
 

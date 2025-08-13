@@ -40,7 +40,7 @@ export interface AssetPreviewProps {
 
 function AssetImage({ url }: { url?: string }) {
   return (
-    <div className="flex-shrink-0">
+    <div className="shrink-0">
       {url && (
         <Image
           width={128}

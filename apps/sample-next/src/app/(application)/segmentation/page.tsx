@@ -66,7 +66,7 @@ export default function Segmentation() {
         <div className="md:max-w-2xl">
           <div className="flex flex-row gap-4 mb-10 items-end">
             <InputField
-              className="flex-grow"
+              className="grow"
               id="tag-input"
               label="Create a new tag"
               type="text"
@@ -129,7 +129,7 @@ function TagCard({ tag, onClick }: { tag: string; onClick: () => void }) {
         <TagIcon className="h-6 w-6" />
       </div>
 
-      <p className="flex-grow text-lg font-medium text-gray-900 truncate dark:text-white">{tag}</p>
+      <p className="grow text-lg font-medium text-gray-900 truncate dark:text-white">{tag}</p>
 
       <button className="p-2.5 text-gray-400 hover:text-gray-500" onClick={onClick}>
         <div className="relative">
