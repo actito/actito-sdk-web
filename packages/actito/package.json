@@ -23,12 +23,12 @@
     "inbox"
   ],
   "scripts": {
+    "attw": "attw --pack .",
     "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
     "build:types": "tsc",
     "clean": "rm -rf .build dist '**/dist' '**/**/dist'",
     "lint": "eslint .",
-    "lint:types": "attw --pack .",
     "lint:staged": "lint-staged",
     "prepack": "yarn docs:replace-symbolic-links",
     "postpack": "yarn docs:create-symbolic-links",
@@ -84,9 +84,7 @@
         "default": "./in-app-messaging/dist/index.mjs"
       }
     },
-    "./in-app-messaging/in-app-messaging.css": {
-      "default": "./in-app-messaging/in-app-messaging.css"
-    },
+    "./in-app-messaging/in-app-messaging.css": "./in-app-messaging/in-app-messaging.css",
     "./inbox": {
       "require": {
         "types": "./inbox/dist/index.d.cts",
@@ -107,9 +105,7 @@
         "default": "./push/dist/index.mjs"
       }
     },
-    "./push/push.css": {
-      "default": "./push/push.css"
-    },
+    "./push/push.css": "./push/push.css",
     "./push/sw": {
       "require": {
         "types": "./push/sw/dist/index.d.cts",
@@ -130,9 +126,7 @@
         "default": "./push-ui/dist/index.mjs"
       }
     },
-    "./push-ui/push-ui.css": {
-      "default": "./push-ui/push-ui.css"
-    },
+    "./push-ui/push-ui.css": "./push-ui/push-ui.css",
     "./user-inbox": {
       "require": {
         "types": "./geo/dist/index.d.cts",
@@ -155,7 +149,12 @@
     "@actito/web-user-inbox": "^5.0.0-canary.1"
   },
   "devDependencies": {
-    "@actito/library-config": "workspace:^"
+    "@actito/library-config": "workspace:^",
+    "@arethetypeswrong/cli": "^0.18.2",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.33.0",
+    "rollup": "^4.46.3",
+    "typescript": "^5.9.2"
   },
   "components": [
     "core",

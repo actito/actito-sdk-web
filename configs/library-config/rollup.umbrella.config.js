@@ -30,8 +30,7 @@ export function build(pkg) {
   const configurations = [];
 
   for (const component of components) {
-    configurations.push(...buildNpmPackage(component));
-
+    configurations.push(...buildNpmPackage(pkg, component));
 
     if (pkg.version.match(LATEST_VERSION_REGEX)) {
       configurations.push(
@@ -68,15 +67,18 @@ export function build(pkg) {
 /**
  * Builds the NPM package distribution configurations for a given component.
  *
+ * @param {Object} pkg
  * @param {string} component
  * @return {RollupOptions[]}
  */
-function buildNpmPackage(component) {
-  const configurations = [
+function buildNpmPackage(pkg, component) {
+  return [
     buildSources(
       {
         main: `${component}/dist/index.cjs`,
         module: `${component}/dist/index.mjs`,
+        dependencies: pkg.dependencies,
+        peerDependencies: pkg.peerDependencies,
       },
       {
         input: `${component}/index.ts`,
@@ -87,17 +89,6 @@ function buildNpmPackage(component) {
       outDir: `${component}/dist`,
     }),
   ];
-
-  if (STYLED_COMPONENTS.includes(component)) {
-    configurations.push(
-      buildStylesheet({
-        input: `${component}/${component}.css`,
-        output: `${component}/dist/${component}.css`,
-      }),
-    );
-  }
-
-  return configurations;
 }
 
 /**
@@ -122,12 +113,20 @@ function buildCdnDistribution({ component, variant, version }) {
         sourcemap: true,
       },
       external: [determineExternalCoreUrl({ variant, version })],
-      plugins: [esbuild(), svg(), nodeResolve(), terser(), alias({
-        entries: [{
-          find: '@actito/web-core',
-          replacement: determineExternalCoreUrl({ variant, version }),
-        }],
-      })],
+      plugins: [
+        esbuild(),
+        svg(),
+        nodeResolve(),
+        terser(),
+        alias({
+          entries: [
+            {
+              find: '@actito/web-core',
+              replacement: determineExternalCoreUrl({ variant, version }),
+            },
+          ],
+        }),
+      ],
     },
   ];
 

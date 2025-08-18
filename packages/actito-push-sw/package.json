@@ -17,7 +17,6 @@
     "dev:sources": "rollup -c -w",
     "dev:types": "tsc --watch",
     "lint": "eslint .",
-    "lint:types": "attw --pack .",
     "lint:staged": "lint-staged"
   },
   "files": [
@@ -43,7 +42,12 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@actito/library-config": "workspace:^"
+    "@actito/library-config": "workspace:^",
+    "@arethetypeswrong/cli": "^0.18.2",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.33.0",
+    "rollup": "^4.46.3",
+    "typescript": "^5.9.2"
   },
   "publishConfig": {
     "access": "public"
