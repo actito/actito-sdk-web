@@ -39,5 +39,5 @@ public/sw*
 public/worker*
 public/workbox*
 
-# Notificare configuration file
-public/notificare-services.json
+# Actito configuration file
+public/actito-services.json
