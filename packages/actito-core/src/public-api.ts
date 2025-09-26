@@ -173,15 +173,15 @@ export async function launch(): Promise<void> {
   if (getLaunchState() < LaunchState.CONFIGURED) {
     logger.debug('Fetching remote configuration.');
 
-    const response = await request({ url: '/notificare-services.json' });
+    const response = await request({ url: '/actito-services.json' });
     const options = await response.json();
     configure(options);
 
-    logger.info('Successfully configured Actito with notificare-services.json.');
+    logger.info('Successfully configured Actito with actito-services.json.');
   }
 
   const options = getOptions();
-  if (options == null) throw new Error('Unable to load options from /notificare-services.json.');
+  if (options == null) throw new Error('Unable to load options from /actito-services.json.');
 
   try {
     setLaunchState(LaunchState.LAUNCHING);
