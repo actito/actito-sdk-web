@@ -9,6 +9,7 @@ export interface CloudApplication {
   readonly websitePushConfig?: CloudApplicationWebsitePushConfig;
   readonly userDataFields?: CloudApplicationUserDataField[];
   readonly actionCategories?: CloudApplicationActionCategory[];
+  readonly enforceSizeLimit?: boolean;
 }
 
 export type CloudApplicationServices = Record<string, boolean>;
