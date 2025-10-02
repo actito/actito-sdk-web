@@ -4,6 +4,8 @@ import { getSession } from './internal-api-session-shared';
 import { isConfigured } from './launch-state';
 import { logger } from './logger';
 import { getStoredDevice } from './storage/local-storage';
+import { isReady } from "../public-api";
+import { ActitoNotReadyError } from "../errors/actito-not-ready-error";
 
 export async function logApplicationInstall() {
   await logInternal({ type: 're.notifica.event.application.Install' });
@@ -57,6 +59,11 @@ export async function logNotificationOpen(notificationId: string) {
  * details.
  */
 export async function logCustom(event: string, data?: Record<string, unknown>) {
+  if (!isReady()) {
+    logger.warning('Actito is not ready yet.');
+    throw new ActitoNotReadyError();
+  }
+
   await logInternal({
     type: `re.notifica.event.custom.${event}`,
     data,
