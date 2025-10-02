@@ -9,6 +9,7 @@ export interface ActitoApplication {
   readonly websitePushConfig?: ActitoApplicationWebsitePushConfig;
   readonly userDataFields: ActitoApplicationUserDataField[];
   readonly actionCategories: ActitoApplicationActionCategory[];
+  readonly enforceSizeLimit?: boolean;
 }
 
 export interface ActitoApplicationInboxConfig {

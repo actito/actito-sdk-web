@@ -1,11 +1,14 @@
 import { createCloudEvent } from '@actito/web-cloud-api';
+import { ActitoContentTooLargeError } from '../errors/actito-content-too-large-error';
+import { ActitoNotReadyError } from '../errors/actito-not-ready-error';
+import { getApplication, isReady } from '../public-api';
 import { getCloudApiEnvironment } from './cloud-api/environment';
 import { getSession } from './internal-api-session-shared';
 import { isConfigured } from './launch-state';
 import { logger } from './logger';
 import { getStoredDevice } from './storage/local-storage';
-import { isReady } from "../public-api";
-import { ActitoNotReadyError } from "../errors/actito-not-ready-error";
+
+const MAX_DATA_SIZE_BYTES = 4 * 1024;
 
 export async function logApplicationInstall() {
   await logInternal({ type: 're.notifica.event.application.Install' });
@@ -62,6 +65,20 @@ export async function logCustom(event: string, data?: Record<string, unknown>) {
   if (!isReady()) {
     logger.warning('Actito is not ready yet.');
     throw new ActitoNotReadyError();
+  }
+
+  const application = getApplication();
+
+  if (application?.enforceSizeLimit && data) {
+    const textEncoder = new TextEncoder();
+    const serializedData = JSON.stringify(data);
+    const size = textEncoder.encode(serializedData).byteLength;
+
+    if (size > MAX_DATA_SIZE_BYTES) {
+      throw new ActitoContentTooLargeError(
+        `Data for event '${event}' of size ${size}B exceeds max size of ${MAX_DATA_SIZE_BYTES}B`,
+      );
+    }
   }
 
   await logInternal({
