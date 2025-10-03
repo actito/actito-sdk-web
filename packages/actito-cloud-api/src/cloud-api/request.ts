@@ -38,7 +38,7 @@ export async function cloudRequest(params: CloudInternalRequestParams): Promise<
 }
 
 function getCloudUrl({ cloudHost }: CloudRequestEnvironment): URL {
-  return new URL(`https://${cloudHost}`);
+  return new URL(`${cloudHost}`);
 }
 
 function getCloudRequestAuthorization({

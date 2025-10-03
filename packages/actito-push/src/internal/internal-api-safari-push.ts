@@ -32,7 +32,7 @@ export async function enableSafariPushNotifications(): Promise<string> {
   const currentDeviceToken = checkSafariRemoteNotificationPermission(currentPermission);
   if (currentDeviceToken) return currentDeviceToken;
 
-  const websitePushHost = `https://${options.hosts.restApi}/website-push/safari`;
+  const websitePushHost = `${options.hosts.restApi}/website-push/safari`;
   const permission = await requestSafariPermission(websitePushHost, uid, {
     applicationKey: options.applicationKey,
   });

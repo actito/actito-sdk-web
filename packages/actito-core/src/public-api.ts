@@ -382,7 +382,7 @@ export async function createNotificationReply(
       media: data.media,
     });
 
-    mediaUrl = `https://${options.hosts.restApi}/upload${filename}`;
+    mediaUrl = `${options.hosts.restApi}/upload${filename}`;
   }
 
   await createCloudNotificationReply({
