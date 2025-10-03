@@ -8,7 +8,7 @@ import { isConfigured } from './launch-state';
 import { logger } from './logger';
 import { getStoredDevice } from './storage/local-storage';
 
-const MAX_DATA_SIZE_BYTES = 4 * 1024;
+const MAX_DATA_SIZE_BYTES = 2 * 1024;
 
 export async function logApplicationInstall() {
   await logInternal({ type: 're.notifica.event.application.Install' });
