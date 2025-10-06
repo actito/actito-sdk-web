@@ -102,14 +102,12 @@ async function presentPassbookNotification(notification: ActitoNotification) {
   const config = parseWorkerConfiguration();
   if (!config) throw new InvalidWorkerConfigurationError();
 
-  const cloudHost = ensureHostHttpPrefix(config.cloudHost);
-
   if (isAppleDevice() && isSafariBrowser()) {
-    await self.clients.openWindow(`${cloudHost}/pass/pkpass/${id}`);
+    await self.clients.openWindow(`${config.cloudHost}/pass/pkpass/${id}`);
     return;
   }
 
-  await self.clients.openWindow(`${cloudHost}/pass/web/${id}?showWebVersion=1`);
+  await self.clients.openWindow(`${config.cloudHost}/pass/web/${id}?showWebVersion=1`);
 }
 
 async function presentUrlResolverNotification(notification: ActitoNotification) {

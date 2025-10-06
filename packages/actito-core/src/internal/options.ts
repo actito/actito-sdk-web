@@ -20,7 +20,9 @@ export function isDefaultHosts(hosts: ActitoInternalOptionsHosts): boolean {
   return hosts.cloudApi === DEFAULT_CLOUD_API_HOST && hosts.restApi === DEFAULT_REST_API_HOST;
 }
 
-export function validateHosts({ cloudApi, restApi }: ActitoInternalOptionsHosts) {
+export function validate(options: ActitoInternalOptions) {
+  const { cloudApi, restApi } = options.hosts;
+
   if (!HOST_REGEX.test(cloudApi)) {
     logger.warning('Invalid CLOUD API host.');
     throw new Error('Invalid CLOUD API host.');

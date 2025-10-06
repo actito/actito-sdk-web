@@ -36,7 +36,7 @@ import {
   isDefaultHosts,
   ActitoInternalOptionsHosts,
   setOptions,
-  validateHosts,
+  validate,
 } from './internal/options';
 import {
   clearStorage,
@@ -141,7 +141,7 @@ export function configure(options: ActitoOptions) {
     geolocation: options.geolocation,
   };
 
-  validateHosts(internalOptions.hosts);
+  validate(internalOptions);
 
   setOptions(internalOptions);
 
