@@ -13,18 +13,14 @@ export function getOptions(): ActitoInternalOptions | undefined {
 }
 
 export function setOptions(options: ActitoInternalOptions) {
-  validateHosts(options.hosts);
-
-  const hosts = ensureHostsHttpPrefix(options.hosts);
-
-  _options = { ...options, hosts };
+  _options = options;
 }
 
 export function isDefaultHosts(hosts: ActitoInternalOptionsHosts): boolean {
   return hosts.cloudApi === DEFAULT_CLOUD_API_HOST && hosts.restApi === DEFAULT_REST_API_HOST;
 }
 
-function validateHosts({ cloudApi, restApi }: ActitoInternalOptionsHosts) {
+export function validateHosts({ cloudApi, restApi }: ActitoInternalOptionsHosts) {
   if (!HOST_REGEX.test(cloudApi)) {
     logger.warning('Invalid CLOUD API host.');
     throw new Error('Invalid CLOUD API host.');
@@ -34,18 +30,6 @@ function validateHosts({ cloudApi, restApi }: ActitoInternalOptionsHosts) {
     logger.warning('Invalid REST API host.');
     throw new Error('Invalid REST API host.');
   }
-}
-
-function ensureHostsHttpPrefix({
-  cloudApi,
-  restApi,
-}: ActitoInternalOptionsHosts): ActitoInternalOptionsHosts {
-  const hasHttpRegex = /^https?:\/\//;
-
-  return {
-    cloudApi: hasHttpRegex.test(cloudApi) ? cloudApi : `https://${cloudApi}`,
-    restApi: hasHttpRegex.test(restApi) ? restApi : `https://${restApi}`,
-  };
 }
 
 export interface ActitoInternalOptions {
