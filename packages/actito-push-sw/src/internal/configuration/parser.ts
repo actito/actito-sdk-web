@@ -56,7 +56,7 @@ export function parseWorkerConfiguration(): WorkerConfiguration | undefined {
   }
 
   return {
-    cloudHost: ensureHostHttpPrefix(config.cloudHost),
+    cloudHost: ensureHostHttpPrefix(cloudHost),
     applicationId,
     applicationKey,
     applicationSecret,
