@@ -6,7 +6,7 @@ let _options: ActitoInternalOptions | undefined;
 export const DEFAULT_CLOUD_API_HOST = 'https://cloud.notifica.re';
 export const DEFAULT_REST_API_HOST = 'https://push.notifica.re';
 const HOST_REGEX =
-  /^(https?:\/\/)?(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])\.)*([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])(:[0-9]{1,5})?$/;
+  /^(https?:\/\/)(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])\.)*([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])(:[0-9]{1,5})?$/;
 
 export function getOptions(): ActitoInternalOptions | undefined {
   return _options;

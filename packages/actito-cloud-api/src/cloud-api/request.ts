@@ -1,4 +1,5 @@
 import { request, RequestAuthorization, RequestParams } from '../network/core/request';
+import { ensureHostHttpPrefix } from '../utils';
 
 export interface CloudRequestParams {
   environment: CloudRequestEnvironment;
@@ -38,7 +39,7 @@ export async function cloudRequest(params: CloudInternalRequestParams): Promise<
 }
 
 function getCloudUrl({ cloudHost }: CloudRequestEnvironment): URL {
-  return new URL(cloudHost);
+  return new URL(ensureHostHttpPrefix(cloudHost));
 }
 
 function getCloudRequestAuthorization({
