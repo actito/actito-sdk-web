@@ -9,7 +9,7 @@ import { getCloudApiEnvironment } from '../cloud-api/environment';
 import { InvalidWorkerConfigurationError } from '../configuration/errors';
 import { getCurrentDeviceId, parseWorkerConfiguration } from '../configuration/parser';
 import { resolveUrl, UrlResolverResult } from '../notification-url-resolver';
-import { isAppleDevice, isSafariBrowser } from '../utils';
+import { isAppleDevice, isSafariBrowser, ensureHostHttpPrefix } from '../utils';
 import { presentWindowClient } from './window-client';
 
 // Let TS know this is scoped to a service worker.
@@ -102,12 +102,14 @@ async function presentPassbookNotification(notification: ActitoNotification) {
   const config = parseWorkerConfiguration();
   if (!config) throw new InvalidWorkerConfigurationError();
 
+  const cloudHost = ensureHostHttpPrefix(config.cloudHost);
+
   if (isAppleDevice() && isSafariBrowser()) {
-    await self.clients.openWindow(`${config.cloudHost}/pass/pkpass/${id}`);
+    await self.clients.openWindow(`${cloudHost}/pass/pkpass/${id}`);
     return;
   }
 
-  await self.clients.openWindow(`${config.cloudHost}/pass/web/${id}?showWebVersion=1`);
+  await self.clients.openWindow(`${cloudHost}/pass/web/${id}?showWebVersion=1`);
 }
 
 async function presentUrlResolverNotification(notification: ActitoNotification) {
