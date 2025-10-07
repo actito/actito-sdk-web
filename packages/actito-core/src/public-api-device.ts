@@ -8,6 +8,7 @@ import {
   updateCloudDevice,
 } from '@actito/web-cloud-api';
 import { ActitoDeviceUnavailableError } from './errors/actito-device-unavailable-error';
+import { ActitoInvalidArgumentError } from './errors/actito-invalid-argument-error';
 import { ActitoNotReadyError } from './errors/actito-not-ready-error';
 import { getCloudApiEnvironment } from './internal/cloud-api/environment';
 import {
@@ -19,6 +20,11 @@ import { asPublicDevice, getStoredDevice, setStoredDevice } from './internal/sto
 import { ActitoDevice } from './models/actito-device';
 import { ActitoDoNotDisturb } from './models/actito-do-not-disturb';
 import { ActitoUserData } from './models/actito-user-data';
+import { getApplication } from './public-api';
+
+const MIN_TAG_SIZE_CHAR = 3;
+const MAX_TAG_SIZE_CHAR = 64;
+const TAG_REGEX = /^[a-zA-Z0-9]([a-zA-Z0-9_-]+[a-zA-Z0-9])?$/;
 
 /**
  * Provides the current registered device information.
@@ -185,6 +191,21 @@ export async function addTag(tag: string): Promise<void> {
  */
 export async function addTags(tags: string[]): Promise<void> {
   checkPrerequisites();
+
+  const application = getApplication();
+
+  if (application?.enforceTagRestrictions) {
+    const invalidTags = tags.filter(
+      (tag) =>
+        tag.length < MIN_TAG_SIZE_CHAR || tag.length > MAX_TAG_SIZE_CHAR || !TAG_REGEX.test(tag),
+    );
+
+    if (invalidTags.length > 0) {
+      throw new ActitoInvalidArgumentError(
+        `Invalid tags: ${invalidTags}. Tags must have between ${MIN_TAG_SIZE_CHAR}-${MAX_TAG_SIZE_CHAR} characters and match this pattern: ${TAG_REGEX.source}`,
+      );
+    }
+  }
 
   const device = getStoredDevice();
   if (!device) throw new ActitoDeviceUnavailableError();

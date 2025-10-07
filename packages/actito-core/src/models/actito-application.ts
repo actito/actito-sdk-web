@@ -10,6 +10,8 @@ export interface ActitoApplication {
   readonly userDataFields: ActitoApplicationUserDataField[];
   readonly actionCategories: ActitoApplicationActionCategory[];
   readonly enforceSizeLimit?: boolean;
+  readonly enforceTagRestrictions?: boolean;
+  readonly enforceEventNameRestrictions?: boolean;
 }
 
 export interface ActitoApplicationInboxConfig {
