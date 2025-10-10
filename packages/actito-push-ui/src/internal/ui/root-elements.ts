@@ -51,7 +51,7 @@ export function createModalHeaderElement(
   if (application.websitePushConfig?.icon) {
     logo.setAttribute(
       'src',
-      `https://${options.hosts.restApi}/upload${application.websitePushConfig.icon}`,
+      `${options.hosts.restApi}/upload${application.websitePushConfig.icon}`,
     );
   }
 

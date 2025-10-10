@@ -175,10 +175,7 @@ function presentInAppBrowser(notification: ActitoNotification) {
   window.location.href = sanitizeContentUrl(content);
 }
 
-async function presentPassbook(
-  options: ActitoInternalOptions,
-  notification: ActitoNotification,
-) {
+async function presentPassbook(options: ActitoInternalOptions, notification: ActitoNotification) {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.PKPass');
   if (!content) throw new Error('Invalid notification content.');
 
@@ -210,11 +207,11 @@ async function presentPassbook(
   }
 
   if (isAppleDevice() && isSafariBrowser()) {
-    window.location.href = `https://${options.hosts.restApi}/pass/pkpass/${id}`;
+    window.location.href = `${options.hosts.restApi}/pass/pkpass/${id}`;
     return;
   }
 
-  window.location.href = `https://${options.hosts.restApi}/pass/web/${id}?showWebVersion=1`;
+  window.location.href = `${options.hosts.restApi}/pass/web/${id}?showWebVersion=1`;
 }
 
 async function presentUrlScheme(notification: ActitoNotification) {

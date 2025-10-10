@@ -74,3 +74,7 @@ export function loadStylesheet(url: string) {
 
   head.appendChild(link);
 }
+
+export function ensureHostHttpPrefix(host: string) {
+  return host.startsWith('http://') || host.startsWith('https://') ? host : `https://${host}`;
+}

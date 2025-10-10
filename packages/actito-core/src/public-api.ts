@@ -36,6 +36,7 @@ import {
   isDefaultHosts,
   ActitoInternalOptionsHosts,
   setOptions,
+  validate,
 } from './internal/options';
 import {
   clearStorage,
@@ -43,7 +44,7 @@ import {
   getStoredDevice,
   setStoredApplication,
 } from './internal/storage/local-storage';
-import { hasWebPushSupport } from './internal/utils';
+import { ensureHostHttpPrefix, hasWebPushSupport } from './internal/utils';
 import { SDK_VERSION as SDK_VERSION_INTERNAL } from './internal/version';
 import { ActitoApplication } from './models/actito-application';
 import { ActitoDynamicLink } from './models/actito-dynamic-link';
@@ -121,12 +122,14 @@ export function configure(options: ActitoOptions) {
     migrate();
   }
 
+  const { cloudApi, restApi } = options.hosts || {};
+
   const hosts: ActitoInternalOptionsHosts = {
-    cloudApi: options.hosts?.cloudApi ?? DEFAULT_CLOUD_API_HOST,
-    restApi: options.hosts?.restApi ?? DEFAULT_REST_API_HOST,
+    cloudApi: cloudApi ? ensureHostHttpPrefix(cloudApi) : DEFAULT_CLOUD_API_HOST,
+    restApi: restApi ? ensureHostHttpPrefix(restApi) : DEFAULT_REST_API_HOST,
   };
 
-  setOptions({
+  const internalOptions = {
     hosts,
     applicationKey: options.applicationKey,
     applicationSecret: options.applicationSecret,
@@ -136,7 +139,11 @@ export function configure(options: ActitoOptions) {
     serviceWorker: options.serviceWorker,
     serviceWorkerScope: options.serviceWorkerScope,
     geolocation: options.geolocation,
-  });
+  };
+
+  validate(internalOptions);
+
+  setOptions(internalOptions);
 
   // eslint-disable-next-line no-restricted-syntax
   for (const component of components.values()) {
@@ -382,7 +389,7 @@ export async function createNotificationReply(
       media: data.media,
     });
 
-    mediaUrl = `https://${options.hosts.restApi}/upload${filename}`;
+    mediaUrl = `${options.hosts.restApi}/upload${filename}`;
   }
 
   await createCloudNotificationReply({
