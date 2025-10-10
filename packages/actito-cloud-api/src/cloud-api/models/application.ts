@@ -10,6 +10,8 @@ export interface CloudApplication {
   readonly userDataFields?: CloudApplicationUserDataField[];
   readonly actionCategories?: CloudApplicationActionCategory[];
   readonly enforceSizeLimit?: boolean;
+  readonly enforceTagRestrictions?: boolean;
+  readonly enforceEventNameRestrictions?: boolean;
 }
 
 export type CloudApplicationServices = Record<string, boolean>;

@@ -1,5 +1,6 @@
 import { createCloudEvent } from '@actito/web-cloud-api';
 import { ActitoContentTooLargeError } from '../errors/actito-content-too-large-error';
+import { ActitoInvalidArgumentError } from '../errors/actito-invalid-argument-error';
 import { ActitoNotReadyError } from '../errors/actito-not-ready-error';
 import { getApplication, isReady } from '../public-api';
 import { getCloudApiEnvironment } from './cloud-api/environment';
@@ -9,6 +10,9 @@ import { logger } from './logger';
 import { getStoredDevice } from './storage/local-storage';
 
 const MAX_DATA_SIZE_BYTES = 2 * 1024;
+const MIN_EVENT_NAME_SIZE_CHAR = 3;
+const MAX_EVENT_NAME_SIZE_CHAR = 64;
+const EVENT_NAME_REGEX = /^[a-zA-Z0-9]([a-zA-Z0-9_-]+[a-zA-Z0-9])?$/;
 
 export async function logApplicationInstall() {
   await logInternal({ type: 're.notifica.event.application.Install' });
@@ -68,6 +72,18 @@ export async function logCustom(event: string, data?: Record<string, unknown>) {
   }
 
   const application = getApplication();
+
+  if (application?.enforceEventNameRestrictions) {
+    if (
+      event.length < MIN_EVENT_NAME_SIZE_CHAR ||
+      event.length > MAX_EVENT_NAME_SIZE_CHAR ||
+      !EVENT_NAME_REGEX.test(event)
+    ) {
+      throw new ActitoInvalidArgumentError(
+        `Invalid event name '${event}'. Event name must have between ${MIN_EVENT_NAME_SIZE_CHAR}-${MAX_EVENT_NAME_SIZE_CHAR} characters and match this pattern: ${EVENT_NAME_REGEX.source}`,
+      );
+    }
+  }
 
   if (application?.enforceSizeLimit && data) {
     const textEncoder = new TextEncoder();

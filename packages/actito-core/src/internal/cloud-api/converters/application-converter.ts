@@ -14,10 +14,10 @@ import {
   CloudApplicationWebsitePushConfigVapid,
 } from '@actito/web-cloud-api';
 import {
+  ActitoApplication,
   ActitoApplicationActionCategory,
   ActitoApplicationActionCategoryAction,
   ActitoApplicationActionCategoryActionIcon,
-  ActitoApplication,
   ActitoApplicationInboxConfig,
   ActitoApplicationRegionConfig,
   ActitoApplicationUserDataField,
@@ -43,6 +43,8 @@ export function convertCloudApplicationToPublic(application: CloudApplication): 
     userDataFields: convertUserDataFieldsToPublic(application.userDataFields),
     actionCategories: convertActionCategoriesToPublic(application.actionCategories),
     enforceSizeLimit: application.enforceSizeLimit,
+    enforceTagRestrictions: application.enforceTagRestrictions,
+    enforceEventNameRestrictions: application.enforceEventNameRestrictions,
   };
 }
 
