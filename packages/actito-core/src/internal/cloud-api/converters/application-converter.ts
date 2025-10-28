@@ -14,6 +14,7 @@ import type {
   CloudApplicationWebsitePushConfigVapid,
 } from '@actito/web-cloud-api';
 import type {
+  ActitoApplication,
   ActitoApplicationActionCategory,
   ActitoApplicationActionCategoryAction,
   ActitoApplicationActionCategoryActionIcon,

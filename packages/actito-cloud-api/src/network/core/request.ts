@@ -12,7 +12,6 @@ export async function request(params: RequestParams): Promise<Response> {
     let response: Response | undefined;
 
     try {
-      // eslint-disable-next-line no-await-in-loop
       response = await fetch(url, {
         method,
         body: getRequestBody(params),
@@ -29,7 +28,6 @@ export async function request(params: RequestParams): Promise<Response> {
         const delay = calculateRetryDelayInMilliseconds(attempt, params);
         logger.debug(`Retrying in ${delay} milliseconds...`);
 
-        // eslint-disable-next-line no-await-in-loop
         await sleep(delay);
       }
     }
