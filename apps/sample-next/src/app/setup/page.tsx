@@ -22,8 +22,8 @@ export default function Setup() {
 
   const setup = useCallback(async () => {
     try {
-      const response = await fetch("/notificare-services.json");
-      const config: ActitoOptions = await response.json();
+      const response = await fetch("/actito-services.json");
+      let config: ActitoOptions = await response.json();
 
       config.applicationVersion = state.applicationVersion.trim() || undefined;
       config.language = state.language.trim() || undefined;

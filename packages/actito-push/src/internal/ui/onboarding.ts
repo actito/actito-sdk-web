@@ -42,7 +42,7 @@ export function showOnboarding({
 
     icon.setAttribute(
       'src',
-      `https://${options.hosts.restApi}/upload${application.websitePushConfig.icon}`,
+      `${options.hosts.restApi}/upload${application.websitePushConfig.icon}`,
     );
   }
 

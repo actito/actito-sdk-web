@@ -19,7 +19,14 @@ export function createCameraCallbackModal({
 }: CreateCameraCallbackParams): HTMLElement {
   const root = createRoot(ROOT_ELEMENT_IDENTIFIER);
 
-  root.appendChild(createBackdrop(() => dismiss()));
+  const video = document.createElement('video');
+  video.classList.add('actito__camera-callback-video');
+  video.setAttribute('autoplay', '');
+
+  root.appendChild(createBackdrop(() => {
+    cancelVideoStream(video);
+    dismiss()
+  }));
 
   const modal = root.appendChild(createModal());
   modal.classList.add('actito__camera-callback');
@@ -28,15 +35,16 @@ export function createCameraCallbackModal({
     createModalHeader({
       icon: getApplicationIcon(),
       title: getApplicationName(),
-      onCloseButtonClicked: () => dismiss(),
+      onCloseButtonClicked: () => {
+        cancelVideoStream(video);
+        dismiss();
+      }
     }),
   );
 
   const content = modal.appendChild(createModalContent());
 
-  const video = content.appendChild(document.createElement('video'));
-  video.classList.add('actito__camera-callback-video');
-  video.setAttribute('autoplay', '');
+  content.appendChild(video);
 
   createVideoStream()
     .then((stream) => {
@@ -64,9 +72,7 @@ export function createCameraCallbackModal({
         canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         // Stop the video stream.
-        const stream = video.srcObject as MediaStream | null;
-        stream?.getTracks()?.forEach((track) => track.stop());
-        video.srcObject = null;
+        cancelVideoStream(video);
 
         content.removeChild(video);
         content.appendChild(canvas);
@@ -123,6 +129,12 @@ async function createVideoStream(): Promise<MediaStream> {
       height: 720,
     },
   });
+}
+
+function cancelVideoStream(video: HTMLVideoElement) {
+  const stream = video.srcObject as MediaStream | null;
+  stream?.getTracks()?.forEach((track) => track.stop());
+  video.srcObject = null;
 }
 
 interface CreateCameraCallbackParams {

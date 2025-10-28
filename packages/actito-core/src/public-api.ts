@@ -40,6 +40,7 @@ import {
   isDefaultHosts,
   type ActitoInternalOptionsHosts,
   setOptions,
+  validate,
 } from './internal/options';
 import {
   clearStorage,
@@ -47,7 +48,7 @@ import {
   getStoredDevice,
   setStoredApplication,
 } from './internal/storage/local-storage';
-import { hasWebPushSupport } from './internal/utils';
+import { ensureHostHttpPrefix, hasWebPushSupport } from './internal/utils';
 import { SDK_VERSION as SDK_VERSION_INTERNAL } from './internal/version';
 import type { ActitoApplication } from './models/actito-application';
 import type { ActitoDynamicLink } from './models/actito-dynamic-link';
@@ -125,12 +126,14 @@ export function configure(options: ActitoOptions) {
     migrate();
   }
 
+  const { cloudApi, restApi } = options.hosts || {};
+
   const hosts: ActitoInternalOptionsHosts = {
-    cloudApi: options.hosts?.cloudApi ?? DEFAULT_CLOUD_API_HOST,
-    restApi: options.hosts?.restApi ?? DEFAULT_REST_API_HOST,
+    cloudApi: cloudApi ? ensureHostHttpPrefix(cloudApi) : DEFAULT_CLOUD_API_HOST,
+    restApi: restApi ? ensureHostHttpPrefix(restApi) : DEFAULT_REST_API_HOST,
   };
 
-  setOptions({
+  const internalOptions = {
     hosts,
     applicationKey: options.applicationKey,
     applicationSecret: options.applicationSecret,
@@ -140,7 +143,11 @@ export function configure(options: ActitoOptions) {
     serviceWorker: options.serviceWorker,
     serviceWorkerScope: options.serviceWorkerScope,
     geolocation: options.geolocation,
-  });
+  };
+
+  validate(internalOptions);
+
+  setOptions(internalOptions);
 
   for (const component of components.values()) {
     logger.debug(`Configuring '${component.name}' component.`);
@@ -176,15 +183,15 @@ export async function launch(): Promise<void> {
   if (getLaunchState() < LaunchState.CONFIGURED) {
     logger.debug('Fetching remote configuration.');
 
-    const response = await request({ url: '/notificare-services.json' });
+    const response = await request({ url: '/actito-services.json' });
     const options = await response.json();
     configure(options);
 
-    logger.info('Successfully configured Actito with notificare-services.json.');
+    logger.info('Successfully configured Actito with actito-services.json.');
   }
 
   const options = getOptions();
-  if (options == null) throw new Error('Unable to load options from /notificare-services.json.');
+  if (options == null) throw new Error('Unable to load options from /actito-services.json.');
 
   try {
     setLaunchState(LaunchState.LAUNCHING);
@@ -377,7 +384,7 @@ export async function createNotificationReply(
       media: data.media,
     });
 
-    mediaUrl = `https://${options.hosts.restApi}/upload${filename}`;
+    mediaUrl = `${options.hosts.restApi}/upload${filename}`;
   }
 
   await createCloudNotificationReply({

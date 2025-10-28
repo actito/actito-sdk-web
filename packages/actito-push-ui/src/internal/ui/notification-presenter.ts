@@ -207,11 +207,11 @@ async function presentPassbook(options: ActitoInternalOptions, notification: Act
   }
 
   if (isAppleDevice() && isSafariBrowser()) {
-    window.location.href = `https://${options.hosts.restApi}/pass/pkpass/${id}`;
+    window.location.href = `${options.hosts.restApi}/pass/pkpass/${id}`;
     return;
   }
 
-  window.location.href = `https://${options.hosts.restApi}/pass/web/${id}?showWebVersion=1`;
+  window.location.href = `${options.hosts.restApi}/pass/web/${id}?showWebVersion=1`;
 }
 
 async function presentUrlScheme(notification: ActitoNotification) {

@@ -1,5 +1,5 @@
 import { logger } from '../../logger';
-import { base64Decode, getServiceWorkerLocation } from '../utils';
+import { base64Decode, ensureHostHttpPrefix, getServiceWorkerLocation } from '../utils';
 import { InvalidWorkerConfigurationError } from './errors';
 import type { WorkerConfiguration } from './worker-configuration';
 
@@ -56,7 +56,7 @@ export function parseWorkerConfiguration(): WorkerConfiguration | undefined {
   }
 
   return {
-    cloudHost,
+    cloudHost: ensureHostHttpPrefix(cloudHost),
     applicationId,
     applicationKey,
     applicationSecret,

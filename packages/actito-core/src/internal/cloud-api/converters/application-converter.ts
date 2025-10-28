@@ -17,7 +17,6 @@ import type {
   ActitoApplicationActionCategory,
   ActitoApplicationActionCategoryAction,
   ActitoApplicationActionCategoryActionIcon,
-  ActitoApplication,
   ActitoApplicationInboxConfig,
   ActitoApplicationRegionConfig,
   ActitoApplicationUserDataField,
@@ -41,6 +40,9 @@ export function convertCloudApplicationToPublic(application: CloudApplication): 
     websitePushConfig: convertWebsitePushConfigToPublic(application.websitePushConfig),
     userDataFields: convertUserDataFieldsToPublic(application.userDataFields),
     actionCategories: convertActionCategoriesToPublic(application.actionCategories),
+    enforceSizeLimit: application.enforceSizeLimit,
+    enforceTagRestrictions: application.enforceTagRestrictions,
+    enforceEventNameRestrictions: application.enforceEventNameRestrictions,
   };
 }
 

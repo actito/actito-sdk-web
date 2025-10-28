@@ -221,32 +221,29 @@ async function handleServiceWorkerSystemNotificationReceived(event: MessageEvent
   } else {
     logger.info(`Processing custom system notification.`);
 
-    const {
-      id,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      notificationId,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      notificationType,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      push,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      system,
-      systemType,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      urlFormatString,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      'x-sender': xSender,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      application,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      icon,
-      ...extra
-    } = notification;
+    const ignoreKeys = [
+      'id',
+      'notificationId',
+      'notificationType',
+      'push',
+      'system',
+      'systemType',
+      'urlFormatString',
+      'application',
+      'icon',
+    ];
+
+    const extras = Object.keys(notification)
+        .filter((key) => !ignoreKeys.includes(key) && !key.startsWith('x-'))
+        .reduce<Record<string, unknown>>((acc, key) => {
+          acc[key] = notification[key];
+          return acc;
+        }, {});
 
     notifySystemNotificationReceived({
-      id,
-      type: systemType,
-      extra,
+      id: notification.id,
+      type: notification.systemType,
+      extra: extras
     });
   }
 }

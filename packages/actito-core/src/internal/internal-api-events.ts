@@ -1,9 +1,18 @@
 import { createCloudEvent } from '@actito/web-cloud-api';
+import { ActitoContentTooLargeError } from '../errors/actito-content-too-large-error';
+import { ActitoInvalidArgumentError } from '../errors/actito-invalid-argument-error';
+import { ActitoNotReadyError } from '../errors/actito-not-ready-error';
+import { getApplication, isReady } from '../public-api';
 import { getCloudApiEnvironment } from './cloud-api/environment';
 import { getSession } from './internal-api-session-shared';
 import { isConfigured } from './launch-state';
 import { logger } from './logger';
 import { getStoredDevice } from './storage/local-storage';
+
+const MAX_DATA_SIZE_BYTES = 2 * 1024;
+const MIN_EVENT_NAME_SIZE_CHAR = 3;
+const MAX_EVENT_NAME_SIZE_CHAR = 64;
+const EVENT_NAME_REGEX = /^[a-zA-Z0-9]([a-zA-Z0-9_-]+[a-zA-Z0-9])?$/;
 
 export async function logApplicationInstall() {
   await logInternal({ type: 're.notifica.event.application.Install' });
@@ -57,6 +66,37 @@ export async function logNotificationOpen(notificationId: string) {
  * details.
  */
 export async function logCustom(event: string, data?: Record<string, unknown>) {
+  if (!isReady()) {
+    logger.warning('Actito is not ready yet.');
+    throw new ActitoNotReadyError();
+  }
+
+  const application = getApplication();
+
+  if (application?.enforceEventNameRestrictions) {
+    if (
+      event.length < MIN_EVENT_NAME_SIZE_CHAR ||
+      event.length > MAX_EVENT_NAME_SIZE_CHAR ||
+      !EVENT_NAME_REGEX.test(event)
+    ) {
+      throw new ActitoInvalidArgumentError(
+        `Invalid event name '${event}'. Event name must have between ${MIN_EVENT_NAME_SIZE_CHAR}-${MAX_EVENT_NAME_SIZE_CHAR} characters and match this pattern: ${EVENT_NAME_REGEX.source}`,
+      );
+    }
+  }
+
+  if (application?.enforceSizeLimit && data) {
+    const textEncoder = new TextEncoder();
+    const serializedData = JSON.stringify(data);
+    const size = textEncoder.encode(serializedData).byteLength;
+
+    if (size > MAX_DATA_SIZE_BYTES) {
+      throw new ActitoContentTooLargeError(
+        `Data for event '${event}' of size ${size}B exceeds max size of ${MAX_DATA_SIZE_BYTES}B`,
+      );
+    }
+  }
+
   await logInternal({
     type: `re.notifica.event.custom.${event}`,
     data,
