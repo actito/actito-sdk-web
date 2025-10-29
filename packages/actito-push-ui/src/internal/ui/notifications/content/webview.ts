@@ -1,8 +1,6 @@
-import { ActitoNotification } from '@actito/web-core';
+import type { ActitoNotification } from '@actito/web-core';
 
-export async function createWebViewContent(
-  notification: ActitoNotification,
-): Promise<HTMLElement> {
+export async function createWebViewContent(notification: ActitoNotification): Promise<HTMLElement> {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.HTML');
   if (!content) throw new Error(`Invalid content for notification '${notification.type}'.`);
 

@@ -1,8 +1,6 @@
-import { ActitoNotification } from '@actito/web-core';
+import type { ActitoNotification } from '@actito/web-core';
 
-export async function createImageContent(
-  notification: ActitoNotification,
-): Promise<HTMLElement> {
+export async function createImageContent(notification: ActitoNotification): Promise<HTMLElement> {
   const allowedContentTypes = [
     're.notifica.content.JPEG',
     're.notifica.content.JPG',

@@ -1,4 +1,4 @@
-import { ActitoNotification } from '@actito/web-core';
+import type { ActitoNotification } from '@actito/web-core';
 import { sanitizeContentUrl } from '../../../utils/notification-content';
 
 export async function createUrlContent(notification: ActitoNotification): Promise<HTMLElement> {

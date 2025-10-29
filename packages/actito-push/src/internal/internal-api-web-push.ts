@@ -4,12 +4,12 @@ import {
   fetchNotification,
   isReady,
   logNotificationOpen,
-  ActitoApplication,
-  ActitoInternalOptions,
-  ActitoNotification,
+  type ActitoApplication,
+  type ActitoInternalOptions,
+  type ActitoNotification,
 } from '@actito/web-core';
 import { logger } from '../logger';
-import { ActitoNotificationDeliveryMechanism } from '../models/actito-notification-delivery-mechanism';
+import type { ActitoNotificationDeliveryMechanism } from '../models/actito-notification-delivery-mechanism';
 import {
   notifyNotificationActionOpened,
   notifyNotificationOpened,
@@ -234,16 +234,16 @@ async function handleServiceWorkerSystemNotificationReceived(event: MessageEvent
     ];
 
     const extras = Object.keys(notification)
-        .filter((key) => !ignoreKeys.includes(key) && !key.startsWith('x-'))
-        .reduce<Record<string, unknown>>((acc, key) => {
-          acc[key] = notification[key];
-          return acc;
-        }, {});
+      .filter((key) => !ignoreKeys.includes(key) && !key.startsWith('x-'))
+      .reduce<Record<string, unknown>>((acc, key) => {
+        acc[key] = notification[key];
+        return acc;
+      }, {});
 
     notifySystemNotificationReceived({
       id: notification.id,
       type: notification.systemType,
-      extra: extras
+      extra: extras,
     });
   }
 }

@@ -2,6 +2,5 @@
 @import "actito-web/push/push.css";
 @import "actito-web/push-ui/push-ui.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";

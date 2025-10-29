@@ -1,6 +1,5 @@
 import { logger } from './logger';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
 let _options: ActitoInternalOptions | undefined;
 
 export const DEFAULT_CLOUD_API_HOST = 'https://cloud.notifica.re';

@@ -38,6 +38,3 @@ self.addEventListener('notificationclick', (event) => {
   logger.debug('Handling a notification click event.');
   event.waitUntil(onNotificationClick(event));
 });
-
-// We need an export to force this file to act like a module, so TS will let us re-type `self`.
-export default null;

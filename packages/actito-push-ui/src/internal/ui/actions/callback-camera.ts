@@ -23,10 +23,12 @@ export function createCameraCallbackModal({
   video.classList.add('actito__camera-callback-video');
   video.setAttribute('autoplay', '');
 
-  root.appendChild(createBackdrop(() => {
-    cancelVideoStream(video);
-    dismiss()
-  }));
+  root.appendChild(
+    createBackdrop(() => {
+      cancelVideoStream(video);
+      dismiss();
+    }),
+  );
 
   const modal = root.appendChild(createModal());
   modal.classList.add('actito__camera-callback');
@@ -38,7 +40,7 @@ export function createCameraCallbackModal({
       onCloseButtonClicked: () => {
         cancelVideoStream(video);
         dismiss();
-      }
+      },
     }),
   );
 

@@ -1,4 +1,4 @@
-import { ActitoInboxItem } from './actito-inbox-item';
+import type { ActitoInboxItem } from './actito-inbox-item';
 
 export interface ActitoInboxResponse {
   readonly items: ActitoInboxItem[];

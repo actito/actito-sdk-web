@@ -16,8 +16,8 @@ import {
   retrieveTransport,
 } from './internal/storage/local-storage';
 import { logger } from './logger';
-import { ActitoPushSubscription } from './models/actito-push-subscription';
-import { ActitoTransport } from './models/actito-transport';
+import type { ActitoPushSubscription } from './models/actito-push-subscription';
+import type { ActitoTransport } from './models/actito-transport';
 
 export {
   onNotificationSettingsChanged,
@@ -27,13 +27,13 @@ export {
   onSubscriptionChanged,
   onSystemNotificationReceived,
   onUnknownNotificationReceived,
-  OnNotificationSettingsChangedCallback,
-  OnNotificationReceivedCallback,
-  OnSubscriptionChangedCallback,
-  OnSystemNotificationReceivedCallback,
-  OnNotificationActionOpenedCallback,
-  OnNotificationOpenedCallback,
-  OnUnknownNotificationReceivedCallback,
+  type OnNotificationSettingsChangedCallback,
+  type OnNotificationReceivedCallback,
+  type OnSubscriptionChangedCallback,
+  type OnSystemNotificationReceivedCallback,
+  type OnNotificationActionOpenedCallback,
+  type OnNotificationOpenedCallback,
+  type OnUnknownNotificationReceivedCallback,
 } from './internal/consumer-events';
 
 export { hasWebPushCapabilities } from './internal/internal-api';

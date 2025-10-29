@@ -1,14 +1,11 @@
-import { CloudInAppMessage, CloudInAppMessageAction } from '@actito/web-cloud-api';
-import {
+import type { CloudInAppMessage, CloudInAppMessageAction } from '@actito/web-cloud-api';
+import type {
   ActitoInAppMessage,
   ActitoInAppMessageAction,
 } from '../../models/actito-in-app-message';
 
-export function convertCloudInAppMessageToPublic(
-  message: CloudInAppMessage,
-): ActitoInAppMessage {
+export function convertCloudInAppMessageToPublic(message: CloudInAppMessage): ActitoInAppMessage {
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: message._id,
     name: message.name,
     type: message.type,

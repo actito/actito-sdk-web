@@ -19,12 +19,12 @@ interface CardHeaderProps {
 }
 
 export function CardContent({ children }: PropsWithChildren) {
-  return <div className="flex flex-grow flex-col gap-6 p-6">{children}</div>;
+  return <div className="flex grow flex-col gap-6 p-6">{children}</div>;
 }
 
 export function CardActions({ children }: PropsWithChildren) {
   return (
-    <div className="flex flex-shrink-0 flex-row justify-end gap-6 p-6 border-t border-gray-200 dark:border-none">
+    <div className="flex shrink-0 flex-row justify-end gap-6 p-6 border-t border-gray-200 dark:border-none">
       {children}
     </div>
   );

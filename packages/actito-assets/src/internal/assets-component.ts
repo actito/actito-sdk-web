@@ -1,6 +1,5 @@
 import { Component } from '@actito/web-core';
 
-/* eslint-disable class-methods-use-this */
 export class AssetsComponent extends Component {
   constructor() {
     super('assets');

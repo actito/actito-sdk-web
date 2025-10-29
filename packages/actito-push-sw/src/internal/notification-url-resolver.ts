@@ -1,4 +1,4 @@
-import { ActitoNotification } from '@actito/web-core';
+import type { ActitoNotification } from '@actito/web-core';
 
 export function resolveUrl(notification: ActitoNotification): UrlResolverResult {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.URL');
@@ -16,7 +16,7 @@ export function resolveUrl(notification: ActitoNotification): UrlResolverResult 
 
   try {
     url = new URL(urlStr);
-  } catch (e) {
+  } catch {
     return UrlResolverResult.NONE;
   }
 

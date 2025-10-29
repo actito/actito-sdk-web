@@ -53,7 +53,7 @@ export interface InboxItemProps {
 
 function InboxItemImage({ attachment }: InboxItemImageProps) {
   return (
-    <div className="flex-shrink-0">
+    <div className="shrink-0">
       {attachment && (
         <Image
           width={128}

@@ -7,7 +7,8 @@ export {
   broadcastComponentEvent,
   executeComponentCommand,
 } from './internal/component-cache';
-export { getOptions, ActitoInternalOptions } from './internal/options';
+export { getOptions } from './internal/options';
+export type { ActitoInternalOptions } from './internal/options';
 export { logInternal, logNotificationOpen } from './internal/internal-api-events';
 export { convertCloudNotificationToPublic } from './internal/cloud-api/converters/notification-converter';
 

@@ -1,12 +1,12 @@
 import { fetchCloudNotification } from '@actito/web-cloud-api';
-import { ActitoNotification } from '@actito/web-core';
+import type { ActitoNotification } from '@actito/web-core';
 import { logger } from '../../logger';
 import { convertCloudNotificationToPublic } from '../cloud-api/converters/notification-converter';
 import { getCloudApiEnvironment } from '../cloud-api/environment';
 import { logNotificationReceived } from '../cloud-api/requests/events';
 import { parseWorkerConfiguration } from '../configuration/parser';
 import { createPartialNotification } from '../create-partial-notification';
-import { ActitoWorkerNotification, WorkerNotification } from '../internal-types';
+import type { ActitoWorkerNotification, WorkerNotification } from '../internal-types';
 
 // Let TS know this is scoped to a service worker.
 declare const self: ServiceWorkerGlobalScope;
@@ -23,7 +23,7 @@ export async function onPush(event: PushEvent) {
 
   try {
     workerNotification = event.data.json();
-  } catch (e) {
+  } catch {
     logger.error('Unable to parse the push event data.');
     return;
   }
@@ -155,12 +155,12 @@ async function showNotificationPreview(notification: ActitoWorkerNotification) {
     tag: notification.id,
     body: notification.alert,
     icon,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     image: notification.attachment?.uri,
     requireInteraction: notification.requireInteraction,
     renotify: notification.renotify,
     actions: notification.actions?.map((action) => ({
-      // eslint-disable-next-line no-underscore-dangle
       action: action._id,
       title: action.label,
       icon: action.icon,

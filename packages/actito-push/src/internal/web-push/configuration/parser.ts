@@ -1,5 +1,5 @@
 import { base64Decode, base64Encode } from '../../utils/base64';
-import { WorkerConfiguration } from './worker-configuration';
+import type { WorkerConfiguration } from './worker-configuration';
 
 export function parseWorkerConfiguration(encoded: string): WorkerConfiguration | undefined {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,7 +8,7 @@ export function parseWorkerConfiguration(encoded: string): WorkerConfiguration |
   try {
     const decoded = base64Decode(encoded);
     config = JSON.parse(decoded);
-  } catch (e) {
+  } catch {
     return undefined;
   }
 

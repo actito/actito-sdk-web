@@ -1,5 +1,5 @@
 import { logger } from '../../logger';
-import {
+import type {
   ActitoInAppMessage,
   ActitoInAppMessageAction,
 } from '../../models/actito-in-app-message';
@@ -109,7 +109,7 @@ function presentAction(message: ActitoInAppMessage, type: ActionType) {
     window.location.href = url;
 
     notifyActionExecuted(message, action);
-  } catch (e) {
+  } catch {
     notifyActionFailedToExecute(message, action);
   }
 

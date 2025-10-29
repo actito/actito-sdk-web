@@ -7,12 +7,12 @@ import {
   ActitoNetworkRequestError,
 } from '@actito/web-core';
 import { logger } from '../logger';
-import { ActitoInAppMessage } from '../models/actito-in-app-message';
+import type { ActitoInAppMessage } from '../models/actito-in-app-message';
 import { convertCloudInAppMessageToPublic } from './cloud-api/in-app-message-converter';
 import { notifyMessageFailedToPresent, notifyMessagePresented } from './consumer-events';
 import { logInAppMessageViewed } from './internal-api-events';
 import { isShowingNotification, isShowingPushOnboarding } from './push-ui-integration';
-import { ApplicationContext } from './types/application-context';
+import type { ApplicationContext } from './types/application-context';
 import { ApplicationState } from './types/application-state';
 import { dismissMessage, isShowingMessage, showMessage } from './ui/message-presenter';
 

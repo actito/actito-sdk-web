@@ -1,8 +1,6 @@
-import { ActitoNotification } from '@actito/web-core';
+import type { ActitoNotification } from '@actito/web-core';
 
-export async function createAlertContent(
-  notification: ActitoNotification,
-): Promise<HTMLElement> {
+export async function createAlertContent(notification: ActitoNotification): Promise<HTMLElement> {
   const container = document.createElement('div');
   container.classList.add('actito__notification-alert');
 

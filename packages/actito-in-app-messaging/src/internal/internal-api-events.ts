@@ -1,5 +1,5 @@
 import { logInternal } from '@actito/web-core';
-import { ActitoInAppMessage } from '../models/actito-in-app-message';
+import type { ActitoInAppMessage } from '../models/actito-in-app-message';
 import { ActionType } from './types/action-type';
 
 export async function logInAppMessageViewed(message: ActitoInAppMessage) {

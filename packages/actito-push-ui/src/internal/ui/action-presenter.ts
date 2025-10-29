@@ -1,9 +1,9 @@
 import {
   callNotificationWebhook,
   createNotificationReply,
-  ActitoNotification,
-  ActitoNotificationAction,
-  NotificationReplyData,
+  type ActitoNotification,
+  type ActitoNotificationAction,
+  type NotificationReplyData,
 } from '@actito/web-core';
 import { logger } from '../../logger';
 import {
@@ -17,10 +17,7 @@ import { createCameraCallbackModal } from './actions/callback-camera';
 import { createKeyboardCallbackModal } from './actions/callback-keyboard';
 import { ensureCleanState } from './root';
 
-export function presentAction(
-  notification: ActitoNotification,
-  action: ActitoNotificationAction,
-) {
+export function presentAction(notification: ActitoNotification, action: ActitoNotificationAction) {
   ensureCleanState();
 
   presentActionAsync(notification, action).catch((e) =>
@@ -183,7 +180,7 @@ async function processCallbackResult(
     }
 
     notifyActionExecuted(notification, action);
-  } catch (e) {
+  } catch {
     notifyActionFailedToExecute(notification, action);
   }
 

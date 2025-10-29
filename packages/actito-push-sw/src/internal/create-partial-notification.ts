@@ -1,10 +1,8 @@
-import { ActitoNotification } from '@actito/web-core';
-import { ActitoWorkerNotification } from './internal-types';
+import type { ActitoNotification } from '@actito/web-core';
+import type { ActitoWorkerNotification } from './internal-types';
 
-export function createPartialNotification(
-  message: ActitoWorkerNotification,
-): ActitoNotification {
-  const ignoreKeys: Array<keyof ActitoWorkerNotification> = [
+export function createPartialNotification(message: ActitoWorkerNotification): ActitoNotification {
+  const ignoreKeys: (keyof ActitoWorkerNotification)[] = [
     'system',
     'push',
     'requireInteraction',

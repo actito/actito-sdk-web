@@ -1,1 +1,1 @@
-export { setLogLevel, Logger, LogLevel, LogLevelString } from './logger';
+export { setLogLevel, Logger, LogLevel, type LogLevelString } from './logger';

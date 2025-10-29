@@ -1,5 +1,5 @@
-import { ActitoNotificationAttachment } from '@actito/web-core';
-import { ActitoUserInboxItem } from '../../../models/actito-user-inbox-item';
+import type { ActitoNotificationAttachment } from '@actito/web-core';
+import type { ActitoUserInboxItem } from '../../../models/actito-user-inbox-item';
 
 export interface NetworkUserInboxResponse {
   readonly inboxItems: NetworkUserInboxItem[];

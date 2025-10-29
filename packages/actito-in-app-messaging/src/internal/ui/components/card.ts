@@ -1,5 +1,5 @@
 import { createBackdrop, createButton, createCloseButton, createRoot } from '@actito/web-ui';
-import {
+import type {
   ActitoInAppMessage,
   ActitoInAppMessageAction,
 } from '../../../models/actito-in-app-message';

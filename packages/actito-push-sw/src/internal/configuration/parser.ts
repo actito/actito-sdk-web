@@ -1,7 +1,7 @@
 import { logger } from '../../logger';
 import { base64Decode, ensureHostHttpPrefix, getServiceWorkerLocation } from '../utils';
 import { InvalidWorkerConfigurationError } from './errors';
-import { WorkerConfiguration } from './worker-configuration';
+import type { WorkerConfiguration } from './worker-configuration';
 
 export function parseWorkerConfiguration(): WorkerConfiguration | undefined {
   const location = getServiceWorkerLocation();
@@ -19,7 +19,7 @@ export function parseWorkerConfiguration(): WorkerConfiguration | undefined {
   try {
     const decoded = base64Decode(encodedConfig);
     config = JSON.parse(decoded);
-  } catch (e) {
+  } catch {
     logger.warning('Cannot parse the worker configuration: unable to decode the config.');
     return undefined;
   }

@@ -1,4 +1,4 @@
-import {
+import type {
   CloudApplication,
   CloudApplicationActionCategory,
   CloudApplicationActionCategoryAction,
@@ -13,7 +13,7 @@ import {
   CloudApplicationWebsitePushConfigLaunchConfigFloatingButton,
   CloudApplicationWebsitePushConfigVapid,
 } from '@actito/web-cloud-api';
-import {
+import type {
   ActitoApplication,
   ActitoApplicationActionCategory,
   ActitoApplicationActionCategoryAction,
@@ -31,7 +31,6 @@ import {
 
 export function convertCloudApplicationToPublic(application: CloudApplication): ActitoApplication {
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: application._id,
     name: application.name,
     category: application.category,
@@ -241,7 +240,6 @@ function convertActionCategoriesActionsToPublic(
     if (!action.label) return;
 
     result.push({
-      // eslint-disable-next-line no-underscore-dangle
       id: action._id,
       type: action.type,
       label: action.label,

@@ -20,20 +20,20 @@ export function LaunchFlowCard() {
             Configured
           </p>
 
-          {isConfigured() && <CheckCircleIcon className="flex-shrink-0 h-6 w-6 text-green-700" />}
+          {isConfigured() && <CheckCircleIcon className="shrink-0 h-6 w-6 text-green-700" />}
 
-          {!isConfigured() && <XCircleIcon className="flex-shrink-0 h-6 w-6 text-red-700" />}
+          {!isConfigured() && <XCircleIcon className="shrink-0 h-6 w-6 text-red-700" />}
         </div>
 
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Ready</p>
 
           {state.status === "launched" && (
-            <CheckCircleIcon className="flex-shrink-0 h-6 w-6 text-green-700" />
+            <CheckCircleIcon className="shrink-0 h-6 w-6 text-green-700" />
           )}
 
           {state.status !== "launched" && (
-            <XCircleIcon className="flex-shrink-0 h-6 w-6 text-red-700" />
+            <XCircleIcon className="shrink-0 h-6 w-6 text-red-700" />
           )}
         </div>
 

@@ -34,7 +34,6 @@ import {
 import { hideFloatingButton } from './ui/floating-button';
 import { hideOnboarding } from './ui/onboarding';
 
-/* eslint-disable class-methods-use-this */
 export class PushComponent extends Component {
   constructor() {
     super('push');
@@ -225,7 +224,6 @@ export class PushComponent extends Component {
 
     let notificationSearchParameter: string | undefined;
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const [key, value] of templateSearchParameters.entries()) {
       if (value === '%@') {
         notificationSearchParameter = key;

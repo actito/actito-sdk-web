@@ -12,7 +12,7 @@ export function PageHeader({ title, message, actions }: PageHeaderProps) {
           <span className="mt-1 sm:mt-0 text-sm text-gray-500 dark:text-gray-300">{message}</span>
         </div>
 
-        {actions && <div className="flex flex-shrink-0 flex-wrap gap-3">{actions}</div>}
+        {actions && <div className="flex shrink-0 flex-wrap gap-3">{actions}</div>}
       </div>
     </>
   );

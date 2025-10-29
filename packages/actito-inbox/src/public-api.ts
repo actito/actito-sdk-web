@@ -13,7 +13,7 @@ import {
   logNotificationOpen,
   ActitoApplicationUnavailableError,
   ActitoDeviceUnavailableError,
-  ActitoNotification,
+  type ActitoNotification,
   ActitoNotReadyError,
   ActitoServiceUnavailableError,
 } from '@actito/web-core';
@@ -21,14 +21,14 @@ import { convertCloudInboxItemToPublic } from './internal/cloud-api/inbox-conver
 import { notifyInboxUpdated } from './internal/consumer-events';
 import { refreshBadgeInternal } from './internal/internal-api';
 import { logger } from './logger';
-import { ActitoInboxItem } from './models/actito-inbox-item';
-import { ActitoInboxResponse } from './models/actito-inbox-response';
+import type { ActitoInboxItem } from './models/actito-inbox-item';
+import type { ActitoInboxResponse } from './models/actito-inbox-response';
 
 export {
   onInboxUpdated,
   onBadgeUpdated,
-  OnInboxUpdatedCallback,
-  OnBadgeUpdatedCallback,
+  type OnInboxUpdatedCallback,
+  type OnBadgeUpdatedCallback,
 } from './internal/consumer-events';
 
 /**

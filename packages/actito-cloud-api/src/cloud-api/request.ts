@@ -1,4 +1,4 @@
-import { request, RequestAuthorization, RequestParams } from '../network/core/request';
+import { request, type RequestAuthorization, type RequestParams } from '../network/core/request';
 import { ensureHostHttpPrefix } from '../utils';
 
 export interface CloudRequestParams {

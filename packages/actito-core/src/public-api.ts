@@ -1,6 +1,6 @@
 import {
   callCloudNotificationWebhook,
-  CloudNotificationWebhookPayload,
+  type CloudNotificationWebhookPayload,
   createCloudNotificationReply,
   fetchCloudApplication,
   fetchCloudDynamicLink,
@@ -9,7 +9,11 @@ import {
   request,
   uploadCloudNotificationReplyMedia,
 } from '@actito/web-cloud-api';
-import { LogLevel, LogLevelString, setLogLevel as setLogLevelInternal } from '@actito/web-logger';
+import {
+  LogLevel,
+  type LogLevelString,
+  setLogLevel as setLogLevelInternal,
+} from '@actito/web-logger';
 import { ActitoDeviceUnavailableError } from './errors/actito-device-unavailable-error';
 import { ActitoNotConfiguredError } from './errors/actito-not-configured-error';
 import { ActitoNotReadyError } from './errors/actito-not-ready-error';
@@ -34,7 +38,7 @@ import {
   DEFAULT_REST_API_HOST,
   getOptions,
   isDefaultHosts,
-  ActitoInternalOptionsHosts,
+  type ActitoInternalOptionsHosts,
   setOptions,
   validate,
 } from './internal/options';
@@ -46,10 +50,10 @@ import {
 } from './internal/storage/local-storage';
 import { ensureHostHttpPrefix, hasWebPushSupport } from './internal/utils';
 import { SDK_VERSION as SDK_VERSION_INTERNAL } from './internal/version';
-import { ActitoApplication } from './models/actito-application';
-import { ActitoDynamicLink } from './models/actito-dynamic-link';
-import { ActitoNotification, ActitoNotificationAction } from './models/actito-notification';
-import { ActitoOptions } from './options';
+import type { ActitoApplication } from './models/actito-application';
+import type { ActitoDynamicLink } from './models/actito-dynamic-link';
+import type { ActitoNotification, ActitoNotificationAction } from './models/actito-notification';
+import type { ActitoOptions } from './options';
 
 export const SDK_VERSION: string = SDK_VERSION_INTERNAL;
 
@@ -57,9 +61,9 @@ export {
   onReady,
   onUnlaunched,
   onDeviceRegistered,
-  OnDeviceRegisteredCallback,
-  OnReadyCallback,
-  OnUnlaunchedCallback,
+  type OnDeviceRegisteredCallback,
+  type OnReadyCallback,
+  type OnUnlaunchedCallback,
 } from './internal/consumer-events';
 
 /**
@@ -145,7 +149,6 @@ export function configure(options: ActitoOptions) {
 
   setOptions(internalOptions);
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const component of components.values()) {
     logger.debug(`Configuring '${component.name}' component.`);
     component.configure();
@@ -199,11 +202,8 @@ export async function launch(): Promise<void> {
     if (storedApplication && storedApplication.id !== application.id) {
       logger.warning('Incorrect application keys detected. Resetting Actito to a clean state.');
 
-      // eslint-disable-next-line no-restricted-syntax
       for (const component of components.values()) {
         logger.debug(`Resetting '${component.name}' component.`);
-
-        // eslint-disable-next-line no-await-in-loop
         await component.clearStorage();
       }
 
@@ -216,11 +216,8 @@ export async function launch(): Promise<void> {
       await ensureWebPushSupport();
     }
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const component of components.values()) {
       logger.debug(`Launching '${component.name}' component.`);
-
-      // eslint-disable-next-line no-await-in-loop
       await component.launch();
     }
 
@@ -263,12 +260,10 @@ export async function unlaunch(): Promise<void> {
   logger.info('Un-launching Actito.');
 
   try {
-    // eslint-disable-next-line no-restricted-syntax
     for (const component of Array.from(components.values()).reverse()) {
       logger.debug(`Un-launching the '${component.name}' component.`);
 
       try {
-        // eslint-disable-next-line no-await-in-loop
         await component.unlaunch();
       } catch (e) {
         logger.debug(`Failed to un-launch the '${component.name}' component.`, e);
@@ -479,12 +474,10 @@ function printLaunchSummary(application: ActitoApplication) {
 }
 
 async function postLaunch() {
-  // eslint-disable-next-line no-restricted-syntax
   for (const component of components.values()) {
     try {
       logger.debug(`Post-launch '${component.name}' component.`);
 
-      // eslint-disable-next-line no-await-in-loop
       await component.postLaunch();
     } catch (e) {
       logger.error(`Failed to post-launch the '${component.name}' component.`, e);

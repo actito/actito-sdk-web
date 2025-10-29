@@ -17,9 +17,9 @@ import {
   getDeviceRegion,
 } from './internal/internal-api-device';
 import { asPublicDevice, getStoredDevice, setStoredDevice } from './internal/storage/local-storage';
-import { ActitoDevice } from './models/actito-device';
-import { ActitoDoNotDisturb } from './models/actito-do-not-disturb';
-import { ActitoUserData } from './models/actito-user-data';
+import type { ActitoDevice } from './models/actito-device';
+import type { ActitoDoNotDisturb } from './models/actito-do-not-disturb';
+import type { ActitoUserData } from './models/actito-user-data';
 import { getApplication } from './public-api';
 
 const MIN_TAG_SIZE_CHAR = 3;

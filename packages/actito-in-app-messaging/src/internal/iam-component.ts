@@ -2,7 +2,6 @@ import { Component, getApplication, getCurrentDevice } from '@actito/web-core';
 import { evaluateContext, handleDocumentVisibilityChanged } from './internal-api';
 import { dismissMessage } from './ui/message-presenter';
 
-/* eslint-disable class-methods-use-this */
 export class IamComponent extends Component {
   constructor() {
     super('in-app-messaging');

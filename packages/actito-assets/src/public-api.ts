@@ -11,7 +11,7 @@ import {
 } from '@actito/web-core';
 import { convertCloudAssetToPublic } from './internal/cloud-api/assets-converter';
 import { logger } from './logger';
-import { ActitoAsset } from './models/actito-asset';
+import type { ActitoAsset } from './models/actito-asset';
 
 /**
  * Fetches a list of {@link ActitoAsset} for a specified group.

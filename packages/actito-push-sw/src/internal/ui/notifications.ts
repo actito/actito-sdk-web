@@ -3,7 +3,7 @@ import {
   fetchCloudPass,
   fetchCloudPassSaveLinks,
 } from '@actito/web-cloud-api';
-import { ActitoNotification, ActitoNotificationContent } from '@actito/web-core';
+import type { ActitoNotification, ActitoNotificationContent } from '@actito/web-core';
 import { logger } from '../../logger';
 import { getCloudApiEnvironment } from '../cloud-api/environment';
 import { InvalidWorkerConfigurationError } from '../configuration/errors';

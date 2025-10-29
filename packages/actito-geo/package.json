@@ -4,30 +4,52 @@
   "description": "The geo package for the 'actito-web' umbrella package.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
   "license": "MIT",
-  "main": "dist/commonjs/index.js",
-  "browser": "dist/esm/index.js",
-  "module": "dist/esm/index.js",
-  "esm5": "dist/esm5/index.js",
-  "typings": "dist/commonjs/index.d.ts",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.cts",
   "scripts": {
-    "build": "rollup -c",
+    "attw": "attw --pack .",
+    "build": "yarn build:types && yarn build:sources",
+    "build:sources": "rollup -c",
+    "build:types": "tsc",
     "clean": "rm -rf dist/",
-    "dev": "rollup -c -w",
+    "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
+    "dev:sources": "rollup -c -w",
+    "dev:types": "tsc --watch",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "lint:staged": "lint-staged"
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/intermediate"
   ],
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
   "dependencies": {
     "@actito/web-cloud-api": "^5.0.0-canary.1",
     "@actito/web-core": "^5.0.0-canary.1",
     "@actito/web-logger": "^5.0.0-canary.1",
-    "tslib": "^2.5.0"
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@types/google.maps": "^3.52.6",
-    "typescript": "^5.1.6"
+    "@actito/library-config": "workspace:^",
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@types/google.maps": "^3.58.1",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.33.0",
+    "rollup": "^4.46.3",
+    "typescript": "^5.9.2"
   },
   "publishConfig": {
     "access": "public"

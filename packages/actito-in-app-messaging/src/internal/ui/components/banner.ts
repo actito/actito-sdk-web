@@ -1,5 +1,5 @@
 import { createBackdrop, createRoot } from '@actito/web-ui';
-import { ActitoInAppMessage } from '../../../models/actito-in-app-message';
+import type { ActitoInAppMessage } from '../../../models/actito-in-app-message';
 import { ActionType } from '../../types/action-type';
 import { ROOT_ELEMENT_IDENTIFIER } from '../root';
 

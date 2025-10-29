@@ -1,4 +1,4 @@
-import {
+import type {
   EventSubscription,
   ActitoNotification,
   ActitoNotificationAction,
@@ -16,9 +16,7 @@ let customActionReceivedCallback: OnCustomActionReceivedCallback | undefined;
 
 export type OnNotificationWillPresentCallback = (notification: ActitoNotification) => void;
 export type OnNotificationPresentedCallback = (notification: ActitoNotification) => void;
-export type OnNotificationFinishedPresentingCallback = (
-  notification: ActitoNotification,
-) => void;
+export type OnNotificationFinishedPresentingCallback = (notification: ActitoNotification) => void;
 export type OnNotificationFailedToPresentCallback = (notification: ActitoNotification) => void;
 export type OnActionWillExecuteCallback = (
   notification: ActitoNotification,

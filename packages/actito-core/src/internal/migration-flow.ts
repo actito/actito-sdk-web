@@ -1,6 +1,6 @@
 import { components } from './component-cache';
 import { logger } from './logger';
-import { StoredDevice } from './storage/entities/stored-device';
+import type { StoredDevice } from './storage/entities/stored-device';
 import { setStoredDevice } from './storage/local-storage';
 
 export function isLatestStorageStructure(): boolean {
@@ -51,7 +51,6 @@ export function migrate() {
       localStorage.setItem('re.notifica.preferred_region', region);
     }
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const component of components.values()) {
       logger.debug(`Migrating '${component.name}' component.`);
       component.migrate();

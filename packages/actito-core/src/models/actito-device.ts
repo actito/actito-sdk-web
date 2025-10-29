@@ -1,4 +1,4 @@
-import { ActitoDoNotDisturb } from './actito-do-not-disturb';
+import type { ActitoDoNotDisturb } from './actito-do-not-disturb';
 
 export interface ActitoDevice {
   readonly id: string;

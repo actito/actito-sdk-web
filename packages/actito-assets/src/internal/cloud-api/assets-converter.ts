@@ -1,10 +1,9 @@
-import { CloudAsset, CloudAssetButton } from '@actito/web-cloud-api';
+import type { CloudAsset, CloudAssetButton } from '@actito/web-cloud-api';
 import { getOptions } from '@actito/web-core';
-import { ActitoAsset, ActitoAssetButton } from '../../models/actito-asset';
+import type { ActitoAsset, ActitoAssetButton } from '../../models/actito-asset';
 
 export function convertCloudAssetToPublic(asset: CloudAsset): ActitoAsset {
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: asset._id,
     title: asset.title,
     description: asset.description ?? undefined,
@@ -24,9 +23,7 @@ function createAssetUrl({ key }: CloudAsset): string | undefined {
   return `${host}/asset/file/${key}`;
 }
 
-function convertCloudAssetButtonToPublic(
-  button?: CloudAssetButton,
-): ActitoAssetButton | undefined {
+function convertCloudAssetButtonToPublic(button?: CloudAssetButton): ActitoAssetButton | undefined {
   if (!button) return undefined;
   if (!button.label && !button.action) return undefined;
 

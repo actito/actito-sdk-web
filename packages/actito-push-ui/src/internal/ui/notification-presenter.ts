@@ -3,8 +3,8 @@ import {
   fetchDynamicLink,
   getCloudApiEnvironment,
   getOptions,
-  ActitoInternalOptions,
-  ActitoNotification,
+  type ActitoInternalOptions,
+  type ActitoNotification,
 } from '@actito/web-core';
 import { logger } from '../../logger';
 import {

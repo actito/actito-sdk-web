@@ -6,16 +6,16 @@ import {
   getCurrentDevice,
   getOptions,
   isConfigured,
-  ActitoApplication,
+  type ActitoApplication,
   ActitoApplicationUnavailableError,
   ActitoDeviceUnavailableError,
   ActitoNotConfiguredError,
-  ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions,
-  ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonOptions,
+  type ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions,
+  type ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonOptions,
 } from '@actito/web-core';
 import { logger } from '../logger';
-import { ActitoPushSubscription } from '../models/actito-push-subscription';
-import { ActitoTransport } from '../models/actito-transport';
+import type { ActitoPushSubscription } from '../models/actito-push-subscription';
+import type { ActitoTransport } from '../models/actito-transport';
 import { getPushPermissionStatus } from '../utils/push';
 import { notifyNotificationSettingsChanged, notifySubscriptionChanged } from './consumer-events';
 import { logPushRegistration } from './internal-api-events';

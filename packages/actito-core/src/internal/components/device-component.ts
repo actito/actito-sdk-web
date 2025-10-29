@@ -25,7 +25,6 @@ import {
 } from '../storage/local-storage';
 import { getApplicationVersion } from '../utils';
 
-/* eslint-disable class-methods-use-this */
 export class DeviceComponent extends Component {
   private hasPendingDeviceRegistrationEvent = false;
 
@@ -102,7 +101,7 @@ export class DeviceComponent extends Component {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-shadow
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async executeCommand(command: string, data?: unknown): Promise<unknown> {
     if (command === 'createDevice') {
       await this.handleCreateDeviceWithSession();
@@ -152,11 +151,8 @@ export class DeviceComponent extends Component {
   }
 
   private async resetLocalStorage() {
-    // eslint-disable-next-line no-restricted-syntax
     for (const component of components.values()) {
       logger.debug(`Resetting '${component.name}' component.`);
-
-      // eslint-disable-next-line no-await-in-loop
       await component.clearStorage();
     }
 

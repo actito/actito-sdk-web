@@ -69,7 +69,6 @@ export class Logger {
     const groupBadge = this.getGroupBadge(logLevel);
     const messagePrefix = this.getMessagePrefix(logLevel);
 
-    // eslint-disable-next-line no-console
     console[method](...groupBadge, messagePrefix, ...args);
   }
 

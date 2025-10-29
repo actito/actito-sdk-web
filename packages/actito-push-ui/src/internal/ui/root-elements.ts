@@ -1,4 +1,4 @@
-import { ActitoApplication, ActitoInternalOptions } from '@actito/web-core';
+import type { ActitoApplication, ActitoInternalOptions } from '@actito/web-core';
 
 export function createRootElement(): HTMLElement {
   const element = document.createElement('div');
