@@ -1,0 +1,11 @@
+{
+  "name": "sample-static",
+  "private": "true",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "serve public/"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  }
+}
