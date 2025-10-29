@@ -146,11 +146,11 @@ function buildCdnDistribution({ component, variant, version }) {
 function determineExternalCoreUrl({ variant, version }) {
   switch (variant) {
     case 'stable':
-      return `https://cdn.mobile.actito.com/libs/web/v5/${version}/actito-core.js`;
+      return `https://cdn-mobile.actito.com/libs/web/v5/${version}/actito-core.js`;
     case 'latest':
-      return 'https://cdn.mobile.actito.com/libs/web/v5/latest/actito-core.js';
+      return 'https://cdn-mobile.actito.com/libs/web/v5/latest/actito-core.js';
     case 'internal':
-      return `https://cdn.mobile.actito.com/libs/web/internal/${version}/actito-core.js`;
+      return `https://cdn-mobile.actito.com/libs/web/internal/${version}/actito-core.js`;
     default:
       throw new Error(`Unknown variant: ${variant}`);
   }

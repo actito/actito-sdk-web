@@ -58,7 +58,7 @@ export class DeviceComponent extends Component {
         await updateDevice();
       } catch (e) {
         if (e instanceof ActitoNetworkRequestError && e.response.status === 404) {
-          logger.warning('The device was removed from Notificare. Recovering...');
+          logger.warning('The device was removed from Actito. Recovering...');
 
           logger.debug('Resetting local storage.');
           await this.resetLocalStorage();
