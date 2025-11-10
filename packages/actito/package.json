@@ -129,8 +129,8 @@
     "./push-ui/push-ui.css": "./push-ui/push-ui.css",
     "./user-inbox": {
       "require": {
-        "types": "./geo/dist/index.d.cts",
-        "default": "./geo/dist/index.cjs"
+        "types": "./user-inbox/dist/index.d.cts",
+        "default": "./user-inbox/dist/index.cjs"
       },
       "import": {
         "types": "./user-inbox/dist/index.d.mts",
