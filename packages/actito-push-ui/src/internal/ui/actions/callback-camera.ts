@@ -17,16 +17,30 @@ export function createCameraCallbackModal({
   onMediaCaptured,
   dismiss,
 }: CreateCameraCallbackParams): HTMLElement {
-  const root = createRoot(ROOT_ELEMENT_IDENTIFIER);
+  let streamPromise: Promise<MediaStream> | null = null;
+  let isCreatingStream = true;
 
+  const root = createRoot(ROOT_ELEMENT_IDENTIFIER);
   const video = document.createElement('video');
   video.classList.add('actito__camera-callback-video');
   video.setAttribute('autoplay', '');
 
+  streamPromise = createVideoStream();
+  streamPromise
+    .then((stream) => {
+      video.srcObject = stream;
+      isCreatingStream = false;
+    })
+    .catch((error) => {
+      logger.error('Unable to acquire a video stream.', error);
+      isCreatingStream = false;
+    });
+
   root.appendChild(
-    createBackdrop(() => {
-      cancelVideoStream(video);
+    createBackdrop(async () => {
       dismiss();
+      await streamPromise;
+      cancelVideoStream(video);
     }),
   );
 
@@ -37,22 +51,16 @@ export function createCameraCallbackModal({
     createModalHeader({
       icon: getApplicationIcon(),
       title: getApplicationName(),
-      onCloseButtonClicked: () => {
-        cancelVideoStream(video);
+      onCloseButtonClicked: async () => {
         dismiss();
+        await streamPromise;
+        cancelVideoStream(video);
       },
     }),
   );
 
   const content = modal.appendChild(createModalContent());
-
   content.appendChild(video);
-
-  createVideoStream()
-    .then((stream) => {
-      video.srcObject = stream;
-    })
-    .catch((error) => logger.error('Unable to acquire a video stream.', error));
 
   const canvas = document.createElement('canvas');
   canvas.classList.add('actito__camera-callback-canvas');
@@ -63,7 +71,7 @@ export function createCameraCallbackModal({
   const takePictureButton = footer.appendChild(
     createPrimaryButton({
       text: 'Take picture',
-      onClick: () => {
+      onClick: async () => {
         const canvasContext = canvas.getContext('2d');
         if (!canvasContext) {
           logger.warning('The Canvas API is not available.');
@@ -73,15 +81,16 @@ export function createCameraCallbackModal({
         // Draw the video stream onto the canvas.
         canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        // Stop the video stream.
-        cancelVideoStream(video);
-
         content.removeChild(video);
         content.appendChild(canvas);
 
         footer.removeChild(takePictureButton);
         footer.appendChild(retakePictureButton);
         footer.appendChild(sendButton);
+
+        // Stop the video stream.
+        await streamPromise;
+        cancelVideoStream(video);
       },
     }),
   );
@@ -92,11 +101,20 @@ export function createCameraCallbackModal({
       content.removeChild(canvas);
       content.appendChild(video);
 
-      createVideoStream()
-        .then((stream) => {
-          video.srcObject = stream;
-        })
-        .catch((error) => logger.error('Unable to acquire a video stream.', error));
+      if (!isCreatingStream) {
+        cancelVideoStream(video);
+        isCreatingStream = true;
+        streamPromise = createVideoStream();
+        streamPromise
+          .then((stream) => {
+            video.srcObject = stream;
+            isCreatingStream = false;
+          })
+          .catch((error) => {
+            logger.error('Unable to acquire a video stream.', error);
+            isCreatingStream = false;
+          });
+      }
 
       footer.removeChild(retakePictureButton);
       footer.removeChild(sendButton);
