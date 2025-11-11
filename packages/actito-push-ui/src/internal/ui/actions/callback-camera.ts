@@ -17,15 +17,13 @@ export function createCameraCallbackModal({
   onMediaCaptured,
   dismiss,
 }: CreateCameraCallbackParams): HTMLElement {
-  let streamPromise: Promise<MediaStream> | null = null;
-  let isCreatingStream = true;
-
   const root = createRoot(ROOT_ELEMENT_IDENTIFIER);
   const video = document.createElement('video');
   video.classList.add('actito__camera-callback-video');
   video.setAttribute('autoplay', '');
 
-  streamPromise = createVideoStream();
+  let isCreatingStream = true;
+  let streamPromise = createVideoStream();
   streamPromise
     .then((stream) => {
       video.srcObject = stream;
