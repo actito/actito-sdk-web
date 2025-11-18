@@ -23,22 +23,16 @@ export function createCameraCallbackModal({
   video.setAttribute('autoplay', '');
 
   let isCreatingStream = true;
-  let streamPromise = createVideoStream();
-  streamPromise
-    .then((stream) => {
-      video.srcObject = stream;
-      isCreatingStream = false;
-    })
-    .catch((error) => {
-      logger.error('Unable to acquire a video stream.', error);
-      isCreatingStream = false;
-    });
+  let streamPromise = upsertVideoStream(video);
+  streamPromise.finally(() => (isCreatingStream = false));
 
   root.appendChild(
-    createBackdrop(async () => {
+    createBackdrop(() => {
       dismiss();
-      await streamPromise;
-      cancelVideoStream(video);
+
+      streamPromise.finally(() => {
+        cancelVideoStream(video);
+      });
     }),
   );
 
@@ -49,10 +43,12 @@ export function createCameraCallbackModal({
     createModalHeader({
       icon: getApplicationIcon(),
       title: getApplicationName(),
-      onCloseButtonClicked: async () => {
+      onCloseButtonClicked: () => {
         dismiss();
-        await streamPromise;
-        cancelVideoStream(video);
+
+        streamPromise.finally(() => {
+          cancelVideoStream(video);
+        });
       },
     }),
   );
@@ -69,7 +65,7 @@ export function createCameraCallbackModal({
   const takePictureButton = footer.appendChild(
     createPrimaryButton({
       text: 'Take picture',
-      onClick: async () => {
+      onClick: () => {
         const canvasContext = canvas.getContext('2d');
         if (!canvasContext) {
           logger.warning('The Canvas API is not available.');
@@ -79,16 +75,17 @@ export function createCameraCallbackModal({
         // Draw the video stream onto the canvas.
         canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+        // Stop the video stream.
+        streamPromise.finally(() => {
+          cancelVideoStream(video);
+        });
+
         content.removeChild(video);
         content.appendChild(canvas);
 
         footer.removeChild(takePictureButton);
         footer.appendChild(retakePictureButton);
         footer.appendChild(sendButton);
-
-        // Stop the video stream.
-        await streamPromise;
-        cancelVideoStream(video);
       },
     }),
   );
@@ -102,16 +99,8 @@ export function createCameraCallbackModal({
       if (!isCreatingStream) {
         cancelVideoStream(video);
         isCreatingStream = true;
-        streamPromise = createVideoStream();
-        streamPromise
-          .then((stream) => {
-            video.srcObject = stream;
-            isCreatingStream = false;
-          })
-          .catch((error) => {
-            logger.error('Unable to acquire a video stream.', error);
-            isCreatingStream = false;
-          });
+        streamPromise = upsertVideoStream(video);
+        streamPromise.finally(() => (isCreatingStream = false));
       }
 
       footer.removeChild(retakePictureButton);
@@ -135,6 +124,19 @@ export function createCameraCallbackModal({
   });
 
   return root;
+}
+
+function upsertVideoStream(video: HTMLVideoElement) {
+  const streamPromise = createVideoStream();
+  streamPromise
+    .then((stream) => {
+      video.srcObject = stream;
+    })
+    .catch((error) => {
+      logger.error('Unable to acquire a video stream.', error);
+    });
+
+  return streamPromise;
 }
 
 async function createVideoStream(): Promise<MediaStream> {
