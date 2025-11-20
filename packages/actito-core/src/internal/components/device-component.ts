@@ -1,29 +1,32 @@
 import { ActitoNetworkRequestError } from '@actito/web-cloud-api';
-import { Component } from '../component';
-import { components } from '../component-cache';
-import { notifyDeviceRegistered } from '../consumer-events';
+import { Component } from '~/internal/component';
+import { components } from '~/internal/component-cache';
+import { notifyDeviceRegistered } from '~/internal/consumer-events';
 import {
   createDevice,
   deleteDevice,
   registerTestDevice,
   updateDevice,
   upgradeToLongLivedDeviceWhenNeeded,
-} from '../internal-api-device';
+} from '~/internal/internal-api-device';
 import {
   logApplicationInstall,
   logApplicationRegistration,
   logApplicationUpgrade,
-} from '../internal-api-events';
-import { launch as launchSession, unlaunch as unlaunchSession } from '../internal-api-session';
-import { isReady } from '../launch-state';
-import { logger } from '../logger';
+} from '~/internal/internal-api-events';
+import {
+  launch as launchSession,
+  unlaunch as unlaunchSession,
+} from '~/internal/internal-api-session';
+import { isReady } from '~/internal/launch-state';
+import { logger } from '~/internal/logger';
 import {
   asPublicDevice,
   getStoredApplication,
   getStoredDevice,
   setStoredDevice,
-} from '../storage/local-storage';
-import { getApplicationVersion } from '../utils';
+} from '~/internal/storage/local-storage';
+import { getApplicationVersion } from '~/internal/utils';
 
 export class DeviceComponent extends Component {
   private hasPendingDeviceRegistrationEvent = false;

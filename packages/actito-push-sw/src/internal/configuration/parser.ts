@@ -1,7 +1,7 @@
-import { logger } from '../../logger';
-import { base64Decode, ensureHostHttpPrefix, getServiceWorkerLocation } from '../utils';
 import { InvalidWorkerConfigurationError } from './errors';
 import type { WorkerConfiguration } from './worker-configuration';
+import { base64Decode, ensureHostHttpPrefix, getServiceWorkerLocation } from '~/internal/utils';
+import { logger } from '~/logger';
 
 export function parseWorkerConfiguration(): WorkerConfiguration | undefined {
   const location = getServiceWorkerLocation();

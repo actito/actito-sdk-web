@@ -5,17 +5,17 @@ import {
   type ActitoNotificationAction,
   type NotificationReplyData,
 } from '@actito/web-core';
-import { logger } from '../../logger';
+import { createCameraCallbackModal } from './actions/callback-camera';
+import { createKeyboardCallbackModal } from './actions/callback-keyboard';
+import { ensureCleanState } from './root';
 import {
   notifyActionExecuted,
   notifyActionFailedToExecute,
   notifyActionWillExecute,
   notifyCustomActionReceived,
-} from '../consumer-events';
-import { getEmailUrl, getSmsUrl, getTelephoneUrl } from '../utils';
-import { createCameraCallbackModal } from './actions/callback-camera';
-import { createKeyboardCallbackModal } from './actions/callback-keyboard';
-import { ensureCleanState } from './root';
+} from '~/internal/consumer-events';
+import { getEmailUrl, getSmsUrl, getTelephoneUrl } from '~/internal/utils';
+import { logger } from '~/logger';
 
 export function presentAction(notification: ActitoNotification, action: ActitoNotificationAction) {
   ensureCleanState();

@@ -1,10 +1,10 @@
-import { Component } from '../component';
+import { Component } from '~/internal/component';
 import {
   handleDocumentBeforeUnload,
   handleDocumentVisibilityChanged,
   unlaunch as unlaunchSession,
-} from '../internal-api-session';
-import { logger } from '../logger';
+} from '~/internal/internal-api-session';
+import { logger } from '~/internal/logger';
 
 export class SessionComponent extends Component {
   constructor() {

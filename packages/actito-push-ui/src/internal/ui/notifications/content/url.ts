@@ -1,5 +1,5 @@
 import type { ActitoNotification } from '@actito/web-core';
-import { sanitizeContentUrl } from '../../../utils/notification-content';
+import { sanitizeContentUrl } from '~/internal/utils/notification-content';
 
 export async function createUrlContent(notification: ActitoNotification): Promise<HTMLElement> {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.URL');

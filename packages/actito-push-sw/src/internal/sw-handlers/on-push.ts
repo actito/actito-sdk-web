@@ -1,12 +1,12 @@
 import { fetchCloudNotification } from '@actito/web-cloud-api';
 import type { ActitoNotification } from '@actito/web-core';
-import { logger } from '../../logger';
-import { convertCloudNotificationToPublic } from '../cloud-api/converters/notification-converter';
-import { getCloudApiEnvironment } from '../cloud-api/environment';
-import { logNotificationReceived } from '../cloud-api/requests/events';
-import { parseWorkerConfiguration } from '../configuration/parser';
-import { createPartialNotification } from '../create-partial-notification';
-import type { ActitoWorkerNotification, WorkerNotification } from '../internal-types';
+import { convertCloudNotificationToPublic } from '~/internal/cloud-api/converters/notification-converter';
+import { getCloudApiEnvironment } from '~/internal/cloud-api/environment';
+import { logNotificationReceived } from '~/internal/cloud-api/requests/events';
+import { parseWorkerConfiguration } from '~/internal/configuration/parser';
+import { createPartialNotification } from '~/internal/create-partial-notification';
+import type { ActitoWorkerNotification, WorkerNotification } from '~/internal/internal-types';
+import { logger } from '~/logger';
 
 // Let TS know this is scoped to a service worker.
 declare const self: ServiceWorkerGlobalScope;

@@ -3,11 +3,11 @@ import type {
   ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonOptions,
   ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonVerticalAlignment,
 } from '@actito/web-core';
-import createDeniedBellIcon from '../../assets/bell-icon-denied.svg';
-import createGrantedBellIcon from '../../assets/bell-icon-granted.svg';
-import createBellIcon from '../../assets/bell-icon.svg';
-import { getPushPermissionStatus } from '../../utils/push';
 import { createRootElement, removeRootElement } from './base';
+import createDeniedBellIcon from '~/assets/bell-icon-denied.svg';
+import createGrantedBellIcon from '~/assets/bell-icon-granted.svg';
+import createBellIcon from '~/assets/bell-icon.svg';
+import { getPushPermissionStatus } from '~/utils/push';
 
 let permissionCheckTimer: number | undefined;
 

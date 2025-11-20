@@ -8,7 +8,6 @@ import {
   createModalHeader,
   createRoot,
 } from '@actito/web-ui';
-import { getApplicationIcon, getApplicationName } from '../../utils';
 import { ROOT_ELEMENT_IDENTIFIER } from '../root';
 import { createAlertContent } from './content/alert';
 import { createImageContent } from './content/image';
@@ -16,6 +15,7 @@ import { createMapContent } from './content/map';
 import { createUrlContent } from './content/url';
 import { createVideoContent } from './content/video';
 import { createWebViewContent } from './content/webview';
+import { getApplicationIcon, getApplicationName } from '~/internal/utils';
 
 export async function createNotificationModal({
   notification,

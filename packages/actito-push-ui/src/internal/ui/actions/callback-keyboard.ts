@@ -7,8 +7,8 @@ import {
   createPrimaryButton,
   createRoot,
 } from '@actito/web-ui';
-import { getApplicationIcon, getApplicationName } from '../../utils';
-import { ROOT_ELEMENT_IDENTIFIER } from '../root';
+import { ROOT_ELEMENT_IDENTIFIER } from '~/internal/ui/root';
+import { getApplicationIcon, getApplicationName } from '~/internal/utils';
 
 export function createKeyboardCallbackModal({
   dismiss,

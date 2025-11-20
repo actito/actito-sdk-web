@@ -6,19 +6,19 @@ import {
   type ActitoInternalOptions,
   type ActitoNotification,
 } from '@actito/web-core';
-import { logger } from '../../logger';
+import { presentAction } from './action-presenter';
+import { createNotificationModal } from './notifications/notification-modal';
+import { ensureCleanState } from './root';
 import {
   notifyNotificationFailedToPresent,
   notifyNotificationFinishedPresenting,
   notifyNotificationPresented,
   notifyNotificationWillPresent,
-} from '../consumer-events';
-import { resolveUrl, UrlResolverResult } from '../notification-url-resolver';
-import { isAppleDevice, isSafariBrowser } from '../utils/device';
-import { sanitizeContentUrl } from '../utils/notification-content';
-import { presentAction } from './action-presenter';
-import { createNotificationModal } from './notifications/notification-modal';
-import { ensureCleanState } from './root';
+} from '~/internal/consumer-events';
+import { resolveUrl, UrlResolverResult } from '~/internal/notification-url-resolver';
+import { isAppleDevice, isSafariBrowser } from '~/internal/utils/device';
+import { sanitizeContentUrl } from '~/internal/utils/notification-content';
+import { logger } from '~/logger';
 
 class NotificationPresenter {
   private notification: ActitoNotification | undefined;

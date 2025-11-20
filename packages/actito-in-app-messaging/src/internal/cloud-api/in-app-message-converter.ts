@@ -1,8 +1,5 @@
 import type { CloudInAppMessage, CloudInAppMessageAction } from '@actito/web-cloud-api';
-import type {
-  ActitoInAppMessage,
-  ActitoInAppMessageAction,
-} from '../../models/actito-in-app-message';
+import type { ActitoInAppMessage, ActitoInAppMessageAction } from '~/models/actito-in-app-message';
 
 export function convertCloudInAppMessageToPublic(message: CloudInAppMessage): ActitoInAppMessage {
   return {

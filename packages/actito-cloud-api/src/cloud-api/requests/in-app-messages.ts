@@ -1,5 +1,5 @@
-import { cloudRequest, type CloudRequestParams } from '../request';
-import type { CloudInAppMessageResponse } from '../responses/in-app-message';
+import { cloudRequest, type CloudRequestParams } from '~/cloud-api/request';
+import type { CloudInAppMessageResponse } from '~/cloud-api/responses/in-app-message';
 
 export async function fetchCloudInAppMessage(
   params: FetchCloudInAppMessageParams,

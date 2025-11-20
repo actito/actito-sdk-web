@@ -1,9 +1,8 @@
 import { Component, getApplication, getCurrentDevice } from '@actito/web-core';
-import { logger } from '../logger';
 import { notifyInboxUpdated } from './consumer-events';
 import { clearInboxInternal, refreshBadgeInternal } from './internal-api';
+import { logger } from '~/logger';
 
-/* eslint-disable class-methods-use-this */
 export class InboxComponent extends Component {
   constructor() {
     super('inbox');

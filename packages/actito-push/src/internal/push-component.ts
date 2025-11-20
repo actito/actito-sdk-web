@@ -7,8 +7,6 @@ import {
   getCurrentDevice,
   logNotificationOpen,
 } from '@actito/web-core';
-import { logger } from '../logger';
-import { getPushPermissionStatus } from '../utils/push';
 import { notifyNotificationOpened } from './consumer-events';
 import {
   enableRemoteNotifications,
@@ -33,6 +31,8 @@ import {
 } from './storage/local-storage';
 import { hideFloatingButton } from './ui/floating-button';
 import { hideOnboarding } from './ui/onboarding';
+import { logger } from '~/logger';
+import { getPushPermissionStatus } from '~/utils/push';
 
 export class PushComponent extends Component {
   constructor() {

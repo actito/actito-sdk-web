@@ -3,10 +3,10 @@ import type {
   ActitoNotification,
   ActitoNotificationAction,
 } from '@actito/web-core';
-import { logger } from '../logger';
-import type { ActitoNotificationDeliveryMechanism } from '../models/actito-notification-delivery-mechanism';
-import type { ActitoPushSubscription } from '../models/actito-push-subscription';
-import type { ActitoSystemNotification } from '../models/actito-system-notification';
+import { logger } from '~/logger';
+import type { ActitoNotificationDeliveryMechanism } from '~/models/actito-notification-delivery-mechanism';
+import type { ActitoPushSubscription } from '~/models/actito-push-subscription';
+import type { ActitoSystemNotification } from '~/models/actito-system-notification';
 
 let subscriptionChangedCallback: OnSubscriptionChangedCallback | undefined;
 let notificationSettingsChangedCallback: OnNotificationSettingsChangedCallback | undefined;

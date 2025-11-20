@@ -4,13 +4,13 @@ import {
   fetchCloudPassSaveLinks,
 } from '@actito/web-cloud-api';
 import type { ActitoNotification, ActitoNotificationContent } from '@actito/web-core';
-import { logger } from '../../logger';
-import { getCloudApiEnvironment } from '../cloud-api/environment';
-import { InvalidWorkerConfigurationError } from '../configuration/errors';
-import { getCurrentDeviceId, parseWorkerConfiguration } from '../configuration/parser';
-import { resolveUrl, UrlResolverResult } from '../notification-url-resolver';
-import { isAppleDevice, isSafariBrowser } from '../utils';
 import { presentWindowClient } from './window-client';
+import { getCloudApiEnvironment } from '~/internal/cloud-api/environment';
+import { InvalidWorkerConfigurationError } from '~/internal/configuration/errors';
+import { getCurrentDeviceId, parseWorkerConfiguration } from '~/internal/configuration/parser';
+import { resolveUrl, UrlResolverResult } from '~/internal/notification-url-resolver';
+import { isAppleDevice, isSafariBrowser } from '~/internal/utils';
+import { logger } from '~/logger';
 
 // Let TS know this is scoped to a service worker.
 declare const self: ServiceWorkerGlobalScope;

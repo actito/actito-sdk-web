@@ -1,10 +1,7 @@
 import { createBackdrop, createButton, createCloseButton, createRoot } from '@actito/web-ui';
-import type {
-  ActitoInAppMessage,
-  ActitoInAppMessageAction,
-} from '../../../models/actito-in-app-message';
-import { ActionType } from '../../types/action-type';
-import { ROOT_ELEMENT_IDENTIFIER } from '../root';
+import { ActionType } from '~/internal/types/action-type';
+import { ROOT_ELEMENT_IDENTIFIER } from '~/internal/ui/root';
+import type { ActitoInAppMessage, ActitoInAppMessageAction } from '~/models/actito-in-app-message';
 
 export function createCardComponent({
   message,

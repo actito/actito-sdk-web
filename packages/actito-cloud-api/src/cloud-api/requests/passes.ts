@@ -1,6 +1,6 @@
-import { cloudRequest, type CloudRequestParams } from '../request';
-import type { CloudPassResponse } from '../responses/pass';
-import type { CloudPassSaveLinksResponse } from '../responses/pass-save-links';
+import { cloudRequest, type CloudRequestParams } from '~/cloud-api/request';
+import type { CloudPassResponse } from '~/cloud-api/responses/pass';
+import type { CloudPassSaveLinksResponse } from '~/cloud-api/responses/pass-save-links';
 
 export async function fetchCloudPass(params: FetchCloudPassParams): Promise<CloudPassResponse> {
   const { serial, ...rest } = params;
