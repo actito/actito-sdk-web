@@ -22,9 +22,7 @@ export function createCameraCallbackModal({
   video.classList.add('actito__camera-callback-video');
   video.setAttribute('autoplay', '');
 
-  let isCreatingStream = true;
-  let streamPromise = upsertVideoStream(video);
-  streamPromise.finally(() => (isCreatingStream = false));
+  let streamPromise = setupVideoStream(video);
 
   root.appendChild(
     createBackdrop(() => {
@@ -96,12 +94,9 @@ export function createCameraCallbackModal({
       content.removeChild(canvas);
       content.appendChild(video);
 
-      if (!isCreatingStream) {
-        cancelVideoStream(video);
-        isCreatingStream = true;
-        streamPromise = upsertVideoStream(video);
-        streamPromise.finally(() => (isCreatingStream = false));
-      }
+      streamPromise.finally(() => {
+        streamPromise = setupVideoStream(video);
+      });
 
       footer.removeChild(retakePictureButton);
       footer.removeChild(sendButton);
@@ -126,7 +121,7 @@ export function createCameraCallbackModal({
   return root;
 }
 
-function upsertVideoStream(video: HTMLVideoElement) {
+function setupVideoStream(video: HTMLVideoElement) {
   const streamPromise = createVideoStream();
   streamPromise
     .then((stream) => {
