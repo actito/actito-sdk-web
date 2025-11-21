@@ -24,15 +24,15 @@ export function createCameraCallbackModal({
 
   let streamPromise = setupVideoStream(video);
 
-  root.appendChild(
-    createBackdrop(() => {
-      dismiss();
+  function handleDismiss() {
+    dismiss();
 
-      streamPromise.finally(() => {
-        cancelVideoStream(video);
-      });
-    }),
-  );
+    streamPromise.finally(() => {
+      cancelVideoStream(video);
+    });
+  }
+
+  root.appendChild(createBackdrop(() => handleDismiss()));
 
   const modal = root.appendChild(createModal());
   modal.classList.add('actito__camera-callback');
@@ -41,13 +41,7 @@ export function createCameraCallbackModal({
     createModalHeader({
       icon: getApplicationIcon(),
       title: getApplicationName(),
-      onCloseButtonClicked: () => {
-        dismiss();
-
-        streamPromise.finally(() => {
-          cancelVideoStream(video);
-        });
-      },
+      onCloseButtonClicked: () => handleDismiss(),
     }),
   );
 
