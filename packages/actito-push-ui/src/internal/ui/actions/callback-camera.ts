@@ -18,17 +18,21 @@ export function createCameraCallbackModal({
   dismiss,
 }: CreateCameraCallbackParams): HTMLElement {
   const root = createRoot(ROOT_ELEMENT_IDENTIFIER);
-
   const video = document.createElement('video');
   video.classList.add('actito__camera-callback-video');
   video.setAttribute('autoplay', '');
 
-  root.appendChild(
-    createBackdrop(() => {
+  let streamPromise = setupVideoStream(video);
+
+  function handleDismiss() {
+    dismiss();
+
+    streamPromise.finally(() => {
       cancelVideoStream(video);
-      dismiss();
-    }),
-  );
+    });
+  }
+
+  root.appendChild(createBackdrop(() => handleDismiss()));
 
   const modal = root.appendChild(createModal());
   modal.classList.add('actito__camera-callback');
@@ -37,22 +41,12 @@ export function createCameraCallbackModal({
     createModalHeader({
       icon: getApplicationIcon(),
       title: getApplicationName(),
-      onCloseButtonClicked: () => {
-        cancelVideoStream(video);
-        dismiss();
-      },
+      onCloseButtonClicked: () => handleDismiss(),
     }),
   );
 
   const content = modal.appendChild(createModalContent());
-
   content.appendChild(video);
-
-  createVideoStream()
-    .then((stream) => {
-      video.srcObject = stream;
-    })
-    .catch((error) => logger.error('Unable to acquire a video stream.', error));
 
   const canvas = document.createElement('canvas');
   canvas.classList.add('actito__camera-callback-canvas');
@@ -74,7 +68,9 @@ export function createCameraCallbackModal({
         canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         // Stop the video stream.
-        cancelVideoStream(video);
+        streamPromise.finally(() => {
+          cancelVideoStream(video);
+        });
 
         content.removeChild(video);
         content.appendChild(canvas);
@@ -92,11 +88,9 @@ export function createCameraCallbackModal({
       content.removeChild(canvas);
       content.appendChild(video);
 
-      createVideoStream()
-        .then((stream) => {
-          video.srcObject = stream;
-        })
-        .catch((error) => logger.error('Unable to acquire a video stream.', error));
+      streamPromise.finally(() => {
+        streamPromise = setupVideoStream(video);
+      });
 
       footer.removeChild(retakePictureButton);
       footer.removeChild(sendButton);
@@ -119,6 +113,19 @@ export function createCameraCallbackModal({
   });
 
   return root;
+}
+
+function setupVideoStream(video: HTMLVideoElement) {
+  const streamPromise = createVideoStream();
+  streamPromise
+    .then((stream) => {
+      video.srcObject = stream;
+    })
+    .catch((error) => {
+      logger.error('Unable to acquire a video stream.', error);
+    });
+
+  return streamPromise;
 }
 
 async function createVideoStream(): Promise<MediaStream> {

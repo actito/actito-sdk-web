@@ -2,7 +2,8 @@
 
 ## Upcoming Release
 
-- Fixed an issue in the main package where the exports for the user-inbox module in package.json incorrectly referenced /geo instead of the correct path
+- Fixed an issue in the main package where the exports for the user-inbox module in package.json incorrectly referenced /geo instead of the correct path.
+- Ensure the camera is properly switched off after closing the modal or taking a picture.
 
 ## 5.0.0-beta.1
 
