@@ -5,7 +5,10 @@
     "baseUrl": ".",
     "outDir": "dist",
     "declarationDir": "dist/intermediate",
-    "lib": ["ES2020", "WebWorker"]
+    "lib": ["ES2020", "WebWorker"],
+    "paths": {
+      "~/*": ["src/*"]
+    }
   },
   "exclude": ["dist"]
 }

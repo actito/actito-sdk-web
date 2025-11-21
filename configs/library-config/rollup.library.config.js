@@ -1,5 +1,5 @@
 import { resolve } from 'node:path';
-import { getPackageAlias } from './utils/get-package-alias.js';
+import { getPackageAliases } from './utils/get-package-aliases.js';
 import alias from '@rollup/plugin-alias';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import dts from 'rollup-plugin-dts';
@@ -36,7 +36,7 @@ export function buildSources(pkg, options) {
     ],
     plugins: [
       alias({
-        entries: getPackageAlias(),
+        entries: getPackageAliases(),
       }),
       esbuild(),
       svg(),

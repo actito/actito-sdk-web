@@ -4,7 +4,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "declarationDir": "dist/intermediate"
+    "declarationDir": "dist/intermediate",
+    "paths": {
+      "~/*": ["src/*"]
+    }
   },
   "exclude": ["dist"]
 }

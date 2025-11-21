@@ -16,9 +16,6 @@
     "importHelpers": true,
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "paths": {
-      "~/*": ["src/*"]
-    }
+    "skipLibCheck": true
   }
 }
