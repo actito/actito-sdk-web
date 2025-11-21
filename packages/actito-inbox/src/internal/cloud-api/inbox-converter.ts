@@ -1,10 +1,9 @@
 import type { CloudDeviceInboxItem, CloudDeviceInboxItemAttachment } from '@actito/web-cloud-api';
 import type { ActitoNotificationAttachment } from '@actito/web-core';
-import type { ActitoInboxItem } from '../../models/actito-inbox-item';
+import type { ActitoInboxItem } from '~/models/actito-inbox-item';
 
 export function convertCloudInboxItemToPublic(inboxItem: CloudDeviceInboxItem): ActitoInboxItem {
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: inboxItem._id,
     time: inboxItem.time,
     opened: inboxItem.opened ?? false,

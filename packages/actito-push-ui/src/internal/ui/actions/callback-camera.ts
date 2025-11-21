@@ -8,9 +8,9 @@ import {
   createRoot,
   createSecondaryButton,
 } from '@actito/web-ui';
-import { logger } from '../../../logger';
-import { getApplicationIcon, getApplicationName } from '../../utils';
-import { ROOT_ELEMENT_IDENTIFIER } from '../root';
+import { ROOT_ELEMENT_IDENTIFIER } from '~/internal/ui/root';
+import { getApplicationIcon, getApplicationName } from '~/internal/utils';
+import { logger } from '~/logger';
 
 export function createCameraCallbackModal({
   hasMoreSteps,

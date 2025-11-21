@@ -9,7 +9,7 @@ import type {
   ActitoNotificationAction,
   ActitoNotificationAttachment,
   ActitoNotificationContent,
-} from '../../../models/actito-notification';
+} from '~/models/actito-notification';
 
 export function convertCloudNotificationToPublic(
   notification: CloudNotification,

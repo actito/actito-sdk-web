@@ -1,5 +1,5 @@
-import { cloudRequest, type CloudRequestParams } from '../request';
-import type { CloudNotificationResponse } from '../responses/notification';
+import { cloudRequest, type CloudRequestParams } from '~/cloud-api/request';
+import type { CloudNotificationResponse } from '~/cloud-api/responses/notification';
 
 export async function fetchCloudNotification(
   params: FetchCloudNotificationParams,

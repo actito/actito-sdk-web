@@ -1,4 +1,6 @@
 import { resolve } from 'node:path';
+import { getPackageAliases } from './utils/get-package-aliases.js';
+import alias from '@rollup/plugin-alias';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
@@ -32,7 +34,14 @@ export function buildSources(pkg, options) {
         sourcemap: true,
       },
     ],
-    plugins: [esbuild(), svg(), nodeResolve()],
+    plugins: [
+      alias({
+        entries: getPackageAliases(),
+      }),
+      esbuild(),
+      svg(),
+      nodeResolve({ extensions: ['.ts', '.mjs', '.js', '.json', '.node'] }),
+    ],
     external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
   };
 }
@@ -95,8 +104,5 @@ export function buildStylesheet(options) {
  * @return {Array<RollupOptions>} An array containing the built sources and type definitions.
  */
 export function build(pkg) {
-  return [
-    buildSources(pkg),
-    buildTypeDefinitions(),
-  ];
+  return [buildSources(pkg), buildTypeDefinitions()];
 }

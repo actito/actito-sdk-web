@@ -1,5 +1,5 @@
-import type { CloudCreateEventPayload } from '../payloads/event';
-import { cloudRequest, type CloudRequestParams } from '../request';
+import type { CloudCreateEventPayload } from '~/cloud-api/payloads/event';
+import { cloudRequest, type CloudRequestParams } from '~/cloud-api/request';
 
 export async function createCloudEvent(params: CreateCloudEventParams): Promise<void> {
   const { payload, ...rest } = params;

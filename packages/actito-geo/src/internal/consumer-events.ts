@@ -1,6 +1,6 @@
 import type { EventSubscription } from '@actito/web-core';
-import { logger } from '../logger';
-import type { ActitoLocation } from '../models/actito-location';
+import { logger } from '~/logger';
+import type { ActitoLocation } from '~/models/actito-location';
 
 let locationUpdatedCallback: OnLocationUpdatedCallback | undefined;
 let locationUpdateErrorCallback: OnLocationUpdateErrorCallback | undefined;

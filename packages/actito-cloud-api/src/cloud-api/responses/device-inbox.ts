@@ -1,4 +1,4 @@
-import type { CloudDeviceInboxItem } from '../models/device-inbox';
+import type { CloudDeviceInboxItem } from '~/cloud-api/models/device-inbox';
 
 export interface CloudDeviceInboxResponse {
   readonly inboxItems: CloudDeviceInboxItem[];

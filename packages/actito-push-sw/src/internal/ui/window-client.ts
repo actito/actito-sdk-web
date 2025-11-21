@@ -1,7 +1,7 @@
 import type { ActitoNotification, ActitoNotificationAction } from '@actito/web-core';
-import { logger } from '../../logger';
-import { getClientState, setClientState } from '../client-state';
-import { sleep } from '../utils';
+import { getClientState, setClientState } from '~/internal/client-state';
+import { sleep } from '~/internal/utils';
+import { logger } from '~/logger';
 
 // Let TS know this is scoped to a service worker.
 declare const self: ServiceWorkerGlobalScope;

@@ -1,5 +1,5 @@
 import type { ActitoNotificationAttachment } from '@actito/web-core';
-import type { ActitoUserInboxItem } from '../../../models/actito-user-inbox-item';
+import type { ActitoUserInboxItem } from '~/models/actito-user-inbox-item';
 
 export interface NetworkUserInboxResponse {
   readonly inboxItems: NetworkUserInboxItem[];
@@ -31,7 +31,6 @@ export function convertNetworkUserInboxItemToPublic(
   inboxItem: NetworkUserInboxItem,
 ): ActitoUserInboxItem {
   return {
-    // eslint-disable-next-line no-underscore-dangle
     id: inboxItem._id,
     time: inboxItem.time,
     opened: inboxItem.opened ?? false,

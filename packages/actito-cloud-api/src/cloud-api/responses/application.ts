@@ -1,4 +1,4 @@
-import type { CloudApplication } from '../models/application';
+import type { CloudApplication } from '~/cloud-api/models/application';
 
 export interface CloudApplicationResponse {
   application: CloudApplication;

@@ -1,11 +1,11 @@
 import { Component, getApplication, getCurrentDevice } from '@actito/web-core';
-import { logger } from '../logger';
 import { clearLocation, startLocationUpdates } from './internal-api';
 import {
   getLocationServicesEnabled,
   setCurrentLocation,
   setLocationServicesEnabled,
 } from './storage/local-storage';
+import { logger } from '~/logger';
 
 export class GeoComponent extends Component {
   constructor() {

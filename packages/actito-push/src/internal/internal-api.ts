@@ -13,10 +13,6 @@ import {
   type ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions,
   type ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonOptions,
 } from '@actito/web-core';
-import { logger } from '../logger';
-import type { ActitoPushSubscription } from '../models/actito-push-subscription';
-import type { ActitoTransport } from '../models/actito-transport';
-import { getPushPermissionStatus } from '../utils/push';
 import { notifyNotificationSettingsChanged, notifySubscriptionChanged } from './consumer-events';
 import { logPushRegistration } from './internal-api-events';
 import { enableSafariPushNotifications, hasSafariPushSupport } from './internal-api-safari-push';
@@ -40,6 +36,10 @@ import { showFloatingButton } from './ui/floating-button';
 import { showOnboarding } from './ui/onboarding';
 import { sleep } from './utils';
 import { transaction } from './utils/transaction';
+import { logger } from '~/logger';
+import type { ActitoPushSubscription } from '~/models/actito-push-subscription';
+import type { ActitoTransport } from '~/models/actito-transport';
+import { getPushPermissionStatus } from '~/utils/push';
 
 let ongoingPushRegistration = false;
 

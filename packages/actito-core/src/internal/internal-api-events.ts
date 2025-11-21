@@ -1,13 +1,13 @@
 import { createCloudEvent } from '@actito/web-cloud-api';
-import { ActitoContentTooLargeError } from '../errors/actito-content-too-large-error';
-import { ActitoInvalidArgumentError } from '../errors/actito-invalid-argument-error';
-import { ActitoNotReadyError } from '../errors/actito-not-ready-error';
-import { getApplication, isReady } from '../public-api';
 import { getCloudApiEnvironment } from './cloud-api/environment';
 import { getSession } from './internal-api-session-shared';
 import { isConfigured } from './launch-state';
 import { logger } from './logger';
 import { getStoredDevice } from './storage/local-storage';
+import { ActitoContentTooLargeError } from '~/errors/actito-content-too-large-error';
+import { ActitoInvalidArgumentError } from '~/errors/actito-invalid-argument-error';
+import { ActitoNotReadyError } from '~/errors/actito-not-ready-error';
+import { getApplication, isReady } from '~/public-api';
 
 const MAX_DATA_SIZE_BYTES = 2 * 1024;
 const MIN_EVENT_NAME_SIZE_CHAR = 3;

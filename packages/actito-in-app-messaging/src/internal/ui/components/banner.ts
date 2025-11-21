@@ -1,7 +1,7 @@
 import { createBackdrop, createRoot } from '@actito/web-ui';
-import type { ActitoInAppMessage } from '../../../models/actito-in-app-message';
-import { ActionType } from '../../types/action-type';
-import { ROOT_ELEMENT_IDENTIFIER } from '../root';
+import { ActionType } from '~/internal/types/action-type';
+import { ROOT_ELEMENT_IDENTIFIER } from '~/internal/ui/root';
+import type { ActitoInAppMessage } from '~/models/actito-in-app-message';
 
 export function createBannerComponent(params: CreateBannerComponentParams): HTMLElement {
   const { dismiss } = params;
