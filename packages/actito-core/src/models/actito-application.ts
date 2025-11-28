@@ -50,6 +50,7 @@ export interface ActitoApplicationWebsitePushConfigVapid {
 }
 
 export interface ActitoApplicationWebsitePushConfigLaunchConfig {
+  readonly applicationName?: string;
   readonly autoOnboardingOptions?: ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions;
   readonly floatingButtonOptions?: ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonOptions;
 }

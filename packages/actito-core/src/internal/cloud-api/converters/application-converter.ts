@@ -138,6 +138,7 @@ function convertWebsitePushConfigLaunchConfigToPublic(
   if (!autoOnboardingOptions && !floatingButtonOptions) return undefined;
 
   return {
+    applicationName: launchConfig.applicationName,
     autoOnboardingOptions,
     floatingButtonOptions,
   };
