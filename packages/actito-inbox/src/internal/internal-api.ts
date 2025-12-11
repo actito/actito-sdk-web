@@ -6,9 +6,9 @@ import {
   ActitoApplicationUnavailableError,
   ActitoDeviceUnavailableError,
 } from '@actito/web-core';
-import { ActitoAutoBadgeUnavailableError } from '../errors/actito-auto-badge-unavailable-error';
-import { logger } from '../logger';
 import { notifyBadgeUpdated } from './consumer-events';
+import { ActitoAutoBadgeUnavailableError } from '~/errors/actito-auto-badge-unavailable-error';
+import { logger } from '~/logger';
 
 export async function refreshBadgeInternal(): Promise<number> {
   const application = getApplication();

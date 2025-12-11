@@ -13,6 +13,9 @@ export default tseslint.config([
   {
     files: ['**/*.{ts,tsx}'],
     extends: [eslintImport.flatConfigs.recommended, eslintImport.flatConfigs.typescript],
+    settings: {
+      'import/resolver': { typescript: { project: './tsconfig.json' } },
+    },
     rules: {
       'import/prefer-default-export': 'off', // prefer named to default exports
       'import/order': [

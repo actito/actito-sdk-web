@@ -1,5 +1,5 @@
-import { request, type RequestAuthorization, type RequestParams } from '../network/core/request';
-import { ensureHostHttpPrefix } from '../utils';
+import { request, type RequestAuthorization, type RequestParams } from '~/network/core/request';
+import { ensureHostHttpPrefix } from '~/utils';
 
 export interface CloudRequestParams {
   environment: CloudRequestEnvironment;

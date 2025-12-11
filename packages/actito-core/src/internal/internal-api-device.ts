@@ -9,8 +9,6 @@ import {
   updateCloudDevice,
   upgradeToLongLivedCloudDevice,
 } from '@actito/web-cloud-api';
-import { ActitoDeviceUnavailableError } from '../errors/actito-device-unavailable-error';
-import { ActitoNotReadyError } from '../errors/actito-not-ready-error';
 import { getCloudApiEnvironment } from './cloud-api/environment';
 import { isReady } from './launch-state';
 import { logger } from './logger';
@@ -22,6 +20,8 @@ import {
   getTimeZoneOffset,
 } from './utils';
 import { SDK_VERSION } from './version';
+import { ActitoDeviceUnavailableError } from '~/errors/actito-device-unavailable-error';
+import { ActitoNotReadyError } from '~/errors/actito-not-ready-error';
 
 export async function createDevice() {
   const payload: CloudCreateDevicePayload = {

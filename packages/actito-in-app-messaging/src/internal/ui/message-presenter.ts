@@ -1,20 +1,17 @@
-import { logger } from '../../logger';
-import type {
-  ActitoInAppMessage,
-  ActitoInAppMessageAction,
-} from '../../models/actito-in-app-message';
-import {
-  notifyActionExecuted,
-  notifyActionFailedToExecute,
-  notifyMessageFinishedPresenting,
-} from '../consumer-events';
-import { logInAppMessageActionClicked } from '../internal-api-events';
-import { ActionType } from '../types/action-type';
-import { MessageType } from '../types/message-type';
 import { createBannerComponent } from './components/banner';
 import { createCardComponent } from './components/card';
 import { createFullscreenComponent } from './components/fullscreen';
 import { ensureCleanState } from './root';
+import {
+  notifyActionExecuted,
+  notifyActionFailedToExecute,
+  notifyMessageFinishedPresenting,
+} from '~/internal/consumer-events';
+import { logInAppMessageActionClicked } from '~/internal/internal-api-events';
+import { ActionType } from '~/internal/types/action-type';
+import { MessageType } from '~/internal/types/message-type';
+import { logger } from '~/logger';
+import type { ActitoInAppMessage, ActitoInAppMessageAction } from '~/models/actito-in-app-message';
 
 let shownMessage: ActitoInAppMessage | undefined;
 

@@ -12,7 +12,7 @@
     "attw": "attw --pack .",
     "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
-    "build:types": "tsc",
+    "build:types": "tsc && tsc-alias",
     "clean": "rm -rf dist/",
     "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
     "dev:sources": "rollup -c -w",
@@ -50,6 +50,7 @@
     "concurrently": "^9.2.0",
     "eslint": "^9.33.0",
     "rollup": "^4.46.3",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.9.2"
   },
   "publishConfig": {

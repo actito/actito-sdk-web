@@ -1,7 +1,7 @@
-import type { EventSubscription } from '../event-subscription';
-import type { ActitoApplication } from '../models/actito-application';
-import type { ActitoDevice } from '../models/actito-device';
 import { logger } from './logger';
+import type { EventSubscription } from '~/event-subscription';
+import type { ActitoApplication } from '~/models/actito-application';
+import type { ActitoDevice } from '~/models/actito-device';
 
 let onReadyCallback: OnReadyCallback | undefined;
 let unlaunchedCallback: OnUnlaunchedCallback | undefined;

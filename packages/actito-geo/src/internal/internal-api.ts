@@ -5,10 +5,10 @@ import {
   ActitoDeviceUnavailableError,
   getCloudApiEnvironment,
 } from '@actito/web-core';
-import { logger } from '../logger';
-import type { ActitoLocation } from '../models/actito-location';
 import { notifyLocationUpdated, notifyLocationUpdateError } from './consumer-events';
 import { getCurrentLocation, setCurrentLocation } from './storage/local-storage';
+import { logger } from '~/logger';
+import type { ActitoLocation } from '~/models/actito-location';
 
 let geolocationWatchId: number | undefined;
 

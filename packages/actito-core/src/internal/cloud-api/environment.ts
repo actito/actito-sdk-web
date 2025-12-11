@@ -1,5 +1,5 @@
-import { ActitoNotConfiguredError } from '../../errors/actito-not-configured-error';
-import { getOptions } from '../options';
+import { ActitoNotConfiguredError } from '~/errors/actito-not-configured-error';
+import { getOptions } from '~/internal/options';
 
 export function getCloudApiEnvironment() {
   const options = getOptions();

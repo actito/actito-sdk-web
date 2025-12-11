@@ -1,5 +1,5 @@
-import { logger } from '../../logger';
-import { setClientState } from '../client-state';
+import { setClientState } from '~/internal/client-state';
+import { logger } from '~/logger';
 
 // Let TS know this is scoped to a service worker.
 // declare const self: ServiceWorkerGlobalScope;

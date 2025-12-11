@@ -8,8 +8,6 @@ import {
   type ActitoInternalOptions,
   type ActitoNotification,
 } from '@actito/web-core';
-import { logger } from '../logger';
-import type { ActitoNotificationDeliveryMechanism } from '../models/actito-notification-delivery-mechanism';
 import {
   notifyNotificationActionOpened,
   notifyNotificationOpened,
@@ -21,6 +19,8 @@ import { logNotificationInfluenced, logNotificationReceived } from './internal-a
 import { arrayBufferToBase64 } from './utils';
 import { isStandaloneMode, isSafariDesktopBrowser } from './utils/device';
 import { createWebPushSubscription, registerServiceWorker } from './web-push/service-worker';
+import { logger } from '~/logger';
+import type { ActitoNotificationDeliveryMechanism } from '~/models/actito-notification-delivery-mechanism';
 
 export function hasWebPushSupport(): boolean {
   // The navigator.standalone check ensures that iOS Safari with WebPush

@@ -3,7 +3,7 @@ import type {
   ActitoNotification,
   ActitoNotificationAction,
 } from '@actito/web-core';
-import { logger } from '../logger';
+import { logger } from '~/logger';
 
 let notificationWillPresentCallback: OnNotificationWillPresentCallback | undefined;
 let notificationPresentedCallback: OnNotificationPresentedCallback | undefined;
