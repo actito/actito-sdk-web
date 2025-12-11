@@ -76,7 +76,9 @@
     color: var(--actito-on-surface);
     border-radius: 8px;
     box-shadow: var(--actito-elevation-4);
-    white-space: nowrap;
+    max-width: calc(100vw - 64px);
+    width: max-content;
+    overflow-wrap: break-word;
 
     /* Fade in tooltip */
     opacity: 0;
@@ -103,7 +105,7 @@
 
 }
 
-.actito.actito-push-floating-button .actito__floating-button__bottom .actito__floating-button-tooltip {
+.actito.actito-push-floating-button .actito__floating-button__end .actito__floating-button-tooltip {
     right: 0;
 }
 
