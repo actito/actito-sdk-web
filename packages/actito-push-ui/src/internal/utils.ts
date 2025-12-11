@@ -28,5 +28,8 @@ export function getApplicationIcon(): string | undefined {
 }
 
 export function getApplicationName(): string | undefined {
-  return getApplication()?.name;
+  const application = getApplication();
+  if (!application) return undefined;
+
+  return application.websitePushConfig?.launchConfig?.applicationName ?? application.name;
 }
