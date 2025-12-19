@@ -1,6 +1,6 @@
-import { logger } from '../../logger';
-import { base64Encode, sleep } from '../../utils';
 import { ActitoNetworkRequestError } from './errors';
+import { logger } from '~/logger';
+import { base64Encode, sleep } from '~/utils';
 
 export async function request(params: RequestParams): Promise<Response> {
   const { url, method = 'GET' } = params;

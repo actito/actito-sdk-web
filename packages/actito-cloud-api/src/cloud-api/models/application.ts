@@ -52,6 +52,7 @@ export interface CloudApplicationWebsitePushConfigVapid {
 }
 
 export interface CloudApplicationWebsitePushConfigLaunchConfig {
+  readonly applicationName?: string;
   readonly autoOnboardingOptions?: CloudApplicationWebsitePushConfigLaunchConfigAutoOnboarding;
   readonly floatingButtonOptions?: CloudApplicationWebsitePushConfigLaunchConfigFloatingButton;
 }

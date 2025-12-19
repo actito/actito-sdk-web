@@ -3,14 +3,20 @@ import {
   fetchCloudDeviceInbox,
   fetchCloudNotification,
 } from '@actito/web-cloud-api';
-import { logger } from '../../logger';
-import { convertCloudNotificationToPublic } from '../cloud-api/converters/notification-converter';
-import { getCloudApiEnvironment } from '../cloud-api/environment';
-import { logNotificationInfluenced, logNotificationOpen } from '../cloud-api/requests/events';
-import { getCurrentDeviceId, parseWorkerConfiguration } from '../configuration/parser';
-import { createNotificationReply, presentNotificationAction } from '../ui/notification-actions';
-import { presentNotification } from '../ui/notifications';
-import { ensureOpenWindowClient } from '../ui/window-client';
+import { convertCloudNotificationToPublic } from '~/internal/cloud-api/converters/notification-converter';
+import { getCloudApiEnvironment } from '~/internal/cloud-api/environment';
+import {
+  logNotificationInfluenced,
+  logNotificationOpen,
+} from '~/internal/cloud-api/requests/events';
+import { getCurrentDeviceId, parseWorkerConfiguration } from '~/internal/configuration/parser';
+import {
+  createNotificationReply,
+  presentNotificationAction,
+} from '~/internal/ui/notification-actions';
+import { presentNotification } from '~/internal/ui/notifications';
+import { ensureOpenWindowClient } from '~/internal/ui/window-client';
+import { logger } from '~/logger';
 
 // Let TS know this is scoped to a service worker.
 declare const self: ServiceWorkerGlobalScope;

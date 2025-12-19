@@ -1,4 +1,4 @@
-import type { ActitoDoNotDisturb } from '../../../models/actito-do-not-disturb';
+import type { ActitoDoNotDisturb } from '~/models/actito-do-not-disturb';
 
 export interface StoredDevice {
   readonly id: string;

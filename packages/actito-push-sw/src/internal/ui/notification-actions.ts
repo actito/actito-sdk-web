@@ -1,11 +1,11 @@
 import { createCloudNotificationReply } from '@actito/web-cloud-api';
 import type { ActitoNotification, ActitoNotificationAction } from '@actito/web-core';
-import { logger } from '../../logger';
-import { getCloudApiEnvironment } from '../cloud-api/environment';
-import { InvalidWorkerConfigurationError } from '../configuration/errors';
-import { getCurrentDeviceId, parseWorkerConfiguration } from '../configuration/parser';
-import { getEmailUrl, getSmsUrl, getTelephoneUrl } from '../utils';
 import { presentWindowClient } from './window-client';
+import { getCloudApiEnvironment } from '~/internal/cloud-api/environment';
+import { InvalidWorkerConfigurationError } from '~/internal/configuration/errors';
+import { getCurrentDeviceId, parseWorkerConfiguration } from '~/internal/configuration/parser';
+import { getEmailUrl, getSmsUrl, getTelephoneUrl } from '~/internal/utils';
+import { logger } from '~/logger';
 
 // Let TS know this is scoped to a service worker.
 declare const self: ServiceWorkerGlobalScope;

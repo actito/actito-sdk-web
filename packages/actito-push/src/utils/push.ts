@@ -1,6 +1,6 @@
 import { getApplication } from '@actito/web-core';
-import { hasSafariPushSupport } from '../internal/internal-api-safari-push';
-import { hasWebPushSupport } from '../internal/internal-api-web-push';
+import { hasSafariPushSupport } from '~/internal/internal-api-safari-push';
+import { hasWebPushSupport } from '~/internal/internal-api-web-push';
 
 export type ActitoPushPermissionStatus = 'default' | 'granted' | 'denied';
 

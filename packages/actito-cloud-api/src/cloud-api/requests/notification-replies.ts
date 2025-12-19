@@ -1,7 +1,7 @@
-import type { CloudNotificationReplyPayload } from '../payloads/notification-reply';
-import type { CloudNotificationWebhookPayload } from '../payloads/notification-webhook';
-import { cloudRequest, type CloudRequestParams } from '../request';
-import type { CloudUploadNotificationReplyMediaResponse } from '../responses/upload-notification-reply-media';
+import type { CloudNotificationReplyPayload } from '~/cloud-api/payloads/notification-reply';
+import type { CloudNotificationWebhookPayload } from '~/cloud-api/payloads/notification-webhook';
+import { cloudRequest, type CloudRequestParams } from '~/cloud-api/request';
+import type { CloudUploadNotificationReplyMediaResponse } from '~/cloud-api/responses/upload-notification-reply-media';
 
 export async function callCloudNotificationWebhook(
   params: CallCloudNotificationWebhookParams,

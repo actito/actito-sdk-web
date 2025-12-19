@@ -6,8 +6,6 @@ import {
   ActitoDeviceUnavailableError,
   ActitoNetworkRequestError,
 } from '@actito/web-core';
-import { logger } from '../logger';
-import type { ActitoInAppMessage } from '../models/actito-in-app-message';
 import { convertCloudInAppMessageToPublic } from './cloud-api/in-app-message-converter';
 import { notifyMessageFailedToPresent, notifyMessagePresented } from './consumer-events';
 import { logInAppMessageViewed } from './internal-api-events';
@@ -15,6 +13,8 @@ import { isShowingNotification, isShowingPushOnboarding } from './push-ui-integr
 import type { ApplicationContext } from './types/application-context';
 import { ApplicationState } from './types/application-state';
 import { dismissMessage, isShowingMessage, showMessage } from './ui/message-presenter';
+import { logger } from '~/logger';
+import type { ActitoInAppMessage } from '~/models/actito-in-app-message';
 
 const DEFAULT_BACKGROUND_GRACE_PERIOD_MILLIS = 5 * 60 * 1000;
 

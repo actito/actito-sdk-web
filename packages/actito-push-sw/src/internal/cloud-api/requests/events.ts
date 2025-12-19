@@ -1,6 +1,6 @@
 import { createCloudEvent } from '@actito/web-cloud-api';
-import { getCurrentDeviceId } from '../../configuration/parser';
-import { getCloudApiEnvironment } from '../environment';
+import { getCloudApiEnvironment } from '~/internal/cloud-api/environment';
+import { getCurrentDeviceId } from '~/internal/configuration/parser';
 
 export async function logNotificationReceived(id: string) {
   await createCloudEvent({

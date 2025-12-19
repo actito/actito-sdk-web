@@ -51,7 +51,8 @@ export function showOnboarding({
 
   const title = textContent.appendChild(document.createElement('p'));
   title.classList.add('actito__onboarding-title');
-  title.innerHTML = application.name;
+  title.innerHTML =
+    application.websitePushConfig?.launchConfig?.applicationName ?? application.name;
 
   const text = textContent.appendChild(document.createElement('p'));
   text.classList.add('actito__onboarding-text');

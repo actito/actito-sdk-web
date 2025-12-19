@@ -1,6 +1,6 @@
-import { logger } from '../../logger';
-import type { ActitoPushSubscription } from '../../models/actito-push-subscription';
-import type { ActitoTransport } from '../../models/actito-transport';
+import { logger } from '~/logger';
+import type { ActitoPushSubscription } from '~/models/actito-push-subscription';
+import type { ActitoTransport } from '~/models/actito-transport';
 
 export function getRemoteNotificationsEnabled(): boolean | undefined {
   const enabledStr = localStorage.getItem('re.notifica.push.remote_notifications_enabled');

@@ -6,11 +6,11 @@ import {
   type ActitoInternalOptions,
   ActitoNotConfiguredError,
 } from '@actito/web-core';
-import { logger } from '../../logger';
-import { arrayBufferToBase64Url, base64UrlToUint8Array } from '../utils';
-import { isStandaloneMode } from '../utils/device';
 import { encodeWorkerConfiguration, parseWorkerConfiguration } from './configuration/parser';
 import type { WorkerConfiguration } from './configuration/worker-configuration';
+import { arrayBufferToBase64Url, base64UrlToUint8Array } from '~/internal/utils';
+import { isStandaloneMode } from '~/internal/utils/device';
+import { logger } from '~/logger';
 
 const SUBSCRIPTION_EXPIRATION_TIME_LEEWAY_MILLIS = 432000000;
 

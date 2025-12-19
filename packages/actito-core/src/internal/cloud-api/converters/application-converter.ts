@@ -27,7 +27,7 @@ import type {
   ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions,
   ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonOptions,
   ActitoApplicationWebsitePushConfigVapid,
-} from '../../../models/actito-application';
+} from '~/models/actito-application';
 
 export function convertCloudApplicationToPublic(application: CloudApplication): ActitoApplication {
   return {
@@ -138,6 +138,7 @@ function convertWebsitePushConfigLaunchConfigToPublic(
   if (!autoOnboardingOptions && !floatingButtonOptions) return undefined;
 
   return {
+    applicationName: launchConfig.applicationName,
     autoOnboardingOptions,
     floatingButtonOptions,
   };

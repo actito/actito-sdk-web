@@ -1,7 +1,6 @@
 import { Component, getApplication } from '@actito/web-core';
-import { logger } from '../logger';
+import { logger } from '~/logger';
 
-/* eslint-disable class-methods-use-this */
 export class UserInboxComponent extends Component {
   constructor() {
     super('user-inbox');
