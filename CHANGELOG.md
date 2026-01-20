@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Upcoming release
+
+- Improve how long content overflows in the push onboarding and in-app messages.
+
 ## 5.0.0-beta.2
 
 - Prioritize the `launchConfig.applicationName` over the `application.name` for the Push Onboarding dialog and other Notification UI dialogs.
