@@ -46,7 +46,7 @@ function createCardElement(
     container.appendChild(
       createCloseButton({
         variant: message.image ? 'solid' : 'default',
-        onClick: () => dismiss(),
+        onClick: () => onCloseButtonClick(),
       }),
     );
   }
