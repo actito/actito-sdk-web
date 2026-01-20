@@ -29,6 +29,7 @@
 .actito .actito__iam-banner-content {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .actito .actito__iam-banner-content-title {
