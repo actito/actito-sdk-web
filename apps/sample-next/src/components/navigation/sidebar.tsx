@@ -13,9 +13,9 @@ import { classNames } from "@/utils/css";
 export function Sidebar() {
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 dark:border-none bg-white px-6 pb-4 dark:bg-neutral-900">
-      <div className="flex h-16 shrink-0 items-center">
-        <Image className="h-8 w-auto dark:hidden" src={Logo} alt="Actito" />
-        <Image className="h-8 w-auto hidden dark:block" src={LogoDark} alt="Actito" />
+      <div className="flex h-22 shrink-0 items-center">
+        <Image className="h-14 w-auto dark:hidden" src={Logo} alt="Actito" />
+        <Image className="h-14 w-auto hidden dark:block" src={LogoDark} alt="Actito" />
       </div>
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
