@@ -100,15 +100,16 @@ function presentAction(message: ActitoInAppMessage, type: ActionType) {
 
   logInAppMessageActionClicked(message, type)
     .then(() => logger.debug('In-app message action event tracked.'))
-    .catch((error) => logger.error('Failed to log in-app message action.', error));
+    .catch((error) => logger.error('Failed to log in-app message action.', error))
+    .finally(() => {
+      try {
+        window.location.href = url;
 
-  try {
-    window.location.href = url;
+        notifyActionExecuted(message, action);
+      } catch {
+        notifyActionFailedToExecute(message, action);
+      }
 
-    notifyActionExecuted(message, action);
-  } catch {
-    notifyActionFailedToExecute(message, action);
-  }
-
-  dismissMessage();
+      dismissMessage();
+    });
 }

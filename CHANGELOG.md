@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 5.0.0-beta.3
+
+- Improve how long content overflows in the push onboarding and in-app messages.
+- Wait for the in-app message action event before executing the presenter
+
 ## 5.0.0-beta.2
 
 - Prioritize the `launchConfig.applicationName` over the `application.name` for the Push Onboarding dialog and other Notification UI dialogs.
