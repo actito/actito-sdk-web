@@ -34,7 +34,6 @@ export function convertCloudApplicationToPublic(application: CloudApplication): 
     id: application._id,
     name: application.name,
     category: application.category,
-    branding: application.branding ?? true,
     services: application.services ?? {},
     inboxConfig: convertInboxConfigToPublic(application.inboxConfig),
     regionConfig: convertRegionConfigToPublic(application.regionConfig),

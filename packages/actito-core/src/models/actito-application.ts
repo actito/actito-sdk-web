@@ -20,7 +20,6 @@ export interface ActitoApplication {
    * Category of the application.
    */
   readonly category: string;
-  readonly branding: boolean;
 
   /**
    * Map of enabled services for the application.

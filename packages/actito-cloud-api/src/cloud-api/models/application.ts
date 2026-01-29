@@ -2,7 +2,6 @@ export interface CloudApplication {
   readonly _id: string;
   readonly name: string;
   readonly category: string;
-  readonly branding?: boolean;
   readonly services?: CloudApplicationServices;
   readonly inboxConfig?: CloudApplicationInboxConfig;
   readonly regionConfig?: CloudApplicationRegionConfig;
