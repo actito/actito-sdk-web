@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Upcoming release
+
+- Remove `branding` property the `ActitoApplication`.
+
 ## 5.0.0-beta.3
 
 - Improve how long content overflows in the push onboarding and in-app messages.
