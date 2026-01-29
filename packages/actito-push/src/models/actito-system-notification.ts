@@ -17,7 +17,7 @@ export interface ActitoSystemNotification {
   readonly type: string;
 
   /**
-   * Additional unstructured fields not explicitly modeled.
+   * Collection of key-value pairs used to add extra information to the notification.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly extra: Record<string, any>;

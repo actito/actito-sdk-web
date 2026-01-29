@@ -1,5 +1,5 @@
 /**
- * Represents an Actito application configuration.
+ * Represents an Actito application.
  *
  * An {@link ActitoApplication} describes the capabilities, services, and configuration
  * of an application as defined in Actito. It includes enabled services, region
@@ -17,7 +17,7 @@ export interface ActitoApplication {
   readonly name: string;
 
   /**
-   * Category of the application as defined in Actito.
+   * Category of the application.
    */
   readonly category: string;
   readonly branding: boolean;
@@ -69,7 +69,7 @@ export interface ActitoApplication {
 }
 
 /**
- * Configuration related to the Actito inbox feature.
+ * Configuration related to inbox-based features.
  */
 export interface ActitoApplicationInboxConfig {
   /**
@@ -83,7 +83,7 @@ export interface ActitoApplicationInboxConfig {
   readonly useUserInbox: boolean;
 
   /**
-   * Whether unread inbox messages should automatically update the application
+   * Whether inbox messages should automatically update the application
    * badge count.
    */
   readonly autoBadge: boolean;
@@ -131,7 +131,7 @@ export interface ActitoApplicationWebsitePushConfig {
   readonly vapid?: ActitoApplicationWebsitePushConfigVapid;
 
   /**
-   * Launch website push opt-in prompt configuration.
+   * Website Push pre-permission prompt configuration.
    */
   readonly launchConfig?: ActitoApplicationWebsitePushConfigLaunchConfig;
 
@@ -176,7 +176,7 @@ export interface ActitoApplicationWebsitePushConfigVapid {
 }
 
 /**
- * Configuration of the launch website push opt-in prompt.
+ * Website Push pre-permission prompt configuration.
  */
 export interface ActitoApplicationWebsitePushConfigLaunchConfig {
   /**
@@ -279,17 +279,17 @@ export type ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonVertical
  */
 export interface ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonPermissionTexts {
   /**
-   * Text shown when the user hover and permission has not yet be granted or denied.
+   * Text shown when the user hovers and permission has not yet be granted or denied.
    */
   readonly default: string;
 
   /**
-   * Text shown when the user hover and permission has been granted.
+   * Text shown when the user hovers and permission has been granted.
    */
   readonly granted: string;
 
   /**
-   * Text shown when the user hover and permission has been denied.
+   * Text shown when the user hovers and permission has been denied.
    */
   readonly denied: string;
 }
