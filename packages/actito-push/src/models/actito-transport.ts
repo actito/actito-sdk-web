@@ -4,7 +4,7 @@
  * This value indicates the underlying push delivery service used by Actito.
  *
  * - `'Notificare'` - Temporary transport used for a registered device without
- * remote notifications enabled, before APNS or GCM is available.
+ * remote notifications enabled, before WebPush or Safari Website Push is available.
  * - `'WebPush'` - Website Push.
  * - `'WebsitePush'` - Safari Website Push.
  */

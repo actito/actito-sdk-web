@@ -8,17 +8,17 @@ import type { ActitoUserInboxItem } from './actito-user-inbox-item';
  */
 export interface ActitoUserInboxResponse {
   /**
-   * Total number of items in the user's inbox.
+   * List of inbox items for the user.
    */
   readonly items: ActitoUserInboxItem[];
 
   /**
-   * Number of unread items in the user's inbox.
+   * Total number of items in the user's inbox.
    */
   readonly count: number;
 
   /**
-   * List of inbox items for the user.
+   * Number of unread items in the user's inbox.
    */
   readonly unread: number;
 }
