@@ -1,7 +1,17 @@
 # CHANGELOG
 
-## Upcoming release
+## 5.0.0
 
+Prior to upgrading to v5.x, consult the [Migration Guide](./MIGRATION.md), which outlines all necessary changes and procedures to ensure a smooth migration.
+
+**Important changes since v4.x:**
+
+- Prioritize the `launchConfig.applicationName` over the `application.name` for the Push Onboarding dialog and other Notification UI dialogs.
+- Ensure the camera is properly switched off after closing the modal or taking a picture.
+- Fixed the position of the launch floating button tooltip when the horizontal alignment was set to right and the vertical alignment to top.
+- Allow multiple lines in the launch floating button tooltip.
+- Improve how long content overflows in the push onboarding and in-app messages.
+- Wait for the in-app message action event before executing the presenter
 - Remove `branding` property the `ActitoApplication`.
 
 ## 5.0.0-beta.3
