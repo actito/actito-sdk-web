@@ -1,17 +1,12 @@
-import nextPwa from '@ducanh2912/next-pwa';
-import type { NextConfig } from 'next';
+import { withSerwist } from "@serwist/turbopack";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  output: "export",
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
 };
 
-const withPWA = nextPwa({
-  dest: 'public',
-  register: false,
-});
-
-export default withPWA(nextConfig);
+export default withSerwist(nextConfig);
