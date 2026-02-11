@@ -20,6 +20,30 @@ export default function Setup() {
     geolocationTimeout: "",
   });
 
+  useEffect(() => {
+    async function updateFormStateWithConfigFile() {
+      try {
+        const response = await fetch("/actito-services.json");
+        const config: ActitoOptions = await response.json();
+
+        setState({
+          debugLoggingEnabled: true,
+          applicationVersion: config.applicationVersion || "",
+          language: config.language || "",
+          serviceWorkerLocation: config.serviceWorker || "",
+          serviceWorkerScope: config.serviceWorkerScope || "",
+          geolocationHighAccuracyEnabled: config.geolocation?.enableHighAccuracy || false,
+          geolocationMaximumAge: config.geolocation?.maximumAge?.toString() || "",
+          geolocationTimeout: config.geolocation?.timeout?.toString() || "",
+        });
+      } catch (e) {
+        logger.error(`Something went wrong: ${e}`);
+      }
+    }
+
+    updateFormStateWithConfigFile();
+  }, []);
+
   const setup = useCallback(async () => {
     try {
       const response = await fetch("/actito-services.json");
@@ -38,7 +62,7 @@ export default function Setup() {
       const maximumAge = parseInt(state.geolocationMaximumAge.trim());
       if (!isNaN(maximumAge)) config.geolocation.maximumAge = maximumAge;
 
-      const timeout = parseInt(state.geolocationTimeout);
+      const timeout = parseInt(state.geolocationTimeout.trim());
       if (!isNaN(timeout)) config.geolocation.timeout = timeout;
 
       localStorage.setItem(
