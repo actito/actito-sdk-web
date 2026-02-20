@@ -37,10 +37,10 @@ export function MobileSidebar() {
             <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
               <Transition.Child
                 as={Fragment}
-                enter="ease-in-out duration-300"
+                enter="ease-in-out duration-250"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"
-                leave="ease-in-out duration-300"
+                leave="ease-in-out duration-250"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
