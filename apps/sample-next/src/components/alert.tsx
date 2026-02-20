@@ -32,7 +32,10 @@ export function Alert({ variant = "info", message, action }: AlertProps) {
               {action.onClick && (
                 <button
                   onClick={action.onClick}
-                  className={cx("whitespace-nowrap font-medium", AlertLinkTextColor[variant])}
+                  className={cx(
+                    "whitespace-nowrap font-medium cursor-pointer",
+                    AlertLinkTextColor[variant],
+                  )}
                 >
                   {action.label}
                   <span> &rarr;</span>

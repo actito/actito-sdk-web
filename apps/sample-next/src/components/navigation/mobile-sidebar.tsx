@@ -47,7 +47,7 @@ export function MobileSidebar() {
                 <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                   <button
                     type="button"
-                    className="-m-2.5 p-2.5"
+                    className="-m-2.5 p-2.5 cursor-pointer"
                     onClick={() => sidebar.setOpen(false)}
                   >
                     <span className="sr-only">Close sidebar</span>

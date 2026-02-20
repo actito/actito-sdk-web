@@ -131,7 +131,7 @@ function TagCard({ tag, onClick }: { tag: string; onClick: () => void }) {
 
       <p className="grow text-lg font-medium text-gray-900 truncate dark:text-white">{tag}</p>
 
-      <button className="p-2.5 text-gray-400 hover:text-gray-500" onClick={onClick}>
+      <button className="p-2.5 text-gray-400 hover:text-gray-500 cursor-pointer" onClick={onClick}>
         <div className="relative">
           <XMarkIcon className="h-6 w-6" aria-hidden="true" />
         </div>

@@ -28,7 +28,7 @@ export function PageHeaderAction({ label, icon: Icon, onClick }: PageHeaderActio
   return (
     <button
       type="button"
-      className="inline-flex items-center rounded-md p-3 bg-indigo-100 text-indigo-600 shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      className="inline-flex items-center rounded-md p-3 bg-indigo-100 text-indigo-600 shadow-sm hover:bg-indigo-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
       onClick={onClick}
     >
       <Icon className="h-5 w-5" aria-hidden="true" />
