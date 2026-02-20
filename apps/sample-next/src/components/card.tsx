@@ -26,7 +26,7 @@ export function CardContent({ children }: PropsWithChildren) {
 
 export function CardActions({ children }: PropsWithChildren) {
   return (
-    <div className="flex shrink-0 flex-row justify-end gap-6 p-6 border-t border-gray-200 dark:border-none">
+    <div className="flex shrink-0 flex-row justify-between sm:justify-end gap-6 p-6 border-t border-gray-200 dark:border-none">
       {children}
     </div>
   );
