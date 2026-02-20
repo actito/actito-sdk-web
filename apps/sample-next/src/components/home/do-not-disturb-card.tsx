@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   clearDoNotDisturb,
   fetchDoNotDisturb,
@@ -69,7 +70,7 @@ export function DoNotDisturbCard() {
 
   return (
     <Card>
-      <CardHeader title="Do not disturb" />
+      <CardHeader title="Do not disturb" icon={NoSymbolIcon} />
 
       <CardContent>
         <Switch

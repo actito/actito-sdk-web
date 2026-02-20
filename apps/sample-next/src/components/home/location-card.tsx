@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 import {
   disableLocationUpdates,
   enableLocationUpdates,
@@ -18,7 +19,7 @@ export function LocationCard() {
 
   return (
     <Card>
-      <CardHeader title="Location updates" />
+      <CardHeader title="Location" icon={MapPinIcon} />
 
       <CardContent>
         <Switch

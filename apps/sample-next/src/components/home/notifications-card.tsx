@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BellAlertIcon } from "@heroicons/react/24/outline";
 import {
   disableRemoteNotifications,
   enableRemoteNotifications,
@@ -46,7 +47,7 @@ export function NotificationsCard() {
 
   return (
     <Card>
-      <CardHeader title="Remote notifications" />
+      <CardHeader title="Notifications" icon={BellAlertIcon} />
 
       <CardContent>
         <Switch

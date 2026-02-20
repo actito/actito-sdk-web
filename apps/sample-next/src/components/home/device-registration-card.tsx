@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import { getCurrentDevice, updateUser } from "actito-web/core";
 import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registered";
 import { Button } from "@/components/button";
@@ -31,7 +32,7 @@ export function DeviceRegistrationCard() {
 
   return (
     <Card>
-      <CardHeader title="Device registration" />
+      <CardHeader title="Device registration" icon={ArrowRightEndOnRectangleIcon} />
 
       <CardContent>
         <InputField

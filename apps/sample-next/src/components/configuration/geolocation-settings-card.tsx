@@ -1,3 +1,4 @@
+import { MapPinIcon } from "@heroicons/react/24/outline";
 import { Card, CardContent, CardHeader } from "@/components/card";
 import { ConfigurationFormState } from "@/components/configuration/configuration-form-state";
 import { InputField } from "@/components/input-field";
@@ -6,7 +7,7 @@ import { Switch } from "@/components/switch";
 export function GeolocationSettingsCard({ state, onChange }: GeolocationSettingsCardProps) {
   return (
     <Card>
-      <CardHeader title="Geolocation settings" />
+      <CardHeader title="Geolocation settings" icon={MapPinIcon} />
 
       <CardContent>
         <Switch

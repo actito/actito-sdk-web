@@ -1,6 +1,7 @@
 "use client";
 
 import { XCircleIcon } from "@heroicons/react/20/solid";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { isConfigured } from "actito-web/core";
 import { useActitoLaunchFlow } from "@/actito/hooks/actito-launch-flow";
@@ -12,7 +13,7 @@ export function LaunchFlowCard() {
 
   return (
     <Card>
-      <CardHeader title="Launch flow" />
+      <CardHeader title="Launch flow" icon={ArrowTopRightOnSquareIcon} />
 
       <CardContent>
         <div className="flex items-center justify-between">
