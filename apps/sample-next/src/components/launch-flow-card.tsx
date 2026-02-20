@@ -33,9 +33,7 @@ export function LaunchFlowCard() {
             <CheckCircleIcon className="shrink-0 h-6 w-6 text-green-700" />
           )}
 
-          {state.status !== "launched" && (
-            <XCircleIcon className="shrink-0 h-6 w-6 text-red-700" />
-          )}
+          {state.status !== "launched" && <XCircleIcon className="shrink-0 h-6 w-6 text-red-700" />}
         </div>
 
         <div className="flex items-center justify-between">
@@ -48,8 +46,18 @@ export function LaunchFlowCard() {
       </CardContent>
 
       <CardActions>
-        <Button text="Launch" disabled={state.status !== "idle"} onClick={launch} />
-        <Button text="Unlaunch" disabled={state.status !== "launched"} onClick={unlaunch} />
+        <Button
+          text="Launch"
+          disabled={state.status !== "idle"}
+          onClick={launch}
+          loading={state.status === "launching"}
+        />
+        <Button
+          text="Unlaunch"
+          disabled={state.status !== "launched"}
+          onClick={unlaunch}
+          loading={state.status === "unlaunching"}
+        />
       </CardActions>
     </Card>
   );

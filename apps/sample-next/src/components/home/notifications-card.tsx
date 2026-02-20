@@ -11,12 +11,14 @@ import {
 import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registered";
 import { useOnNotificationSettingsChanged } from "@/actito/hooks/events/push/notification-settings-changed";
 import { Card, CardContent, CardHeader } from "@/components/card";
+import { toast } from "@/components/sonner";
 import { Switch } from "@/components/switch";
 import { logger } from "@/utils/logger";
 
 export function NotificationsCard() {
   const [enabled, setEnabled] = useState(false);
   const [allowedUI, setAllowedUI] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [permissionStatus, setPermissionStatus] = useState<ActitoPushPermissionStatus>();
 
   useEffect(() => {
@@ -29,6 +31,37 @@ export function NotificationsCard() {
     const permissionStatus = getPushPermissionStatus();
     setPermissionStatus(permissionStatus);
   }, []);
+
+  async function updateRemoteNotificationsStatus(checked: boolean) {
+    try {
+      setLoading(true);
+
+      if (checked) {
+        await enableRemoteNotifications();
+        toast({
+          title: "Remote notifications have been enabled.",
+          variant: "success",
+        });
+      } else {
+        await disableRemoteNotifications();
+        toast({
+          title: "Remote notifications have been disabled.",
+          variant: "success",
+        });
+      }
+
+      setEnabled(checked);
+    } catch (e) {
+      toast({
+        title: "It was not possible to update the remote notification permissions.",
+        description: `${e}`,
+        variant: "error",
+      });
+      logger.error(`It was not possible to update the remote notification permissions: ${e}`);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useOnDeviceRegistered(() => {
     const enabled = hasRemoteNotificationsEnabled();
@@ -53,19 +86,8 @@ export function NotificationsCard() {
         <Switch
           label="Enabled"
           checked={enabled}
-          onChange={async (checked) => {
-            setEnabled(checked);
-
-            try {
-              if (checked) {
-                await enableRemoteNotifications();
-              } else {
-                await disableRemoteNotifications();
-              }
-            } catch (e) {
-              logger.error(`Something went wrong: ${e}`);
-            }
-          }}
+          loading={loading}
+          onChange={(checked) => updateRemoteNotificationsStatus(checked)}
         />
 
         <div className="flex items-center justify-between">

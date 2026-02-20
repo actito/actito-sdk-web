@@ -42,6 +42,7 @@ import {
   IdentifiableListener,
   Listener,
 } from "@/actito/hooks/events/base";
+import { toast } from "@/components/sonner";
 
 const ActitoContext = createContext<ActitoContextState | undefined>(undefined);
 
@@ -63,16 +64,42 @@ export function ActitoProvider({ children }: PropsWithChildren) {
     setState({ status: "launching" });
 
     launch()
-      .then(() => setState({ status: "launched" }))
-      .catch((e) => setState({ status: "launch-failed", error: e }));
+      .then(() => {
+        setState({ status: "launched" });
+        toast({
+          title: "The app was launched successfully!",
+          variant: "success",
+        });
+      })
+      .catch((e) => {
+        setState({ status: "launch-failed", error: e });
+        toast({
+          title: "The app could not be launched.",
+          description: `${e}`,
+          variant: "error",
+        });
+      });
   }, []);
 
   const unlaunchFn = useCallback(() => {
     setState({ status: "unlaunching" });
 
     unlaunch()
-      .then(() => setState({ status: "idle" }))
-      .catch((e) => setState({ status: "unlaunch-failed", error: e }));
+      .then(() => {
+        setState({ status: "idle" });
+        toast({
+          title: "The app was unlaunched successfully!",
+          variant: "success",
+        });
+      })
+      .catch((e) => {
+        setState({ status: "unlaunch-failed", error: e });
+        toast({
+          title: "The app could not be unlaunched.",
+          description: `${e}`,
+          variant: "error",
+        });
+      });
   }, []);
 
   const registerListener = useCallback<RegisterListenerFn>((listener) => {

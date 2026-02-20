@@ -1,7 +1,19 @@
 import { ComponentType, PropsWithChildren, PropsWithoutRef, SVGProps } from "react";
+import { Spinner } from "@/components/spinner";
 
-export function Card({ children }: PropsWithChildren) {
-  return <div className="bg-white rounded-lg shadow dark:bg-neutral-900">{children}</div>;
+export function Card({ children, loading }: CardProps) {
+  return (
+    <div className="bg-white rounded-lg shadow dark:bg-neutral-900 overflow-hidden relative">
+      {loading && (
+        <Spinner className="text-neutral-600 dark:text-neutral-300 absolute w-8 h-8 top-5 right-6" />
+      )}
+      {children}
+    </div>
+  );
+}
+
+interface CardProps extends PropsWithChildren {
+  loading?: boolean;
 }
 
 export function CardHeader({ title, icon: Icon }: CardHeaderProps) {

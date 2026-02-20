@@ -5,6 +5,7 @@ import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registe
 import { Button } from "@/components/button";
 import { Card, CardActions, CardContent, CardHeader } from "@/components/card";
 import { InputField } from "@/components/input-field";
+import { toast } from "@/components/sonner";
 import { logger } from "@/utils/logger";
 
 export function DeviceRegistrationCard() {
@@ -23,10 +24,21 @@ export function DeviceRegistrationCard() {
     setLoading(true);
 
     updateUser({ userId: userId.trim() || null, userName: userName.trim() || null })
-      .then(() => setLoading(false))
-      .catch((e) => {
-        logger.error(`Unable to register device: ${e}`);
+      .then(() => {
         setLoading(false);
+        toast({
+          title: "The device was registered.",
+          variant: "success",
+        });
+      })
+      .catch((e) => {
+        setLoading(false);
+        toast({
+          title: "Unable to register the device.",
+          description: `${e}`,
+          variant: "error",
+        });
+        logger.error(`Unable to register the device: ${e}`);
       });
   }, [userId, userName]);
 
@@ -55,7 +67,7 @@ export function DeviceRegistrationCard() {
       </CardContent>
 
       <CardActions>
-        <Button text="Register" disabled={loading} onClick={onRegisterClick} />
+        <Button text="Register user" loading={loading} onClick={onRegisterClick} />
       </CardActions>
     </Card>
   );
