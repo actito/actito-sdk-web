@@ -67,7 +67,12 @@ export function DeviceRegistrationCard() {
       </CardContent>
 
       <CardActions>
-        <Button text="Register user" loading={loading} onClick={onRegisterClick} />
+        <Button
+          text="Register user"
+          loading={loading}
+          onClick={onRegisterClick}
+          className="w-full"
+        />
       </CardActions>
     </Card>
   );

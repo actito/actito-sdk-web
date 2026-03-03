@@ -51,12 +51,14 @@ export function LaunchFlowCard() {
           disabled={state.status !== "idle"}
           onClick={launch}
           loading={state.status === "launching"}
+          className="w-full"
         />
         <Button
           text="Unlaunch"
           disabled={state.status !== "launched"}
           onClick={unlaunch}
           loading={state.status === "unlaunching"}
+          className="w-full"
         />
       </CardActions>
     </Card>

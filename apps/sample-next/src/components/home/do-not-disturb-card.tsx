@@ -181,6 +181,7 @@ export function DoNotDisturbCard() {
           disabled={isSaving || isInitializing || !isValid}
           onClick={updateDoNotDisturbCallback}
           loading={isSaving}
+          className="w-full"
         />
       </CardActions>
     </Card>
