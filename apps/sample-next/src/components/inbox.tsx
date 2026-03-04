@@ -136,9 +136,10 @@ function InboxItemMarkAsReadButton({
     <Tooltip label="Mark as read" disabled={disabled || markedAsRead}>
       <button
         className={cx(
-          "flex items-center justify-center w-7 h-7 rounded-md text-neutral-500 dark:text-neutral-300 hover:not-disabled:bg-neutral-100 dark:hover:not-disabled:bg-neutral-700 transition",
+          "flex items-center justify-center w-7 h-7 rounded-md hover:not-disabled:bg-neutral-100 dark:hover:not-disabled:bg-neutral-700 transition",
           {
             "text-neutral-300 dark:text-neutral-600": markedAsRead,
+            "text-neutral-500 dark:text-neutral-300": !markedAsRead,
           },
         )}
         disabled={disabled || markedAsRead}
