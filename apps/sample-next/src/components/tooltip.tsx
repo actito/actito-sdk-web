@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 
 export function Tooltip({ label, disabled, children }: TooltipProps) {
   return (
-    <div className="group relative inline-block">
+    <div className="group relative inline-block z-50">
       {children}
 
       {!disabled && (

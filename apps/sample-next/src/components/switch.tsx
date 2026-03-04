@@ -1,4 +1,4 @@
-import { Switch as HeadlessSwitch, Field } from "@headlessui/react";
+import { Switch as HeadlessSwitch, Field, Label, Description } from "@headlessui/react";
 import cx from "classnames";
 import { Spinner } from "@/components/spinner";
 
@@ -8,27 +8,30 @@ export function Switch({
   disabled = false,
   checked,
   loading,
+  switchOnLeft,
   onChange,
 }: SwitchProps) {
   return (
-    <Field as="div" className="flex items-center justify-between">
+    <Field
+      as="div"
+      className={cx("flex items-center justify-between gap-3", {
+        "flex-row-reverse": switchOnLeft,
+      })}
+    >
       {label && (
         <span className="flex grow flex-col">
-          <HeadlessSwitch.Label
+          <Label
             as="span"
             className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
             passive
           >
             {label}
-          </HeadlessSwitch.Label>
+          </Label>
 
           {description && (
-            <HeadlessSwitch.Description
-              as="span"
-              className="text-sm text-gray-500 dark:text-neutral-500"
-            >
+            <Description as="span" className="text-sm text-gray-500 dark:text-neutral-500">
               {description}
-            </HeadlessSwitch.Description>
+            </Description>
           )}
         </span>
       )}
@@ -70,5 +73,6 @@ export interface SwitchProps {
   disabled?: boolean;
   checked: boolean;
   loading?: boolean;
+  switchOnLeft?: boolean;
   onChange?: (checked: boolean) => void;
 }
