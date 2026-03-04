@@ -3,19 +3,17 @@ import { Spinner } from "@/components/spinner";
 
 export function PageHeader({ title, message, actions }: PageHeaderProps) {
   return (
-    <>
-      <div className="mb-10 flex flex-col gap-x-8 gap-y-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 className="mt-2 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight dark:text-white">
-            {title}
-          </h2>
+    <div className="mb-10 flex flex-col gap-x-8 gap-y-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h2 className="mt-2 text-2xl font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight dark:text-white">
+          {title}
+        </h2>
 
-          <span className="mt-1 sm:mt-0 text-sm text-gray-500 dark:text-gray-300">{message}</span>
-        </div>
-
-        {actions && <div className="flex shrink-0 flex-wrap gap-3">{actions}</div>}
+        <span className="mt-1 sm:mt-0 text-sm text-gray-500 dark:text-gray-300">{message}</span>
       </div>
-    </>
+
+      {actions && <div className="flex shrink-0 flex-wrap gap-3">{actions}</div>}
+    </div>
   );
 }
 
