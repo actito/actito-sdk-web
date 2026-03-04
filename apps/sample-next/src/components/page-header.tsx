@@ -1,4 +1,5 @@
 import { ComponentType, PropsWithoutRef, ReactNode, SVGProps } from "react";
+import { Spinner } from "@/components/spinner";
 
 export function PageHeader({ title, message, actions }: PageHeaderProps) {
   return (
@@ -24,13 +25,21 @@ export interface PageHeaderProps {
   actions?: ReactNode;
 }
 
-export function PageHeaderAction({ label, icon: Icon, onClick }: PageHeaderActionProps) {
+export function PageHeaderAction({
+  label,
+  disabled,
+  loading,
+  icon: Icon,
+  onClick,
+}: PageHeaderActionProps) {
   return (
     <button
       type="button"
-      className="inline-flex items-center rounded-md p-3 bg-indigo-100 text-indigo-600 shadow-sm hover:bg-indigo-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+      className="inline-flex items-center rounded-md p-3 bg-indigo-100 text-indigo-600 shadow-sm hover:not-disabled:bg-indigo-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 not-disabled:cursor-pointer disabled:pointer-events-none disabled:opacity-50 transition"
       onClick={onClick}
+      disabled={disabled || loading}
     >
+      {loading && <Spinner className="mr-2 w-5 h-5" />}
       <Icon className="h-5 w-5" aria-hidden="true" />
       <span className="ml-2 sm:hidden">{label}</span>
     </button>
@@ -39,6 +48,8 @@ export function PageHeaderAction({ label, icon: Icon, onClick }: PageHeaderActio
 
 export interface PageHeaderActionProps {
   label: string;
+  disabled?: boolean;
+  loading?: boolean;
   icon: ComponentType<PropsWithoutRef<SVGProps<SVGSVGElement>>>;
   onClick: () => void;
 }
