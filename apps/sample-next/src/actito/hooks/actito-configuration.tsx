@@ -42,7 +42,7 @@ export function useActitoConfiguration() {
 
         setActitoOptions(config);
       } catch (e) {
-        logger.error(`It was not possible to get the current actito options: ${e}`);
+        logger.error(`It was not possible to get the current Actito options: ${e}`);
       }
     }
 
