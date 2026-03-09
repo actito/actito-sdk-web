@@ -1,19 +1,15 @@
 "use client";
 
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren } from "react";
+import { useActitoConfiguration } from "@/actito/hooks/actito-configuration";
 import { Alert } from "@/components/alert";
 
 export function ActitoConfigurationBlocker({ children }: PropsWithChildren) {
-  const [config, setConfig] = useState<string | null>();
-
-  useEffect(function loadConfig() {
-    const config = localStorage.getItem("app_configuration");
-    setConfig(config);
-  }, []);
+  const { appConfiguration, hasConfigurationMismatch } = useActitoConfiguration();
 
   return (
     <>
-      {config === null && (
+      {appConfiguration === null && (
         <Alert
           variant="warning"
           message="Your environment is not configured."
@@ -24,7 +20,18 @@ export function ActitoConfigurationBlocker({ children }: PropsWithChildren) {
         />
       )}
 
-      {config && <>{children}</>}
+      {appConfiguration && hasConfigurationMismatch && (
+        <Alert
+          variant="warning"
+          message="It was detected a mismatch in your application keys. Please, recheck your configuration."
+          action={{
+            label: "Reconfigure",
+            url: "/setup",
+          }}
+        />
+      )}
+
+      {appConfiguration && hasConfigurationMismatch === false && <>{children}</>}
     </>
   );
 }

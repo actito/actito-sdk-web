@@ -1,0 +1,57 @@
+import { useEffect, useState } from "react";
+import { ActitoOptions } from "@actito/web-core";
+import { logger } from "@/utils/logger";
+
+export function useActitoConfiguration() {
+  const [appConfiguration, setAppConfiguration] = useState<
+    (ActitoOptions & { debugLoggingEnabled?: boolean }) | null
+  >();
+  const [actitoOptions, setActitoOptions] = useState<ActitoOptions>();
+  const [hasConfigurationMismatch, setHasConfigurationMismatch] = useState<boolean>();
+
+  useEffect(
+    function checkConfigMismatch() {
+      if (!appConfiguration || !actitoOptions) return;
+
+      const mismatch =
+        appConfiguration.applicationKey !== actitoOptions.applicationKey ||
+        appConfiguration.applicationSecret !== actitoOptions.applicationSecret;
+
+      setHasConfigurationMismatch(mismatch);
+    },
+    [appConfiguration, actitoOptions],
+  );
+
+  useEffect(function loadAppConfiguration() {
+    const encodedConfig = localStorage.getItem("app_configuration");
+
+    if (!encodedConfig) {
+      setAppConfiguration(null);
+      return;
+    }
+
+    const config = JSON.parse(encodedConfig);
+    setAppConfiguration(config);
+  }, []);
+
+  useEffect(() => {
+    async function loadActitoOptions() {
+      try {
+        const response = await fetch("/actito-services.json");
+        const config: ActitoOptions = await response.json();
+
+        setActitoOptions(config);
+      } catch (e) {
+        logger.error(`It was not possible to get the current actito options: ${e}`);
+      }
+    }
+
+    loadActitoOptions();
+  }, []);
+
+  return {
+    appConfiguration,
+    actitoOptions,
+    hasConfigurationMismatch,
+  };
+}

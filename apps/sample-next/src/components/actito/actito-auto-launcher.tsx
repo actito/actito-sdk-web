@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { configure, setLogLevel } from "actito-web/core";
+import { useActitoConfiguration } from "@/actito/hooks/actito-configuration";
 import { useActitoLaunchFlow } from "@/actito/hooks/actito-launch-flow";
 import { useSampleUser } from "@/hooks/sample-user";
 
@@ -9,6 +10,8 @@ export function ActitoAutoLauncher() {
   useSampleUser();
 
   const { launch } = useActitoLaunchFlow();
+  const { appConfiguration, hasConfigurationMismatch } = useActitoConfiguration();
+
   const autoLaunched = useRef(false);
 
   useEffect(() => {
@@ -16,16 +19,16 @@ export function ActitoAutoLauncher() {
     // Prevent the configuration from running in duplicate.
     if (autoLaunched.current) return;
 
-    const encodedConfig = localStorage.getItem("app_configuration");
-    if (!encodedConfig) return;
+    if (!appConfiguration || hasConfigurationMismatch) {
+      return;
+    }
 
-    const config = JSON.parse(encodedConfig);
-    setLogLevel(config.debugLoggingEnabled ? "debug" : "info");
-    configure(config);
+    setLogLevel(appConfiguration.debugLoggingEnabled ? "debug" : "info");
+    configure(appConfiguration);
 
     launch();
     autoLaunched.current = true;
-  }, [launch]);
+  }, [appConfiguration, hasConfigurationMismatch, launch]);
 
   return null;
 }
