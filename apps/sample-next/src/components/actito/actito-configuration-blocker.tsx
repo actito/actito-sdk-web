@@ -20,7 +20,7 @@ export function ActitoConfigurationBlocker({ children }: PropsWithChildren) {
         />
       )}
 
-      {appConfiguration && hasConfigurationMismatch && (
+      {hasConfigurationMismatch && (
         <Alert
           variant="warning"
           message="It was detected a mismatch in your application keys. Please, recheck your configuration."

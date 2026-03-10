@@ -19,7 +19,7 @@ export function ActitoAutoLauncher() {
     // Prevent the configuration from running in duplicate.
     if (autoLaunched.current) return;
 
-    if (!appConfiguration || hasConfigurationMismatch) {
+    if (!appConfiguration || hasConfigurationMismatch !== false) {
       return;
     }
 

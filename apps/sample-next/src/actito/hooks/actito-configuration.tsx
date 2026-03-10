@@ -6,12 +6,17 @@ export function useActitoConfiguration() {
   const [appConfiguration, setAppConfiguration] = useState<
     (ActitoOptions & { debugLoggingEnabled?: boolean }) | null
   >();
-  const [actitoOptions, setActitoOptions] = useState<ActitoOptions>();
+  const [actitoOptions, setActitoOptions] = useState<ActitoOptions | null>();
   const [hasConfigurationMismatch, setHasConfigurationMismatch] = useState<boolean>();
 
   useEffect(
     function checkConfigMismatch() {
-      if (!appConfiguration || !actitoOptions) return;
+      if (appConfiguration === undefined || actitoOptions === undefined) return;
+
+      if (appConfiguration === null || actitoOptions === null) {
+        setHasConfigurationMismatch(false);
+        return;
+      }
 
       const mismatch =
         appConfiguration.applicationKey !== actitoOptions.applicationKey ||
@@ -42,6 +47,7 @@ export function useActitoConfiguration() {
 
         setActitoOptions(config);
       } catch (e) {
+        setActitoOptions(null);
         logger.error(`It was not possible to get the current Actito options: ${e}`);
       }
     }
