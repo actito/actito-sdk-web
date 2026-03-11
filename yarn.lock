@@ -8924,13 +8924,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-sha256@npm:^0.11.1":
-  version: 0.11.1
-  resolution: "js-sha256@npm:0.11.1"
-  checksum: 10c0/ef8e294b6f38f218e4834cb653471dd1a76808cea93dc66eaffcb04124116bc36d6cebc4e8866753e184ab4e57892b6ef21918e8ab0450179a7e093ea962d974
-  languageName: node
-  linkType: hard
-
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -13285,7 +13278,6 @@ __metadata:
     eslint: "npm:^9.33.0"
     eslint-config-next: "npm:15.4.6"
     eslint-plugin-import: "npm:^2.32.0"
-    js-sha256: "npm:^0.11.1"
     next: "npm:15.4.6"
     react: "npm:19.1.1"
     react-dom: "npm:19.1.1"
