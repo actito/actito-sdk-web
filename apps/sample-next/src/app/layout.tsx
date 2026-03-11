@@ -14,7 +14,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="h-full bg-gray-50 dark:bg-neutral-950">
       <body className="h-full">
-        <SerwistProvider swUrl="/serwist/sw.js">
+        <SerwistProvider
+          swUrl="/serwist/sw.js"
+          register={false}
+          cacheOnNavigation={false}
+          reloadOnOnline={false}
+        >
           {children}
 
           <GoogleMapsBootstrap />
