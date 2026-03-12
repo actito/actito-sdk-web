@@ -5,6 +5,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { getCurrentDevice, ActitoDevice } from "actito-web/core";
 import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registered";
 import { Gravatar } from "@/components/gravatar";
+import { ApplicationInfo } from "@/components/navigation/application-info";
 import { InboxBell } from "@/components/navigation/inbox-bell";
 import { useNavigation } from "@/context/navigation";
 
@@ -31,6 +32,8 @@ export function StickyNavigation() {
 
       <div className="flex flex-1 flex-row-reverse gap-x-4 self-stretch lg:gap-x-6">
         <div className="flex items-center gap-x-4 lg:gap-x-6">
+          <ApplicationInfo />
+
           <InboxBell />
 
           {/* Separator */}
