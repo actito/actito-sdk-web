@@ -1,47 +1,47 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-import eslintImport from 'eslint-plugin-import';
-import tseslint from 'typescript-eslint';
+import { defineConfig, globalIgnores } from "eslint/config";
+import eslintImport from "eslint-plugin-import";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-
-export default tseslint.config([
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
 
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     plugins: {
       import: eslintImport,
     },
-    // extends: [eslintImport.flatConfigs.recommended, eslintImport.flatConfigs.typescript],
     rules: {
       ...eslintImport.flatConfigs.recommended.rules,
       ...eslintImport.flatConfigs.typescript.rules,
-
-      'import/order': [
-        'error',
+      "import/order": [
+        "error",
         {
           alphabetize: {
-            order: 'asc',
+            order: "asc",
             caseInsensitive: true,
           },
           pathGroups: [
             {
-              pattern: 'react',
-              group: 'builtin',
-              position: 'before',
+              pattern: "react",
+              group: "builtin",
+              position: "before",
             },
           ],
-          pathGroupsExcludedImportTypes: ['react'],
+          pathGroupsExcludedImportTypes: ["react"],
         },
       ],
     },
   },
 ]);
+
+export default eslintConfig;
