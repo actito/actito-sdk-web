@@ -19,7 +19,6 @@ export function Gravatar({
       try {
         const result = await sha256(email.trim().toLowerCase());
         setHash(result);
-        console.log(result);
       } catch (e) {
         logger.error(`(User avatar) It was not possible to hash the email: ${e}`);
       } finally {
