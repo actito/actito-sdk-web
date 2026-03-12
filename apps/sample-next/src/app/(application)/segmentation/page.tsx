@@ -10,6 +10,7 @@ import { Button } from "@/components/button";
 import { InputField } from "@/components/input-field";
 import { PageHeader } from "@/components/page-header";
 import { ProgressIndicator } from "@/components/progress-indicator";
+import { Tooltip } from "@/components/tooltip";
 
 export default function Segmentation() {
   const state = useActitoState();
@@ -131,11 +132,16 @@ function TagCard({ tag, onClick }: { tag: string; onClick: () => void }) {
 
       <p className="grow text-lg font-medium text-gray-900 truncate dark:text-white">{tag}</p>
 
-      <button className="p-2.5 text-gray-400 hover:text-gray-500 cursor-pointer" onClick={onClick}>
-        <div className="relative">
-          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-        </div>
-      </button>
+      <div className="mr-1.5">
+        <Tooltip label="Remove">
+          <button
+            type="button"
+            className="cursor-pointer hover:bg-neutral-100 hover:dark:bg-neutral-700 text-red-600 dark:text-red-400 rounded-md p-0.5"
+          >
+            <XMarkIcon className="w-6.5 h-6.5" onClick={onClick} />
+          </button>
+        </Tooltip>
+      </div>
     </div>
   );
 }
