@@ -94,6 +94,16 @@ export function getSubscription(): ActitoPushSubscription | undefined {
  */
 export async function enableRemoteNotifications(): Promise<void> {
   checkPrerequisites();
+
+  const application = getApplication();
+  if (!application) throw new ActitoApplicationUnavailableError();
+
+  if (application.websitePushConfig?.launchConfig) {
+    logger.warning(
+      'Managed push onboarding is enabled for this application. Remote notifications are managed automatically; manual configuration may cause conflicts.',
+    );
+  }
+
   await enableRemoteNotificationsInternal();
 }
 
