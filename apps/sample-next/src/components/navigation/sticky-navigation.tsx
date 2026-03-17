@@ -1,20 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { getCurrentDevice, ActitoDevice } from "actito-web/core";
-import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registered";
 import { Gravatar } from "@/components/gravatar";
 import { ApplicationInfo } from "@/components/navigation/application-info";
 import { InboxBell } from "@/components/navigation/inbox-bell";
+import { Skeleton } from "@/components/skeleton";
+import { useCurrentUser } from "@/context/current-user";
 import { useNavigation } from "@/context/navigation";
 
 export function StickyNavigation() {
   const { sidebar } = useNavigation();
-  const [device, setDevice] = useState<ActitoDevice>();
-
-  useEffect(() => setDevice(getCurrentDevice()), []);
-  useOnDeviceRegistered((device) => setDevice(device));
+  const { user } = useCurrentUser();
 
   return (
     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 dark:border-none bg-white dark:bg-neutral-900 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
@@ -43,13 +39,17 @@ export function StickyNavigation() {
           />
 
           <div className="-m-1.5 flex items-center p-1.5">
-            <Gravatar email={device?.userId ?? ""} />
+            <Gravatar email={user?.userId ?? ""} />
             <span className="hidden lg:flex lg:items-center">
               <span
                 className="ml-4 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-200"
                 aria-hidden="true"
               >
-                {device?.userName ?? "Anonymous"}
+                {user === undefined ? (
+                  <Skeleton className="h-5 w-20 rounded-md bg-neutral-200 dark:bg-neutral-600" />
+                ) : (
+                  (user?.userName ?? "Anonymous")
+                )}
               </span>
             </span>
           </div>

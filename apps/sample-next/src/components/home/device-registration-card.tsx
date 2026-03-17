@@ -1,24 +1,19 @@
 import { useCallback, useState } from "react";
 import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/outline";
-import { getCurrentDevice, updateUser } from "actito-web/core";
-import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registered";
+import { updateUser } from "actito-web/core";
 import { Button } from "@/components/button";
 import { Card, CardActions, CardContent, CardHeader } from "@/components/card";
 import { InputField } from "@/components/input-field";
 import { toast } from "@/components/sonner";
+import { useCurrentUser } from "@/context/current-user";
 import { logger } from "@/utils/logger";
 
 export function DeviceRegistrationCard() {
-  const device = getCurrentDevice();
+  const { user, setUser } = useCurrentUser();
 
-  const [userId, setUserId] = useState<string>(device?.userId ?? "");
-  const [userName, setUserName] = useState<string>(device?.userName ?? "");
+  const [userId, setUserId] = useState<string>(user?.userId ?? "");
+  const [userName, setUserName] = useState<string>(user?.userName ?? "");
   const [loading, setLoading] = useState<boolean>(false);
-
-  useOnDeviceRegistered((device) => {
-    setUserId(device.userId ?? "");
-    setUserName(device.userName ?? "");
-  });
 
   const onRegisterClick = useCallback(() => {
     setLoading(true);
@@ -26,6 +21,7 @@ export function DeviceRegistrationCard() {
     updateUser({ userId: userId.trim() || null, userName: userName.trim() || null })
       .then(() => {
         setLoading(false);
+        setUser({ userId: userId, userName: userName });
         toast({
           title: "The device was registered.",
           variant: "success",
@@ -40,7 +36,7 @@ export function DeviceRegistrationCard() {
         });
         logger.error(`Unable to register the device: ${e}`);
       });
-  }, [userId, userName]);
+  }, [setUser, userId, userName]);
 
   return (
     <Card>
