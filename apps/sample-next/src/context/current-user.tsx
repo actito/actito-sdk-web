@@ -11,10 +11,8 @@ export function CurrentUserProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     const device = getCurrentDevice();
 
-    if (!device?.userId || !device?.userName) return;
-
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUser({ userId: device.userId, userName: device.userName });
+    setUser({ userId: device?.userId, userName: device?.userName });
   }, []);
 
   const state = useMemo<CurrentUserState>(
@@ -44,6 +42,6 @@ type CurrentUserState = {
 };
 
 type User = {
-  userId: string;
-  userName: string;
+  userId?: string;
+  userName?: string;
 };
