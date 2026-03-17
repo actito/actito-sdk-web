@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { getApplication } from "@actito/web-core";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import { ActitoApplication } from "actito-web/core";
+import { useOnReady } from "@/actito/hooks/events/core/ready";
 import { Tooltip } from "@/components/tooltip";
 
 export function ApplicationInfo() {
-  const application = getApplication();
+  const [application, setApplication] = useState<ActitoApplication>();
+
+  useOnReady(() => {
+    setApplication(getApplication());
+  });
 
   if (!application) return;
 
