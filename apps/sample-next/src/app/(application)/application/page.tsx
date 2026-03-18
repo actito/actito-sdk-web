@@ -10,6 +10,7 @@ export default function Application() {
   const [application, setApplication] = useState<ActitoApplication>();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setApplication(getApplication());
   }, []);
 
@@ -17,7 +18,7 @@ export default function Application() {
     <>
       <PageHeader
         title="Actito application"
-        message="Inspect the cached application in your local storage"
+        message="Inspect the cached application in your local storage."
       />
 
       <ActitoLaunchBlocker>

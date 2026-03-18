@@ -26,7 +26,9 @@ export function ApplicationInfo() {
         delayOnShow={false}
         className="max-w-50 sm:max-w-max"
       >
-        <InformationCircleIcon className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
+        <div className="relative rounded-full overflow-hidden w-6 h-6">
+          <InformationCircleIcon className="absolute left-1/2 top-1/2 -translate-1/2 w-8 h-8 text-indigo-600 dark:text-indigo-500 bg-white" />
+        </div>
       </Tooltip>
     </div>
   );

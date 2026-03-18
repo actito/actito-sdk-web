@@ -109,7 +109,7 @@ function InboxItemRemoveButton({ disabled, onClick }: InboxItemRemoveButtonProps
   return (
     <Tooltip label="Remove" disabled={disabled}>
       <button
-        className="flex items-center justify-center w-7 h-7 rounded-md text-red-600 dark:text-red-400 hover:not-disabled:bg-neutral-100 dark:hover:not-disabled:bg-neutral-700 transition"
+        className="flex items-center justify-center w-7 h-7 rounded-md text-red-600 dark:text-red-400 hover:not-disabled:bg-neutral-100 dark:hover:not-disabled:bg-neutral-700"
         disabled={disabled}
         onClick={(e) => {
           e.stopPropagation();
@@ -136,7 +136,7 @@ function InboxItemMarkAsReadButton({
     <Tooltip label="Mark as read" disabled={disabled || markedAsRead}>
       <button
         className={cx(
-          "flex items-center justify-center w-7 h-7 rounded-md hover:not-disabled:bg-neutral-100 dark:hover:not-disabled:bg-neutral-700 transition",
+          "flex items-center justify-center w-7 h-7 rounded-md hover:not-disabled:bg-neutral-100 dark:hover:not-disabled:bg-neutral-700",
           {
             "text-neutral-300 dark:text-neutral-600": markedAsRead,
             "text-neutral-500 dark:text-neutral-300": !markedAsRead,

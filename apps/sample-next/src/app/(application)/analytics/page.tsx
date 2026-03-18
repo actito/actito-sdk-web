@@ -118,7 +118,7 @@ export default function Analytics() {
                 id="event-json-attributes"
                 placeholder="Write your JSON here"
                 value={jsonAttributes}
-                className="w-full h-40 min-h-10.5 mt-2 border-2 border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-200"
+                className="w-full h-40 min-h-10.5 mt-2 border-2 sm:text-sm border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-neutral-500"
                 onChange={(e) => setJsonAttributes(e.target.value)}
               />
             ) : (
