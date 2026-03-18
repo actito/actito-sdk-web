@@ -10,6 +10,7 @@ import { Button } from "@/components/button";
 import { InputField } from "@/components/input-field";
 import { PageHeader } from "@/components/page-header";
 import { ProgressIndicator } from "@/components/progress-indicator";
+import { toast } from "@/components/sonner";
 import { Tooltip } from "@/components/tooltip";
 
 export default function Segmentation() {
@@ -41,8 +42,17 @@ export default function Segmentation() {
       await addTag(tag);
       setTag("");
       setReloadTrigger((prevState) => prevState + 1);
-    } catch {
+      toast({
+        title: "The tag was created.",
+        variant: "success",
+      });
+    } catch (error) {
       setSegmentationState({ status: "failure" });
+      toast({
+        title: "It was not possible to create a new tag.",
+        description: `${error}`,
+        variant: "error",
+      });
     }
   }, [tag]);
 
@@ -51,8 +61,17 @@ export default function Segmentation() {
       setSegmentationState({ status: "loading" });
       await removeTag(tag);
       setReloadTrigger((prevState) => prevState + 1);
-    } catch {
+      toast({
+        title: "The tag was removed.",
+        variant: "success",
+      });
+    } catch (error) {
       setSegmentationState({ status: "failure" });
+      toast({
+        title: "It was not possible to remove the tag.",
+        description: `${error}`,
+        variant: "error",
+      });
     }
   }, []);
 
