@@ -7,11 +7,13 @@ import { ActitoLaunchBlocker } from "@/components/actito/actito-launch-blocker";
 import { Alert } from "@/components/alert";
 import { Button } from "@/components/button";
 import { PageHeader } from "@/components/page-header";
+import { toast } from "@/components/sonner";
 import { logger } from "@/utils/logger";
 
 export default function Device() {
   const [device, setDevice] = useState<ActitoDevice>();
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setDevice(getCurrentDevice()), []);
 
   useOnDeviceRegistered((device) => setDevice(device));
@@ -21,8 +23,17 @@ export default function Device() {
 
     try {
       await navigator.clipboard.writeText(device.id);
+
+      toast({
+        title: "The device ID was successfully copied to the clipboard!",
+        variant: "success",
+      });
     } catch {
-      logger.error("Failed to copy the deviceId to the clipboard.");
+      toast({
+        title: "Failed to copy the device ID to the clipboard.",
+        variant: "error",
+      });
+      logger.error("Failed to copy the device ID to the clipboard.");
     }
   }, [device]);
 
@@ -31,8 +42,17 @@ export default function Device() {
 
     try {
       await navigator.clipboard.writeText(encodeURIComponent(device.id));
+
+      toast({
+        title: "The URL-encoded device ID was successfully copied to the clipboard!",
+        variant: "success",
+      });
     } catch {
-      logger.error("Failed to copy the deviceId to the clipboard.");
+      toast({
+        title: "Failed to copy the URL-encoded device ID to the clipboard.",
+        variant: "error",
+      });
+      logger.error("Failed to copy the URL-encoded device ID to the clipboard.");
     }
   }, [device]);
 
@@ -40,7 +60,7 @@ export default function Device() {
     <>
       <PageHeader
         title="Registered device"
-        message="Inspect the registered device in your local storage"
+        message="Inspect the registered device in your local storage."
       />
 
       <ActitoLaunchBlocker>
