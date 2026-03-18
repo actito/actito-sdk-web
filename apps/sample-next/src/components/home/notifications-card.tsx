@@ -33,6 +33,14 @@ export function NotificationsCard() {
   }, []);
 
   async function updateRemoteNotificationsStatus(checked: boolean) {
+    if (checked && permissionStatus === "denied") {
+      toast({
+        title: "You have denied notification permissions. Please, check your browser settings.",
+        variant: "error",
+      });
+      return;
+    }
+
     try {
       setLoading(true);
 
