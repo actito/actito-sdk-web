@@ -32,15 +32,22 @@ export function NotificationsCard() {
     setPermissionStatus(permissionStatus);
   }, []);
 
-  async function updateRemoteNotificationsStatus(checked: boolean) {
-    if (checked && permissionStatus === "denied") {
-      toast({
-        title: "You have denied notification permissions. Please, check your browser settings.",
-        variant: "error",
-      });
-      return;
-    }
+  useOnDeviceRegistered(() => {
+    const enabled = hasRemoteNotificationsEnabled();
+    setEnabled(enabled);
+  });
 
+  useOnNotificationSettingsChanged((allowedUI) => {
+    const enabled = hasRemoteNotificationsEnabled();
+    setEnabled(enabled);
+
+    setAllowedUI(allowedUI);
+
+    const permissionStatus = getPushPermissionStatus();
+    setPermissionStatus(permissionStatus);
+  });
+
+  async function updateRemoteNotificationsStatus(checked: boolean) {
     try {
       setLoading(true);
 
@@ -57,34 +64,22 @@ export function NotificationsCard() {
           variant: "success",
         });
       }
-
-      setEnabled(checked);
     } catch (error) {
       toast({
-        title: "It was not possible to update the remote notification permissions.",
+        title: `There was a problem ${checked ? "enabling" : "disabling"} remote notifications.`,
         description: `${error}`,
         variant: "error",
       });
-      logger.error(`It was not possible to update the remote notification permissions: ${error}`);
+      logger.error(
+        `There was a problem ${checked ? "enabling" : "disabling"} remote notifications: ${error}`,
+      );
     } finally {
+      const enabled = hasRemoteNotificationsEnabled();
+      setEnabled(enabled);
+
       setLoading(false);
     }
   }
-
-  useOnDeviceRegistered(() => {
-    const enabled = hasRemoteNotificationsEnabled();
-    setEnabled(enabled);
-  });
-
-  useOnNotificationSettingsChanged((allowedUI) => {
-    const enabled = hasRemoteNotificationsEnabled();
-    setEnabled(enabled);
-
-    setAllowedUI(allowedUI);
-
-    const permissionStatus = getPushPermissionStatus();
-    setPermissionStatus(permissionStatus);
-  });
 
   return (
     <Card>
