@@ -52,8 +52,10 @@ export default function Setup() {
     [appConfiguration, actitoOptions, hasConfigurationMismatch],
   );
 
-  const setup = useCallback(async () => {
-    const config = actitoOptions;
+  const setup = useCallback(() => {
+    if (appConfiguration && !hasConfigurationMismatch) return;
+
+    const config = { ...actitoOptions };
 
     if (!config) return;
 
@@ -81,7 +83,7 @@ export default function Setup() {
       }),
     );
     window.location.href = "/";
-  }, [actitoOptions, state]);
+  }, [appConfiguration, hasConfigurationMismatch, actitoOptions, state]);
 
   useEffect(
     function ensureCleanState() {
