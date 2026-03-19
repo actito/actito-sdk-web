@@ -19,11 +19,10 @@ export function ConfigurationForm({ state, onChange }: ConfigurationFormProps) {
 
   return (
     <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-8">
+      <ApplicationKeysSettingsCard />
       <GeneralSettingsCard state={state} onChange={onPartialChange} />
       <ServiceWorkerSettingsCard state={state} onChange={onPartialChange} />
       <GeolocationSettingsCard state={state} onChange={onPartialChange} />
-
-      {!onPartialChange && <ApplicationKeysSettingsCard />}
     </div>
   );
 }
