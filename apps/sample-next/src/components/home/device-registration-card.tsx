@@ -27,14 +27,14 @@ export function DeviceRegistrationCard() {
           variant: "success",
         });
       })
-      .catch((e) => {
+      .catch((error) => {
         setLoading(false);
         toast({
           title: "Unable to register the device.",
-          description: `${e}`,
+          description: `${error}`,
           variant: "error",
         });
-        logger.error(`Unable to register the device: ${e}`);
+        logger.error(`Unable to register the device: ${error}`);
       });
   }, [setUser, userId, userName]);
 

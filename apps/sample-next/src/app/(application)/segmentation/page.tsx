@@ -12,6 +12,7 @@ import { PageHeader } from "@/components/page-header";
 import { ProgressIndicator } from "@/components/progress-indicator";
 import { toast } from "@/components/sonner";
 import { Tooltip } from "@/components/tooltip";
+import { logger } from "@/utils/logger";
 
 export default function Segmentation() {
   const state = useActitoState();
@@ -31,7 +32,10 @@ export default function Segmentation() {
             setSegmentationState({ status: "empty" });
           }
         })
-        .catch(() => setSegmentationState({ status: "failure" }));
+        .catch((error) => {
+          setSegmentationState({ status: "failure" });
+          logger.error(`It was not possible to fetch the device tags: ${error}`);
+        });
     },
     [state, reloadTrigger],
   );
@@ -53,6 +57,7 @@ export default function Segmentation() {
         description: `${error}`,
         variant: "error",
       });
+      logger.error(`It was not possible to create a new tag: ${error}`);
     }
   }, [tag]);
 
@@ -72,6 +77,7 @@ export default function Segmentation() {
         description: `${error}`,
         variant: "error",
       });
+      logger.error(`It was not possible to remove the tag: ${error}`);
     }
   }, []);
 

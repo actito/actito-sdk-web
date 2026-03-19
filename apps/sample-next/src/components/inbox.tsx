@@ -19,9 +19,9 @@ export function InboxItem({ item, inboxState, onOpen, onMarkAsRead, onRemove }: 
       <div
         className={cx("flex items-center space-x-4 transition", {
           "opacity-40":
-            (inboxState.status === "handlingItem" && inboxState.handlingItemId === item.id) ||
-            inboxState.status === "markingAllItemsAsRead" ||
-            inboxState.status === "removingAllItems",
+            (inboxState.status === "handling-item" && inboxState.handlingItemId === item.id) ||
+            inboxState.status === "marking-all-items-as-read" ||
+            inboxState.status === "removing-all-items",
         })}
       >
         <InboxItemImage attachment={item.notification.attachments[0]} />
@@ -65,7 +65,7 @@ export function InboxItem({ item, inboxState, onOpen, onMarkAsRead, onRemove }: 
           </div>
         </div>
       </div>
-      {inboxState.status === "handlingItem" && inboxState.handlingItemId === item.id && (
+      {inboxState.status === "handling-item" && inboxState.handlingItemId === item.id && (
         <Spinner className="w-5.5 h-5.5 text-neutral-600 dark:text-neutral-400 absolute top-4 right-20" />
       )}
     </div>

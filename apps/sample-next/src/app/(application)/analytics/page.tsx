@@ -79,10 +79,10 @@ export default function Analytics() {
         title: "The custom event was logged successfully.",
         variant: "success",
       });
-    } catch (e) {
+    } catch (error) {
       toast({
         title: "It was not possible to log the custom event.",
-        description: `${e}`,
+        description: `${error}`,
         variant: "error",
       });
     } finally {
@@ -201,7 +201,7 @@ export default function Analytics() {
           <Switch
             label="Advanced mode"
             checked={advancedMode}
-            switchOnLeft={true}
+            switchPosition="left"
             onChange={() => setAdvancedMode(!advancedMode)}
           />
 
@@ -214,7 +214,7 @@ export default function Analytics() {
   );
 }
 
-interface StringAttribute {
+type StringAttribute = {
   key: string;
   value: string;
-}
+};

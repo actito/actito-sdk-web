@@ -59,13 +59,13 @@ export function NotificationsCard() {
       }
 
       setEnabled(checked);
-    } catch (e) {
+    } catch (error) {
       toast({
         title: "It was not possible to update the remote notification permissions.",
-        description: `${e}`,
+        description: `${error}`,
         variant: "error",
       });
-      logger.error(`It was not possible to update the remote notification permissions: ${e}`);
+      logger.error(`It was not possible to update the remote notification permissions: ${error}`);
     } finally {
       setLoading(false);
     }

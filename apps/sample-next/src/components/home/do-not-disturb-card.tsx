@@ -46,7 +46,7 @@ export function DoNotDisturbCard() {
             : { status: "disabled" },
         );
       })
-      .catch((e) => {
+      .catch((error) => {
         setState(
           isLocalDeviceDndEnabled
             ? { status: "enabled", data: localDeviceDndData }
@@ -55,10 +55,10 @@ export function DoNotDisturbCard() {
         toast({
           title:
             "Failed to fetch the 'Do not disturb' state. Instead, it's using local device information.",
-          description: `${e}`,
+          description: `${error}`,
           variant: "warning",
         });
-        logger.error(`Failed to fetch to dnd: ${e}`);
+        logger.error(`Failed to fetch the 'Do not disturb' state: ${error}`);
       });
   }, []);
 
@@ -73,13 +73,13 @@ export function DoNotDisturbCard() {
             variant: "success",
           });
         })
-        .catch((e) => {
+        .catch((error) => {
           toast({
             title: "Failed to disable the 'Do not disturb' mode.",
-            description: `${e}`,
+            description: `${error}`,
             variant: "error",
           });
-          logger.error(`Failed to clear the dnd: ${e}`);
+          logger.error(`Failed to disable the 'Do not disturb' mode: ${error}`);
         })
         .finally(() => setState({ status: "disabled" }));
     }
@@ -97,13 +97,13 @@ export function DoNotDisturbCard() {
             variant: "success",
           });
         })
-        .catch((e) => {
+        .catch((error) => {
           toast({
             title: "Failed to enable the 'Do not disturb' mode.",
-            description: `${e}`,
+            description: `${error}`,
             variant: "error",
           });
-          logger.error(`Failed to enable the dnd: ${e}`);
+          logger.error(`Failed to enable the 'Do not disturb' mode: ${error}`);
         })
         .finally(() => setState({ status: "enabled", data: state.data }));
     }

@@ -49,8 +49,8 @@ export default function Setup() {
         }),
       );
       window.location.href = "/";
-    } catch (e) {
-      logger.error(`Something went wrong: ${e}`);
+    } catch (error) {
+      logger.error(`Something went wrong: ${error}`);
     }
   }, [state]);
 

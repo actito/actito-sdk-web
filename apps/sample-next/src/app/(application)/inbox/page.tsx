@@ -49,16 +49,16 @@ export default function Inbox() {
     (item: ActitoInboxItem) => {
       if (inboxState.status !== "loaded") return;
 
-      setInboxState({ ...inboxState, status: "handlingItem", handlingItemId: item.id });
+      setInboxState({ ...inboxState, status: "handling-item", handlingItemId: item.id });
       openInboxItem(item)
         .then((notification) => presentNotification(notification))
         .catch((error) => {
           toast({
-            title: "It was not possible open the inbox item.",
+            title: "It was not possible to open the inbox item.",
             description: `${error}`,
             variant: "error",
           });
-          logger.error(`Unable to open inbox item: ${error}`);
+          logger.error(`It was not possible to open the inbox item: ${error}`);
         })
         .finally(() => setInboxState({ ...inboxState, status: "loaded" }));
     },
@@ -68,7 +68,7 @@ export default function Inbox() {
   const markAllItemsAsRead = useCallback(() => {
     if (inboxState.status !== "loaded") return;
 
-    setInboxState({ ...inboxState, status: "markingAllItemsAsRead" });
+    setInboxState({ ...inboxState, status: "marking-all-items-as-read" });
     markAllInboxItemsAsRead()
       .then(() => {
         forceInboxReload();
@@ -84,6 +84,7 @@ export default function Inbox() {
           description: `${error}`,
           variant: "error",
         });
+        logger.error(`It was not possible to mark every inbox item as read: ${error}`);
       });
   }, [forceInboxReload, inboxState]);
 
@@ -91,7 +92,7 @@ export default function Inbox() {
     (item: ActitoInboxItem) => {
       if (inboxState.status !== "loaded") return;
 
-      setInboxState({ ...inboxState, status: "handlingItem", handlingItemId: item.id });
+      setInboxState({ ...inboxState, status: "handling-item", handlingItemId: item.id });
       markInboxItemAsRead(item)
         .then(() => {
           forceInboxReload();
@@ -107,6 +108,7 @@ export default function Inbox() {
             description: `${error}`,
             variant: "error",
           });
+          logger.error(`It was not possible to mark the inbox item as read: ${error}`);
         });
     },
     [forceInboxReload, inboxState],
@@ -115,7 +117,7 @@ export default function Inbox() {
   const removeAllItems = useCallback(() => {
     if (inboxState.status !== "loaded") return;
 
-    setInboxState({ ...inboxState, status: "removingAllItems" });
+    setInboxState({ ...inboxState, status: "removing-all-items" });
     clearInbox()
       .then(() => {
         forceInboxReload();
@@ -131,6 +133,7 @@ export default function Inbox() {
           description: `${error}`,
           variant: "error",
         });
+        logger.error(`It was not possible to remove all inbox items: ${error}`);
       });
   }, [forceInboxReload, inboxState]);
 
@@ -138,7 +141,7 @@ export default function Inbox() {
     (item: ActitoInboxItem) => {
       if (inboxState.status !== "loaded") return;
 
-      setInboxState({ ...inboxState, status: "handlingItem", handlingItemId: item.id });
+      setInboxState({ ...inboxState, status: "handling-item", handlingItemId: item.id });
       removeInboxItem(item)
         .then(() => {
           forceInboxReload();
@@ -150,10 +153,11 @@ export default function Inbox() {
         .catch((error) => {
           setInboxState({ ...inboxState, status: "loaded" });
           toast({
-            title: "It was not possible to remove the item.",
+            title: "It was not possible to remove the inbox item.",
             description: `${error}`,
             variant: "error",
           });
+          logger.error(`It was not possible to remove the inbox item: ${error}`);
         });
     },
     [forceInboxReload, inboxState],
@@ -186,7 +190,7 @@ export default function Inbox() {
                 >
                   <PageHeaderAction
                     label="Mark all as read"
-                    loading={inboxState.status === "markingAllItemsAsRead"}
+                    loading={inboxState.status === "marking-all-items-as-read"}
                     disabled={inboxState.status !== "loaded" || areAllInboxItemsRead()}
                     icon={EnvelopeOpenIcon}
                     onClick={markAllItemsAsRead}
@@ -196,7 +200,7 @@ export default function Inbox() {
                 <Tooltip label="Remove all" disabled={inboxState.status !== "loaded"}>
                   <PageHeaderAction
                     label="Remove all"
-                    loading={inboxState.status === "removingAllItems"}
+                    loading={inboxState.status === "removing-all-items"}
                     disabled={inboxState.status !== "loaded"}
                     icon={TrashIcon}
                     onClick={removeAllItems}
@@ -262,16 +266,16 @@ type State<T extends string> = { status: T };
 
 type LoadingInboxState = State<"loading">;
 
-type HandlingItemInboxState = State<"handlingItem"> & {
+type HandlingItemInboxState = State<"handling-item"> & {
   items: ActitoInboxItem[];
   handlingItemId: string;
 };
 
-type MarkingAllItemsAsReadInboxState = State<"markingAllItemsAsRead"> & {
+type MarkingAllItemsAsReadInboxState = State<"marking-all-items-as-read"> & {
   items: ActitoInboxItem[];
 };
 
-type RemovingAllItemsInboxState = State<"removingAllItems"> & {
+type RemovingAllItemsInboxState = State<"removing-all-items"> & {
   items: ActitoInboxItem[];
 };
 

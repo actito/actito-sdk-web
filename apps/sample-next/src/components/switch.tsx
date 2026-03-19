@@ -8,14 +8,14 @@ export function Switch({
   disabled = false,
   checked,
   loading,
-  switchOnLeft,
+  switchPosition = "right",
   onChange,
 }: SwitchProps) {
   return (
     <Field
       as="div"
       className={cx("flex items-center justify-between gap-3", {
-        "flex-row-reverse": switchOnLeft,
+        "flex-row-reverse": switchPosition === "left",
       })}
     >
       {label && (
@@ -73,6 +73,6 @@ export interface SwitchProps {
   disabled?: boolean;
   checked: boolean;
   loading?: boolean;
-  switchOnLeft?: boolean;
+  switchPosition?: "left" | "right";
   onChange?: (checked: boolean) => void;
 }

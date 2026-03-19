@@ -71,11 +71,11 @@ export function ActitoProvider({ children }: PropsWithChildren) {
           variant: "success",
         });
       })
-      .catch((e) => {
-        setState({ status: "launch-failed", error: e });
+      .catch((error) => {
+        setState({ status: "launch-failed", error: error });
         toast({
           title: "The app could not be launched.",
-          description: `${e}`,
+          description: `${error}`,
           variant: "error",
         });
       });
@@ -92,11 +92,11 @@ export function ActitoProvider({ children }: PropsWithChildren) {
           variant: "success",
         });
       })
-      .catch((e) => {
-        setState({ status: "unlaunch-failed", error: e });
+      .catch((error) => {
+        setState({ status: "unlaunch-failed", error: error });
         toast({
           title: "The app could not be unlaunched.",
-          description: `${e}`,
+          description: `${error}`,
           variant: "error",
         });
       });
