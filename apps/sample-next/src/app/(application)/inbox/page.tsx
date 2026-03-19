@@ -187,6 +187,7 @@ export default function Inbox() {
                 <Tooltip
                   label="Mark all as read"
                   disabled={inboxState.status !== "loaded" || areAllInboxItemsRead()}
+                  hideOnMobile
                 >
                   <PageHeaderAction
                     label="Mark all as read"
@@ -197,7 +198,7 @@ export default function Inbox() {
                   />
                 </Tooltip>
 
-                <Tooltip label="Remove all" disabled={inboxState.status !== "loaded"}>
+                <Tooltip label="Remove all" disabled={inboxState.status !== "loaded"} hideOnMobile>
                   <PageHeaderAction
                     label="Remove all"
                     loading={inboxState.status === "removing-all-items"}

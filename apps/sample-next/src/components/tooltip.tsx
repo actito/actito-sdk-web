@@ -6,6 +6,7 @@ export function Tooltip({
   disabled,
   position = "top",
   delayOnShow = true,
+  hideOnMobile = false,
   className,
   children,
 }: TooltipProps) {
@@ -22,6 +23,7 @@ export function Tooltip({
               "top-full mt-2 left-1/2 -translate-x-1/2": position === "bottom",
               "right-full mr-2 top-1/2 -translate-y-1/2": position === "left",
               "group-hover:delay-500": delayOnShow,
+              "hidden sm:block": hideOnMobile,
             },
           )}
         >
@@ -51,5 +53,6 @@ interface TooltipProps extends PropsWithChildren {
   disabled?: boolean;
   position?: "top" | "bottom" | "left";
   delayOnShow?: boolean;
+  hideOnMobile?: boolean;
   className?: string;
 }
