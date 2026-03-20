@@ -6,6 +6,7 @@ import { ActitoOptions } from "actito-web/core";
 import { ConfigurationForm } from "@/components/configuration/configuration-form";
 import { ConfigurationFormState } from "@/components/configuration/configuration-form-state";
 import { PageHeader, PageHeaderAction } from "@/components/page-header";
+import { toast } from "@/components/toast";
 import { logger } from "@/utils/logger";
 
 export default function Setup() {
@@ -50,6 +51,11 @@ export default function Setup() {
       );
       window.location.href = "/";
     } catch (error) {
+      toast({
+        title: "It was not possible to setup the app.",
+        description: `${error}`,
+        variant: "error",
+      });
       logger.error(`It was not possible to setup the app: ${error}`);
     }
   }, [state]);
