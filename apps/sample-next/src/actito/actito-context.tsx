@@ -43,6 +43,7 @@ import {
   Listener,
 } from "@/actito/hooks/events/base";
 import { toast } from "@/components/sonner";
+import { logger } from "@/utils/logger";
 
 const ActitoContext = createContext<ActitoContextState | undefined>(undefined);
 
@@ -78,6 +79,7 @@ export function ActitoProvider({ children }: PropsWithChildren) {
           description: `${error}`,
           variant: "error",
         });
+        logger.error(`The app could not be launched: ${error}`);
       });
   }, []);
 
@@ -99,6 +101,7 @@ export function ActitoProvider({ children }: PropsWithChildren) {
           description: `${error}`,
           variant: "error",
         });
+        logger.error(`The app could not be unlaunched: ${error}`);
       });
   }, []);
 

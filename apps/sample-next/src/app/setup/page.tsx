@@ -50,7 +50,7 @@ export default function Setup() {
       );
       window.location.href = "/";
     } catch (error) {
-      logger.error(`Something went wrong: ${error}`);
+      logger.error(`It was not possible to setup the app: ${error}`);
     }
   }, [state]);
 

@@ -28,12 +28,13 @@ export default function Device() {
         title: "The device ID was successfully copied to the clipboard!",
         variant: "success",
       });
-    } catch {
+    } catch (error) {
       toast({
         title: "Failed to copy the device ID to the clipboard.",
+        description: `${error}`,
         variant: "error",
       });
-      logger.error("Failed to copy the device ID to the clipboard.");
+      logger.error(`Failed to copy the device ID to the clipboard: ${error}`);
     }
   }, [device]);
 
@@ -47,12 +48,13 @@ export default function Device() {
         title: "The URL-encoded device ID was successfully copied to the clipboard!",
         variant: "success",
       });
-    } catch {
+    } catch (error) {
       toast({
         title: "Failed to copy the URL-encoded device ID to the clipboard.",
+        description: `${error}`,
         variant: "error",
       });
-      logger.error("Failed to copy the URL-encoded device ID to the clipboard.");
+      logger.error(`Failed to copy the URL-encoded device ID to the clipboard: ${error}`);
     }
   }, [device]);
 

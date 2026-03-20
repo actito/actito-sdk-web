@@ -11,6 +11,7 @@ import { PageHeader } from "@/components/page-header";
 import { toast } from "@/components/sonner";
 import { Switch } from "@/components/switch";
 import { Tooltip } from "@/components/tooltip";
+import { logger } from "@/utils/logger";
 
 export default function Analytics() {
   const [eventName, setEventName] = useState<string>("");
@@ -85,6 +86,7 @@ export default function Analytics() {
         description: `${error}`,
         variant: "error",
       });
+      logger.error(`It was not possible to log the custom event: ${error}`);
     } finally {
       setLoading(false);
     }
