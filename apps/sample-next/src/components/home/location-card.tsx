@@ -6,8 +6,8 @@ import {
   hasLocationServicesEnabled,
 } from "actito-web/geo";
 import { Card, CardContent, CardHeader } from "@/components/card";
-import { toast } from "@/components/sonner";
 import { Switch } from "@/components/switch";
+import { toast } from "@/components/toast";
 import { logger } from "@/utils/logger";
 
 export function LocationCard() {

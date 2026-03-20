@@ -4,7 +4,7 @@ import { updateUser } from "actito-web/core";
 import { Button } from "@/components/button";
 import { Card, CardActions, CardContent, CardHeader } from "@/components/card";
 import { InputField } from "@/components/input-field";
-import { toast } from "@/components/sonner";
+import { toast } from "@/components/toast";
 import { useCurrentUser } from "@/context/current-user";
 import { logger } from "@/utils/logger";
 

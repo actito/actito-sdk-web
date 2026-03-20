@@ -19,7 +19,7 @@ import { Alert } from "@/components/alert";
 import { InboxItem } from "@/components/inbox";
 import { PageHeader, PageHeaderAction } from "@/components/page-header";
 import { ProgressIndicator } from "@/components/progress-indicator";
-import { toast } from "@/components/sonner";
+import { toast } from "@/components/toast";
 import { Tooltip } from "@/components/tooltip";
 import { logger } from "@/utils/logger";
 

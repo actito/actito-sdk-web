@@ -42,7 +42,7 @@ import {
   IdentifiableListener,
   Listener,
 } from "@/actito/hooks/events/base";
-import { toast } from "@/components/sonner";
+import { toast } from "@/components/toast";
 import { logger } from "@/utils/logger";
 
 const ActitoContext = createContext<ActitoContextState | undefined>(undefined);

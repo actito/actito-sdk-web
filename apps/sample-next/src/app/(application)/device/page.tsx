@@ -7,7 +7,7 @@ import { ActitoLaunchBlocker } from "@/components/actito/actito-launch-blocker";
 import { Alert } from "@/components/alert";
 import { Button } from "@/components/button";
 import { PageHeader } from "@/components/page-header";
-import { toast } from "@/components/sonner";
+import { toast } from "@/components/toast";
 import { logger } from "@/utils/logger";
 
 export default function Device() {

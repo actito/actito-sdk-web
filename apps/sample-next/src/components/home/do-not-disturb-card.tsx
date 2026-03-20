@@ -9,8 +9,8 @@ import {
 import { Button } from "@/components/button";
 import { Card, CardActions, CardContent, CardHeader } from "@/components/card";
 import { InputField } from "@/components/input-field";
-import { toast } from "@/components/sonner";
 import { Switch } from "@/components/switch";
+import { toast } from "@/components/toast";
 import { logger } from "@/utils/logger";
 
 const DEFAULT_DND_START = "23:00";

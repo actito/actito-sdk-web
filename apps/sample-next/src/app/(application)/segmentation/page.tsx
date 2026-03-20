@@ -10,7 +10,7 @@ import { Button } from "@/components/button";
 import { InputField } from "@/components/input-field";
 import { PageHeader } from "@/components/page-header";
 import { ProgressIndicator } from "@/components/progress-indicator";
-import { toast } from "@/components/sonner";
+import { toast } from "@/components/toast";
 import { Tooltip } from "@/components/tooltip";
 import { logger } from "@/utils/logger";
 

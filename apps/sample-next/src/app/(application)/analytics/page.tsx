@@ -8,8 +8,8 @@ import { ActitoLaunchBlocker } from "@/components/actito/actito-launch-blocker";
 import { Button } from "@/components/button";
 import { InputField } from "@/components/input-field";
 import { PageHeader } from "@/components/page-header";
-import { toast } from "@/components/sonner";
 import { Switch } from "@/components/switch";
+import { toast } from "@/components/toast";
 import { Tooltip } from "@/components/tooltip";
 import { logger } from "@/utils/logger";
 
@@ -26,13 +26,13 @@ export default function Analytics() {
     setStringAttributes(newAttributes);
   }, [stringAttributes]);
 
-  const removeAttribute = useCallback(
-    (index: number) => {
-      const newAttributes = stringAttributes.filter((_, i) => i !== index);
-      setStringAttributes(newAttributes);
-    },
-    [stringAttributes],
-  );
+  const removeAttribute = useCallback((index: number) => {
+    setStringAttributes((prev) => {
+      const next = [...prev];
+      next.splice(index, 1);
+      return next;
+    });
+  }, []);
 
   const handleAttributeChange = useCallback(
     (index: number, key: string, value: string) => {
