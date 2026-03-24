@@ -6,6 +6,7 @@ import { useActitoConfiguration } from "@/actito/hooks/actito-configuration";
 import { ConfigurationForm } from "@/components/configuration/configuration-form";
 import { ConfigurationFormState } from "@/components/configuration/configuration-form-state";
 import { PageHeader, PageHeaderAction } from "@/components/page-header";
+import { toast } from "@/components/toast";
 
 export default function Setup() {
   const [state, setState] = useState<ConfigurationFormState>({
@@ -57,7 +58,16 @@ export default function Setup() {
 
     const config = { ...actitoOptions };
 
-    if (!config) return;
+    const isEmpty = Object.keys(config).length === 0;
+
+    if (isEmpty) {
+      toast({
+        title:
+          "Your configuration is empty or could not be loaded. Please check your actito-services.json file.",
+        variant: "error",
+      });
+      return;
+    }
 
     config.applicationVersion = state.applicationVersion.trim() || undefined;
     config.language = state.language.trim() || undefined;
