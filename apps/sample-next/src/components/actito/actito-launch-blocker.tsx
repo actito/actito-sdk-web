@@ -11,9 +11,7 @@ export function ActitoLaunchBlocker({ children }: PropsWithChildren) {
 
   return (
     <ActitoConfigurationBlocker>
-      {(state.status === "idle" ||
-        state.status === "launch-failed" ||
-        state.status === "unlaunch-failed") && (
+      {state.status === "idle" && (
         <Alert
           variant="warning"
           message="Actito is idle."
@@ -22,6 +20,14 @@ export function ActitoLaunchBlocker({ children }: PropsWithChildren) {
             onClick: () => launch(),
           }}
         />
+      )}
+
+      {state.status === "launch-failed" && (
+        <Alert variant="error" message="Actito failed to launch." />
+      )}
+
+      {state.status === "unlaunch-failed" && (
+        <Alert variant="error" message="Actito failed to unlaunch." />
       )}
 
       {state.status === "launching" && (
