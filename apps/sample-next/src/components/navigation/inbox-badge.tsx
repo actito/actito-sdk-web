@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getBadge } from "@actito/web-inbox";
+import { useOnReady } from "@/actito/hooks/events/core/ready";
 import { useOnBadgeUpdated } from "@/actito/hooks/events/inbox/badge-updated";
 
 export function InboxBadge() {
   const [inboxBadge, setInboxBadge] = useState<number>(0);
 
-  useEffect(() => setInboxBadge(getBadge()), []);
+  useOnReady(() => setInboxBadge(getBadge()));
   useOnBadgeUpdated((badge) => setInboxBadge(badge));
 
   if (inboxBadge === 0) return;
