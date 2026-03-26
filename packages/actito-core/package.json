@@ -18,7 +18,8 @@
     "dev:types": "tsc --watch",
     "lint": "eslint .",
     "lint:types": "attw --pack .",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "test": "yarn node --experimental-vm-modules ../../node_modules/jest/bin/jest.js"
   },
   "files": [
     "dist",
@@ -44,9 +45,13 @@
   "devDependencies": {
     "@actito/library-config": "workspace:^",
     "@arethetypeswrong/cli": "^0.18.2",
+    "@jest/globals": "^30.3.0",
+    "@types/jest": "^30.0.0",
     "concurrently": "^9.2.0",
     "eslint": "^9.33.0",
+    "jest": "^30.3.0",
     "rollup": "^4.46.3",
+    "ts-jest": "^29.4.6",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.2"
   },
