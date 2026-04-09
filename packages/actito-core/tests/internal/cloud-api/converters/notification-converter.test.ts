@@ -25,7 +25,7 @@ describe('test convertCloudNotificationToPublic', () => {
     extra: {},
   };
 
-  test('when a full CloudNotification object is provided, it converts it into an ActitoNotification as expected', () => {
+  test('when a full CloudNotification object is provided, it converts it into an ActitoNotification object as expected', () => {
     const cloudNotification: CloudNotification = {
       _id: '1d9e80ef851d212aca82cf23',
       partial: false,
