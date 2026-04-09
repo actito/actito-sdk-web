@@ -18,7 +18,8 @@
     "dev": "lerna run --scope '@actito/*' --scope actito-web dev --parallel",
     "lint": "lerna run --scope '@actito/*' --scope actito-web lint",
     "lint:staged": "lerna run --scope '@actito/*' --scope actito-web lint:staged",
-    "sample-app": "lerna run --scope sample-next dev"
+    "sample-app": "lerna run --scope sample-next dev",
+    "test": "lerna run --scope '@actito/*' --scope actito-web test"
   },
   "devDependencies": {
     "husky": "^9.1.7",
