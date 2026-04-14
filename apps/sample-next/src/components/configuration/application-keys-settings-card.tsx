@@ -14,14 +14,14 @@ export function ApplicationKeysSettingsCard() {
         <InputField
           id="application-key"
           label="Application key"
-          value={actitoOptions?.applicationKey}
+          value={actitoOptions?.applicationKey ?? ""}
           disabled
         />
 
         <InputField
           id="application-secret"
           label="Application secret"
-          value={actitoOptions?.applicationSecret}
+          value={actitoOptions?.applicationSecret ?? ""}
           disabled
         />
       </CardContent>
