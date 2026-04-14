@@ -42,7 +42,6 @@ import {
   IdentifiableListener,
   Listener,
 } from "@/actito/hooks/events/base";
-import { toast } from "@/components/toast";
 import { logger } from "@/utils/logger";
 
 const ActitoContext = createContext<ActitoContextState | undefined>(undefined);
@@ -67,18 +66,9 @@ export function ActitoProvider({ children }: PropsWithChildren) {
     launch()
       .then(() => {
         setState({ status: "launched" });
-        toast({
-          title: "The app was launched successfully!",
-          variant: "success",
-        });
       })
       .catch((error) => {
         setState({ status: "launch-failed", error: error });
-        toast({
-          title: "The app could not be launched.",
-          description: `${error}`,
-          variant: "error",
-        });
         logger.error(`The app could not be launched: ${error}`);
       });
   }, []);
@@ -89,18 +79,9 @@ export function ActitoProvider({ children }: PropsWithChildren) {
     unlaunch()
       .then(() => {
         setState({ status: "idle" });
-        toast({
-          title: "The app was unlaunched successfully!",
-          variant: "success",
-        });
       })
       .catch((error) => {
         setState({ status: "unlaunch-failed", error: error });
-        toast({
-          title: "The app could not be unlaunched.",
-          description: `${error}`,
-          variant: "error",
-        });
         logger.error(`The app could not be unlaunched: ${error}`);
       });
   }, []);
