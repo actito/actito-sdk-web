@@ -7,6 +7,8 @@ import svg from 'rollup-plugin-svg-import';
 
 /**
  * @typedef {import('rollup').RollupOptions} RollupOptions
+ * @typedef {import('rollup').ExternalOption} ExternalOption
+ * @typedef {import('rollup').InputPluginOption} InputPluginOption
  */
 
 const LATEST_VERSION_REGEX = /^\d+\.\d+\.\d+$/;
@@ -103,6 +105,28 @@ function buildNpmPackage(pkg, component) {
 function buildCdnDistribution({ component, variant, version }) {
   const componentName = component.replace('/', '-');
 
+  /** @type ExternalOption */
+  const external = [];
+
+  /** @type InputPluginOption */
+  const plugins = [esbuild(), svg(), nodeResolve(), terser()];
+
+  // Handle the alias to the core package in the other modules.
+  if (component !== 'core') {
+    external.push(determineExternalCoreUrl({ variant, version }));
+
+    plugins.push(
+      alias({
+        entries: [
+          {
+            find: '@actito/web-core',
+            replacement: determineExternalCoreUrl({ variant, version }),
+          },
+        ],
+      }),
+    );
+  }
+
   /** @type RollupOptions[] */
   const configurations = [
     {
@@ -112,21 +136,8 @@ function buildCdnDistribution({ component, variant, version }) {
         format: 'esm',
         sourcemap: true,
       },
-      external: [determineExternalCoreUrl({ variant, version })],
-      plugins: [
-        esbuild(),
-        svg(),
-        nodeResolve(),
-        terser(),
-        alias({
-          entries: [
-            {
-              find: '@actito/web-core',
-              replacement: determineExternalCoreUrl({ variant, version }),
-            },
-          ],
-        }),
-      ],
+      external,
+      plugins,
     },
   ];
 
