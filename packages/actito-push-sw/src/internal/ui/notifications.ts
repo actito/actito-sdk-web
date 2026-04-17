@@ -109,7 +109,7 @@ async function displayPass(code: string) {
   if (pass.version === 2) {
     const { saveLinks } = await fetchCloudPassSaveLinks({
       environment: await getCloudApiEnvironment(),
-      serial: pass?.serial,
+      serial: pass.serial,
     });
 
     if (isAppleDevice() && isSafariBrowser() && saveLinks?.appleWallet) {
