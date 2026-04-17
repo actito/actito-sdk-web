@@ -4,4 +4,5 @@ export interface NetworkPassResponse {
 
 export interface NetworkPass {
   version: number;
+  serial: string;
 }
