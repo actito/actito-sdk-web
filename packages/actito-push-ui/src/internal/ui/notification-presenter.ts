@@ -161,6 +161,7 @@ function checkNotificationSupport(notification: ActitoNotification): boolean {
     case 're.notifica.notification.InAppBrowser':
     case 're.notifica.notification.Map':
     case 're.notifica.notification.Passbook':
+    case 're.notifica.notification.Pass':
     case 're.notifica.notification.URL':
     case 're.notifica.notification.URLResolver':
     case 're.notifica.notification.URLScheme':
