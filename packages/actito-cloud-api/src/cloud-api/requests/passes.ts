@@ -3,18 +3,19 @@ import type { CloudPassResponse } from '~/cloud-api/responses/pass';
 import type { CloudPassSaveLinksResponse } from '~/cloud-api/responses/pass-save-links';
 
 export async function fetchCloudPass(params: FetchCloudPassParams): Promise<CloudPassResponse> {
-  const { serial, ...rest } = params;
+  const { code, ...rest } = params;
 
+  // This endpoint accepts both serial numbers and barcodes
   const response = await cloudRequest({
     ...rest,
-    path: `/api/pass/forserial/${encodeURIComponent(serial)}`,
+    path: `/api/pass/forserial/${encodeURIComponent(code)}`,
   });
 
   return response.json();
 }
 
 export interface FetchCloudPassParams extends CloudRequestParams {
-  serial: string;
+  code: string;
 }
 
 export async function fetchCloudPassSaveLinks(

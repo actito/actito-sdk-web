@@ -32,6 +32,9 @@ export async function presentNotification(notification: ActitoNotification) {
     case 're.notifica.notification.Passbook':
       await presentPassbookNotification(notification);
       break;
+    case 're.notifica.notification.Pass':
+      await presentPassNotification(notification);
+      break;
     case 're.notifica.notification.URLResolver':
       await presentUrlResolverNotification(notification);
       break;
@@ -68,24 +71,45 @@ function sanitizeContentUrl(content: ActitoNotificationContent): string {
   }
 }
 
+async function presentPassNotification(notification: ActitoNotification) {
+  const content = notification.content.find(({ type }) => type === 're.notifica.content.Pass');
+
+  if (!content) throw new Error('Missing content for Pass type notification.');
+
+  const code = content.data.serial ?? content.data.barcode;
+
+  if (!code) {
+    throw new Error('Malformed content for Pass type notification. No serial or barcode found.');
+  }
+
+  await displayPass(code);
+}
+
 async function presentPassbookNotification(notification: ActitoNotification) {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.PKPass');
-  if (!content) throw new Error('Invalid notification content.');
+
+  if (!content) throw new Error('Missing content for Passbook type notification.');
 
   const passUrlStr: string = content.data;
-  const components = passUrlStr.split('/');
-  if (!components.length) throw new Error('Invalid notification content.');
 
-  const id = components[components.length - 1];
+  const components = passUrlStr.split('/');
+  if (!components.length) throw new Error('Invalid content for Passbook type notification.');
+
+  const code: string = components[components.length - 1];
+
+  await displayPass(code);
+}
+
+async function displayPass(code: string) {
   const { pass } = await fetchCloudPass({
     environment: await getCloudApiEnvironment(),
-    serial: id,
+    code: code,
   });
 
   if (pass.version === 2) {
     const { saveLinks } = await fetchCloudPassSaveLinks({
       environment: await getCloudApiEnvironment(),
-      serial: id,
+      serial: pass.serial,
     });
 
     if (isAppleDevice() && isSafariBrowser() && saveLinks?.appleWallet) {
@@ -103,11 +127,11 @@ async function presentPassbookNotification(notification: ActitoNotification) {
   if (!config) throw new InvalidWorkerConfigurationError();
 
   if (isAppleDevice() && isSafariBrowser()) {
-    await self.clients.openWindow(`${config.cloudHost}/pass/pkpass/${id}`);
+    await self.clients.openWindow(`${config.cloudHost}/pass/pkpass/${pass.serial}`);
     return;
   }
 
-  await self.clients.openWindow(`${config.cloudHost}/pass/web/${id}?showWebVersion=1`);
+  await self.clients.openWindow(`${config.cloudHost}/pass/web/${pass.serial}?showWebVersion=1`);
 }
 
 async function presentUrlResolverNotification(notification: ActitoNotification) {
