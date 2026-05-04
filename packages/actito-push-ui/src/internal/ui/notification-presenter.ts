@@ -84,7 +84,7 @@ class NotificationPresenter {
         return;
 
       case 're.notifica.notification.InAppBrowser':
-        presentInAppBrowser(notification);
+        presentInAppBrowserNotification(notification);
         return;
 
       case 're.notifica.notification.URLResolver': {
@@ -97,12 +97,12 @@ class NotificationPresenter {
 
           case UrlResolverResult.URL_SCHEME:
             logger.debug("Resolving as 'url scheme' notification.");
-            await presentUrlScheme(notification);
+            await presentUrlSchemeNotification(notification);
             break;
 
           case UrlResolverResult.IN_APP_BROWSER:
             logger.debug("Resolving as 'in-app browser' notification.");
-            presentInAppBrowser(notification);
+            presentInAppBrowserNotification(notification);
             break;
 
           case UrlResolverResult.WEB_VIEW:
@@ -118,11 +118,15 @@ class NotificationPresenter {
       }
 
       case 're.notifica.notification.URLScheme':
-        await presentUrlScheme(notification);
+        await presentUrlSchemeNotification(notification);
         return;
 
       case 're.notifica.notification.Passbook':
-        await presentPassbook(options, notification);
+        await presentPassbookNotification(options, notification);
+        return;
+
+      case 're.notifica.notification.Pass':
+        await presentPassNotification(options, notification);
         return;
 
       default:
@@ -157,6 +161,7 @@ function checkNotificationSupport(notification: ActitoNotification): boolean {
     case 're.notifica.notification.InAppBrowser':
     case 're.notifica.notification.Map':
     case 're.notifica.notification.Passbook':
+    case 're.notifica.notification.Pass':
     case 're.notifica.notification.URL':
     case 're.notifica.notification.URLResolver':
     case 're.notifica.notification.URLScheme':
@@ -168,31 +173,58 @@ function checkNotificationSupport(notification: ActitoNotification): boolean {
   }
 }
 
-function presentInAppBrowser(notification: ActitoNotification) {
+function presentInAppBrowserNotification(notification: ActitoNotification) {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.URL');
   if (!content) throw new Error('Invalid notification content.');
 
   window.location.href = sanitizeContentUrl(content);
 }
 
-async function presentPassbook(options: ActitoInternalOptions, notification: ActitoNotification) {
+async function presentPassNotification(
+  options: ActitoInternalOptions,
+  notification: ActitoNotification,
+) {
+  const content = notification.content.find(({ type }) => type === 're.notifica.content.Pass');
+
+  if (!content) throw new Error('Missing content for Pass type notification.');
+
+  const code = content.data.serial ?? content.data.barcode;
+
+  if (!code) {
+    throw new Error('Malformed content for Pass type notification. No serial or barcode found.');
+  }
+
+  await displayPass(options, code);
+}
+
+async function presentPassbookNotification(
+  options: ActitoInternalOptions,
+  notification: ActitoNotification,
+) {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.PKPass');
-  if (!content) throw new Error('Invalid notification content.');
+
+  if (!content) throw new Error('Missing content for Passbook type notification.');
 
   const passUrlStr: string = content.data;
-  const components = passUrlStr.split('/');
-  if (!components.length) throw new Error('Invalid notification content.');
 
-  const id = components[components.length - 1];
+  const components = passUrlStr.split('/');
+  if (!components.length) throw new Error('Invalid content for Passbook type notification.');
+
+  const code: string = components[components.length - 1];
+
+  await displayPass(options, code);
+}
+
+async function displayPass(options: ActitoInternalOptions, code: string) {
   const { pass } = await fetchCloudPass({
     environment: getCloudApiEnvironment(),
-    serial: id,
+    code: code,
   });
 
   if (pass.version === 2) {
     const { saveLinks } = await fetchCloudPassSaveLinks({
       environment: getCloudApiEnvironment(),
-      serial: id,
+      serial: pass.serial,
     });
 
     if (isAppleDevice() && isSafariBrowser() && saveLinks?.appleWallet) {
@@ -207,14 +239,14 @@ async function presentPassbook(options: ActitoInternalOptions, notification: Act
   }
 
   if (isAppleDevice() && isSafariBrowser()) {
-    window.location.href = `${options.hosts.restApi}/pass/pkpass/${id}`;
+    window.location.href = `${options.hosts.restApi}/pass/pkpass/${pass.serial}`;
     return;
   }
 
-  window.location.href = `${options.hosts.restApi}/pass/web/${id}?showWebVersion=1`;
+  window.location.href = `${options.hosts.restApi}/pass/web/${pass.serial}?showWebVersion=1`;
 }
 
-async function presentUrlScheme(notification: ActitoNotification) {
+async function presentUrlSchemeNotification(notification: ActitoNotification) {
   const content = notification.content.find(({ type }) => type === 're.notifica.content.URL');
   if (!content) throw new Error('Invalid notification content.');
 
