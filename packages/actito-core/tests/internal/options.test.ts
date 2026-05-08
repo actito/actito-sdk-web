@@ -8,21 +8,21 @@ import {
 
 describe('test isDefaultHosts', () => {
   test('when customs hosts are provided but they are the same as the default ones, it returns true', () => {
-    const customHosts: ActitoInternalOptionsHosts = {
+    const input: ActitoInternalOptionsHosts = {
       cloudApi: 'https://cloud.notifica.re',
       restApi: 'https://push.notifica.re',
     };
 
-    expect(isDefaultHosts(customHosts)).toBe(true);
+    expect(isDefaultHosts(input)).toBe(true);
   });
 
   test('when customs hosts are provided but they do not correspond to the default ones, it returns false', () => {
-    const customHosts: ActitoInternalOptionsHosts = {
+    const input: ActitoInternalOptionsHosts = {
       cloudApi: 'https://custom-cloud-api.com',
       restApi: 'https://custom-rest-api.com',
     };
 
-    expect(isDefaultHosts(customHosts)).toBe(false);
+    expect(isDefaultHosts(input)).toBe(false);
   });
 });
 
@@ -57,7 +57,7 @@ describe('test validate', () => {
   ];
 
   test.each(VALID_HOSTS)('when both hosts are valid, it does nothing', (host) => {
-    const newActitoInternalOptions: ActitoInternalOptions = {
+    const input: ActitoInternalOptions = {
       ...MINIMAL_ACTITO_INTERNAL_OPTIONS,
       hosts: {
         cloudApi: host,
@@ -66,12 +66,12 @@ describe('test validate', () => {
     };
 
     expect(() => {
-      validate(newActitoInternalOptions);
+      validate(input);
     }).not.toThrow();
   });
 
   test.each(INVALID_HOSTS)('when there is an invalid host, it throws an error', (host) => {
-    const newActitoInternalOptions: ActitoInternalOptions = {
+    const input: ActitoInternalOptions = {
       ...MINIMAL_ACTITO_INTERNAL_OPTIONS,
       hosts: {
         cloudApi: host,
@@ -80,7 +80,7 @@ describe('test validate', () => {
     };
 
     expect(() => {
-      validate(newActitoInternalOptions);
+      validate(input);
     }).toThrow();
   });
 });

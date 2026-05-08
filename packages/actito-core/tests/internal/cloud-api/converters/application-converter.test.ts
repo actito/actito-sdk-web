@@ -26,7 +26,7 @@ describe('test convertCloudApplicationToPublic', () => {
   };
 
   test('when a full CloudApplication object is provided, it converts it into an ActitoApplication object as expected', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       _id: '1d9e80ef851d212aca82cf23',
       name: 'App',
       category: 'Other',
@@ -117,7 +117,7 @@ describe('test convertCloudApplicationToPublic', () => {
       enforceEventNameRestrictions: false,
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       id: '1d9e80ef851d212aca82cf23',
       name: 'App',
       category: 'Other',
@@ -208,32 +208,23 @@ describe('test convertCloudApplicationToPublic', () => {
       enforceEventNameRestrictions: false,
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
-  test('when optional fields are not provided, it includes them in the final object as expected', () => {
-    const cloudApplication: CloudApplication = {
-      ...MINIMAL_CLOUD_APPLICATION,
-    };
+  test('when a minimal CloudApplication object is provided, it includes the optional fields in the final ActitoApplication object as expected', () => {
+    const input: CloudApplication = MINIMAL_CLOUD_APPLICATION;
+    const expectedOutput: ActitoApplication = MINIMAL_ACTITO_APPLICATION;
 
-    const expectedActitoApplication: ActitoApplication = {
-      ...MINIMAL_ACTITO_APPLICATION,
-    };
-
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
-  test('when inbox config options are not provided, it sets them as false in the final object', () => {
-    const cloudApplication: CloudApplication = {
+  test('when inbox config options are empty ({}), it sets them as false in the final object', () => {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       inboxConfig: {},
     };
 
-    const expectedActitoApplication = {
+    const expectedOutput = {
       ...MINIMAL_ACTITO_APPLICATION,
       inboxConfig: {
         useInbox: false,
@@ -242,29 +233,25 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when a region config is provided without a proximityUUID, it sets it as undefined in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       regionConfig: {},
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       regionConfig: undefined,
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when an icon is not provided in the website push config, it sets it as undefined in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       websitePushConfig: {
         allowedDomains: ['http://localhost:3000'],
@@ -272,18 +259,16 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       websitePushConfig: undefined,
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when allowed domains are not provided in the website push config, it sets it as undefined in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -291,18 +276,16 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       websitePushConfig: undefined,
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when the website push config has incomplete subject info, it sets it as undefined in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -319,7 +302,7 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -333,32 +316,30 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    const cloudApplicationInfoSubject = cloudApplication.websitePushConfig?.info?.subject ?? {};
+    const inputInfoSubject = input.websitePushConfig?.info?.subject ?? {};
 
     // Delete a single subject key from the Cloud Application object and compare it with the final Actito Application object each time
-    for (const key of Object.keys(cloudApplicationInfoSubject)) {
+    for (const key of Object.keys(inputInfoSubject)) {
       const newCloudApplication: CloudApplication = {
-        ...cloudApplication,
+        ...input,
         websitePushConfig: {
-          ...cloudApplication.websitePushConfig,
+          ...input.websitePushConfig,
           info: {
-            ...cloudApplication.websitePushConfig?.info,
+            ...input.websitePushConfig?.info,
             subject: {
-              ...cloudApplication.websitePushConfig?.info?.subject,
+              ...input.websitePushConfig?.info?.subject,
               [key]: undefined,
             },
           },
         },
       };
 
-      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(
-        expectedActitoApplication,
-      );
+      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(expectedOutput);
     }
   });
 
   test('when the website push config has a vapid config without a public key, it sets it as undefined in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -367,7 +348,7 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -381,13 +362,11 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when the website push config does not provide auto onboarding options or floating button options in the launch config, it sets the launch config as undefined in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -396,7 +375,7 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -410,13 +389,11 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when the website push config only has auto onboarding options lacking mandatory properties (message, accept button and cancel button texts) in the launch config, it sets the launch config as undefined in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -433,7 +410,7 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       websitePushConfig: {
         icon: 'https://free-icons.com/some-icon-123',
@@ -447,37 +424,37 @@ describe('test convertCloudApplicationToPublic', () => {
       },
     };
 
-    const cloudApplicationAutoOnboardingOptions =
-      cloudApplication.websitePushConfig?.launchConfig?.autoOnboardingOptions ?? {};
+    const inputAutoOnboardingOptions =
+      input.websitePushConfig?.launchConfig?.autoOnboardingOptions ?? {};
 
-    const autoOnboardingOptionsKeysToExclude: (keyof typeof cloudApplicationAutoOnboardingOptions)[] =
-      ['message', 'acceptButton', 'cancelButton'];
+    const autoOnboardingOptionsKeysToExclude: (keyof typeof inputAutoOnboardingOptions)[] = [
+      'message',
+      'acceptButton',
+      'cancelButton',
+    ];
 
     // Delete a single auto onboarding option from the Cloud Application object and compare it with the final Actito Application object each time
     for (const key of autoOnboardingOptionsKeysToExclude) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [key]: _, ...incompleteAutoOnboardingOptions } =
-        cloudApplicationAutoOnboardingOptions;
+      const { [key]: _, ...incompleteAutoOnboardingOptions } = inputAutoOnboardingOptions;
 
       const newCloudApplication: CloudApplication = {
-        ...cloudApplication,
+        ...input,
         websitePushConfig: {
-          ...cloudApplication.websitePushConfig,
+          ...input.websitePushConfig,
           launchConfig: {
-            ...cloudApplication.websitePushConfig?.launchConfig,
+            ...input.websitePushConfig?.launchConfig,
             autoOnboardingOptions: incompleteAutoOnboardingOptions,
           },
         },
       };
 
-      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(
-        expectedActitoApplication,
-      );
+      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(expectedOutput);
     }
   });
 
   test('when the user data fields have a field with missing properties, it does not include that field in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       userDataFields: [
         {
@@ -488,12 +465,12 @@ describe('test convertCloudApplicationToPublic', () => {
       ],
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       userDataFields: [],
     };
 
-    const userDataFields = cloudApplication.userDataFields ?? [];
+    const userDataFields = input.userDataFields ?? [];
 
     const userDataFieldKeysToExclude = Object.keys(
       userDataFields[0],
@@ -505,7 +482,7 @@ describe('test convertCloudApplicationToPublic', () => {
       const { [key]: _, ...incompleteUserDataField } = userDataFields[0];
 
       const newCloudApplication: CloudApplication = {
-        ...cloudApplication,
+        ...input,
         userDataFields: [
           {
             ...incompleteUserDataField,
@@ -513,14 +490,12 @@ describe('test convertCloudApplicationToPublic', () => {
         ],
       };
 
-      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(
-        expectedActitoApplication,
-      );
+      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(expectedOutput);
     }
   });
 
   test('when the action categories have a category without a type or name, it does not include that category in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       actionCategories: [
         {
@@ -532,12 +507,12 @@ describe('test convertCloudApplicationToPublic', () => {
       ],
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       actionCategories: [],
     };
 
-    const actionCategories = cloudApplication.actionCategories ?? [];
+    const actionCategories = input.actionCategories ?? [];
 
     const actionCategoryKeysToExclude: (keyof (typeof actionCategories)[0])[] = ['type', 'name'];
 
@@ -547,7 +522,7 @@ describe('test convertCloudApplicationToPublic', () => {
       const { [key]: _, ...incompleteActionCategory } = actionCategories[0];
 
       const newCloudApplication: CloudApplication = {
-        ...cloudApplication,
+        ...input,
         actionCategories: [
           {
             ...incompleteActionCategory,
@@ -555,14 +530,12 @@ describe('test convertCloudApplicationToPublic', () => {
         ],
       };
 
-      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(
-        expectedActitoApplication,
-      );
+      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(expectedOutput);
     }
   });
 
   test('when the action categories have a category that has an action without a label, it does not include that action in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       actionCategories: [
         {
@@ -588,7 +561,7 @@ describe('test convertCloudApplicationToPublic', () => {
       ],
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       actionCategories: [
         {
@@ -600,13 +573,11 @@ describe('test convertCloudApplicationToPublic', () => {
       ],
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when an action category has an action with an icon that does not include any option for any platform (Android, iOS or Web), it sets the icon as undefined in the final object', () => {
-    const cloudApplication: CloudApplication = {
+    const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       actionCategories: [
         {
@@ -629,7 +600,7 @@ describe('test convertCloudApplicationToPublic', () => {
       ],
     };
 
-    const expectedActitoApplication: ActitoApplication = {
+    const expectedOutput: ActitoApplication = {
       ...MINIMAL_ACTITO_APPLICATION,
       actionCategories: [
         {
@@ -652,8 +623,6 @@ describe('test convertCloudApplicationToPublic', () => {
       ],
     };
 
-    expect(convertCloudApplicationToPublic(cloudApplication)).toStrictEqual(
-      expectedActitoApplication,
-    );
+    expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 });

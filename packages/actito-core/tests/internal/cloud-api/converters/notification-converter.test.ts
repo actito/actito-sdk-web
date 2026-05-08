@@ -26,7 +26,7 @@ describe('test convertCloudNotificationToPublic', () => {
   };
 
   test('when a full CloudNotification object is provided, it converts it into an ActitoNotification object as expected', () => {
-    const cloudNotification: CloudNotification = {
+    const input: CloudNotification = {
       _id: '1d9e80ef851d212aca82cf23',
       partial: false,
       type: 're.notifica.notification.WebView',
@@ -62,7 +62,7 @@ describe('test convertCloudNotificationToPublic', () => {
       },
     };
 
-    const expectedActitoNotification: ActitoNotification = {
+    const expectedOutput: ActitoNotification = {
       id: '1d9e80ef851d212aca82cf23',
       partial: false,
       type: 're.notifica.notification.WebView',
@@ -98,27 +98,18 @@ describe('test convertCloudNotificationToPublic', () => {
       },
     };
 
-    expect(convertCloudNotificationToPublic(cloudNotification)).toStrictEqual(
-      expectedActitoNotification,
-    );
+    expect(convertCloudNotificationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
-  test('when optional fields are not provided, it includes them in the final object as expected', () => {
-    const cloudNotification: CloudNotification = {
-      ...MINIMAL_CLOUD_NOTIFICATION,
-    };
+  test('when a minimal CloudNotification is provided, it includes the optional fields in the final ActitoNotification object as expected', () => {
+    const input: CloudNotification = MINIMAL_CLOUD_NOTIFICATION;
+    const expectedOutput: ActitoNotification = MINIMAL_ACTITO_NOTIFICATION;
 
-    const expectedActitoNotification: ActitoNotification = {
-      ...MINIMAL_ACTITO_NOTIFICATION,
-    };
-
-    expect(convertCloudNotificationToPublic(cloudNotification)).toStrictEqual(
-      expectedActitoNotification,
-    );
+    expect(convertCloudNotificationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when there is an action without a label, it is not included in the final object', () => {
-    const cloudNotification: CloudNotification = {
+    const input: CloudNotification = {
       ...MINIMAL_CLOUD_NOTIFICATION,
       actions: [
         {
@@ -131,18 +122,16 @@ describe('test convertCloudNotificationToPublic', () => {
       ],
     };
 
-    const expectedActitoNotification: ActitoNotification = {
+    const expectedOutput: ActitoNotification = {
       ...MINIMAL_ACTITO_NOTIFICATION,
       actions: [],
     };
 
-    expect(convertCloudNotificationToPublic(cloudNotification)).toStrictEqual(
-      expectedActitoNotification,
-    );
+    expect(convertCloudNotificationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
   test('when there is an action without camera and keyboard options, it sets them as false in the final object', () => {
-    const cloudNotification: CloudNotification = {
+    const input: CloudNotification = {
       ...MINIMAL_CLOUD_NOTIFICATION,
       actions: [
         {
@@ -154,7 +143,7 @@ describe('test convertCloudNotificationToPublic', () => {
       ],
     };
 
-    const expectedActitoNotification: ActitoNotification = {
+    const expectedOutput: ActitoNotification = {
       ...MINIMAL_ACTITO_NOTIFICATION,
       actions: [
         {
@@ -168,8 +157,6 @@ describe('test convertCloudNotificationToPublic', () => {
       ],
     };
 
-    expect(convertCloudNotificationToPublic(cloudNotification)).toStrictEqual(
-      expectedActitoNotification,
-    );
+    expect(convertCloudNotificationToPublic(input)).toStrictEqual(expectedOutput);
   });
 });
