@@ -2,7 +2,7 @@
 
 ## Upcoming Release
 
-- Fix a bug where the Service Worker was always registered, even when the worker configuration remained the same.
+- Fix a bug where a new Service Worker was always registered even when there was already one with the same configuration.
 
 ## 5.0.0
 
