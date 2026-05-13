@@ -1,3 +1,4 @@
+import { CogIcon } from "@heroicons/react/24/outline";
 import { Card, CardContent, CardHeader } from "@/components/card";
 import { ConfigurationFormState } from "@/components/configuration/configuration-form-state";
 import { InputField } from "@/components/input-field";
@@ -6,7 +7,7 @@ import { Switch } from "@/components/switch";
 export function GeneralSettingsCard({ state, onChange }: GeneralSettingsCardProps) {
   return (
     <Card>
-      <CardHeader title="General settings" />
+      <CardHeader title="General settings" icon={CogIcon} />
 
       <CardContent>
         <Switch
@@ -61,9 +62,7 @@ interface GeneralSettingsCardProps {
 
 type GeneralSettingsFormState = Pick<
   ConfigurationFormState,
-  | "debugLoggingEnabled"
-  | "applicationVersion"
-  | "language"
+  "debugLoggingEnabled" | "applicationVersion" | "language"
 >;
 
 type GeneralSettingsOnChange = (state: GeneralSettingsFormState) => void;

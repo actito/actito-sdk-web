@@ -1,3 +1,4 @@
+import { KeyIcon } from "@heroicons/react/24/outline";
 import { useActitoConfiguration } from "@/actito/hooks/actito-configuration";
 import { Card, CardContent, CardHeader } from "@/components/card";
 import { InputField } from "@/components/input-field";
@@ -7,20 +8,20 @@ export function ApplicationKeysSettingsCard() {
 
   return (
     <Card>
-      <CardHeader title="Application keys" />
+      <CardHeader title="Application keys" icon={KeyIcon} />
 
       <CardContent>
         <InputField
           id="application-key"
           label="Application key"
-          value={actitoOptions?.applicationKey}
+          value={actitoOptions?.applicationKey ?? ""}
           disabled
         />
 
         <InputField
           id="application-secret"
           label="Application secret"
-          value={actitoOptions?.applicationSecret}
+          value={actitoOptions?.applicationSecret ?? ""}
           disabled
         />
       </CardContent>

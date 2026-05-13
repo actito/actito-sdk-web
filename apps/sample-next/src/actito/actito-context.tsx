@@ -42,6 +42,7 @@ import {
   IdentifiableListener,
   Listener,
 } from "@/actito/hooks/events/base";
+import { logger } from "@/utils/logger";
 
 const ActitoContext = createContext<ActitoContextState | undefined>(undefined);
 
@@ -63,16 +64,26 @@ export function ActitoProvider({ children }: PropsWithChildren) {
     setState({ status: "launching" });
 
     launch()
-      .then(() => setState({ status: "launched" }))
-      .catch((e) => setState({ status: "launch-failed", error: e }));
+      .then(() => {
+        setState({ status: "launched" });
+      })
+      .catch((error) => {
+        setState({ status: "launch-failed", error: error });
+        logger.error(`The app could not be launched: ${error}`);
+      });
   }, []);
 
   const unlaunchFn = useCallback(() => {
     setState({ status: "unlaunching" });
 
     unlaunch()
-      .then(() => setState({ status: "idle" }))
-      .catch((e) => setState({ status: "unlaunch-failed", error: e }));
+      .then(() => {
+        setState({ status: "idle" });
+      })
+      .catch((error) => {
+        setState({ status: "unlaunch-failed", error: error });
+        logger.error(`The app could not be unlaunched: ${error}`);
+      });
   }, []);
 
   const registerListener = useCallback<RegisterListenerFn>((listener) => {

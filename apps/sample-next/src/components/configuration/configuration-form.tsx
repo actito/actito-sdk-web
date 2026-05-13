@@ -18,11 +18,15 @@ export function ConfigurationForm({ state, onChange }: ConfigurationFormProps) {
   }, [state, onChange]);
 
   return (
-    <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-8">
-      <ApplicationKeysSettingsCard />
-      <GeneralSettingsCard state={state} onChange={onPartialChange} />
-      <ServiceWorkerSettingsCard state={state} onChange={onPartialChange} />
-      <GeolocationSettingsCard state={state} onChange={onPartialChange} />
+    <div className="flex flex-col md:flex-row gap-8 w-full">
+      <div className="flex flex-col flex-1 gap-8">
+        <ApplicationKeysSettingsCard />
+        <GeolocationSettingsCard state={state} onChange={onPartialChange} />
+      </div>
+      <div className="flex flex-col flex-1 gap-8">
+        <GeneralSettingsCard state={state} onChange={onPartialChange} />
+        <ServiceWorkerSettingsCard state={state} onChange={onPartialChange} />
+      </div>
     </div>
   );
 }

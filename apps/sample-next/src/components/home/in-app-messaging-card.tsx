@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import { hasMessagesSuppressed, setMessagesSuppressed } from "actito-web/in-app-messaging";
 import { Card, CardContent, CardHeader } from "@/components/card";
 import { Switch } from "@/components/switch";
@@ -13,7 +14,7 @@ export function InAppMessagingCard() {
 
   return (
     <Card>
-      <CardHeader title="In-app messaging" />
+      <CardHeader title="In-app messaging" icon={ChatBubbleBottomCenterTextIcon} />
 
       <CardContent>
         <Switch
