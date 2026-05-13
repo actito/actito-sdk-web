@@ -4,7 +4,9 @@ import { useEffect, useRef } from "react";
 import { configure, setLogLevel } from "actito-web/core";
 import { useActitoConfiguration } from "@/actito/hooks/actito-configuration";
 import { useActitoLaunchFlow } from "@/actito/hooks/actito-launch-flow";
+import { toast } from "@/components/toast";
 import { useSampleUser } from "@/hooks/sample-user";
+import { logger } from "@/utils/logger";
 
 export function ActitoAutoLauncher() {
   useSampleUser();
@@ -24,7 +26,18 @@ export function ActitoAutoLauncher() {
     }
 
     setLogLevel(appConfiguration.debugLoggingEnabled ? "debug" : "info");
-    configure(appConfiguration);
+
+    try {
+      configure(appConfiguration);
+    } catch (error) {
+      toast({
+        title: "The app could not be configured.",
+        description: `${error}`,
+        variant: "error",
+      });
+      logger.error(`The app could not be configured: ${error}`);
+      return;
+    }
 
     launch();
     autoLaunched.current = true;

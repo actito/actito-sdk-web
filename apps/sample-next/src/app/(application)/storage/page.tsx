@@ -26,13 +26,13 @@ export default function Storage() {
       } else {
         setState({ status: "empty" });
       }
-    } catch (e) {
-      if (e instanceof ActitoNetworkRequestError && e.response.status === 404) {
+    } catch (error) {
+      if (error instanceof ActitoNetworkRequestError && error.response.status === 404) {
         setState({ status: "not-found" });
         return;
       }
 
-      logger.error(`Unable to find the asset group: ${e}`);
+      logger.error(`Unable to find the asset group: ${error}`);
       setState({ status: "failure" });
     }
   });

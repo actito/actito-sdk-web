@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { SerwistProvider } from "./serwist";
@@ -20,9 +21,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           cacheOnNavigation={false}
           reloadOnOnline={false}
         >
-          {children}
+          <Toaster position="bottom-right" offset={32} mobileOffset={44} />
+          <main>
+            {children}
 
-          <GoogleMapsBootstrap />
+            <GoogleMapsBootstrap />
+          </main>
         </SerwistProvider>
       </body>
     </html>

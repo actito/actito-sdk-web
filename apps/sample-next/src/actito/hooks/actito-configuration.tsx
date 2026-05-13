@@ -13,14 +13,15 @@ export function useActitoConfiguration() {
     function checkConfigMismatch() {
       if (appConfiguration === undefined || actitoOptions === undefined) return;
 
-      if (appConfiguration === null || actitoOptions === null) {
+      if (appConfiguration === null) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setHasConfigurationMismatch(false);
         return;
       }
 
       const mismatch =
-        appConfiguration.applicationKey !== actitoOptions.applicationKey ||
-        appConfiguration.applicationSecret !== actitoOptions.applicationSecret;
+        appConfiguration.applicationKey !== actitoOptions?.applicationKey ||
+        appConfiguration.applicationSecret !== actitoOptions?.applicationSecret;
 
       setHasConfigurationMismatch(mismatch);
     },
@@ -31,6 +32,7 @@ export function useActitoConfiguration() {
     const encodedConfig = localStorage.getItem("app_configuration");
 
     if (!encodedConfig) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setAppConfiguration(null);
       return;
     }

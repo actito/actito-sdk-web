@@ -21,18 +21,27 @@ export default function Home() {
       />
 
       <ActitoConfigurationBlocker>
-        <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-8">
-          <LaunchFlowCard />
+        <div className="flex flex-col md:flex-row gap-8 w-full">
+          <div className="flex flex-col flex-1 gap-8">
+            <LaunchFlowCard />
 
-          {state.status === "launched" && (
-            <>
-              <DeviceRegistrationCard />
-              <NotificationsCard />
-              <DoNotDisturbCard />
-              <LocationCard />
-              <InAppMessagingCard />
-            </>
-          )}
+            {state.status === "launched" && (
+              <>
+                <DeviceRegistrationCard />
+                <InAppMessagingCard />
+              </>
+            )}
+          </div>
+
+          <div className="flex flex-col flex-1 gap-8">
+            {state.status === "launched" && (
+              <>
+                <DoNotDisturbCard />
+                <NotificationsCard />
+                <LocationCard />
+              </>
+            )}
+          </div>
         </div>
       </ActitoConfigurationBlocker>
     </>

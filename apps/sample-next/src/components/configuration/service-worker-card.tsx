@@ -1,3 +1,4 @@
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { Card, CardContent, CardHeader } from "@/components/card";
 import { ConfigurationFormState } from "@/components/configuration/configuration-form-state";
 import { InputField } from "@/components/input-field";
@@ -5,7 +6,7 @@ import { InputField } from "@/components/input-field";
 export function ServiceWorkerSettingsCard({ state, onChange }: ServiceWorkerSettingsCardProps) {
   return (
     <Card>
-      <CardHeader title="Service worker settings" />
+      <CardHeader title="Service worker settings" icon={GlobeAltIcon} />
 
       <CardContent>
         <InputField

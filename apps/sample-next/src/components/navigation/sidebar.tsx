@@ -62,6 +62,12 @@ function NavigationItem({ item }: NavigationItemProps) {
           aria-hidden="true"
         />
         {label}
+
+        {item.EndContent && (
+          <div className="flex justify-end items-center w-full">
+            <item.EndContent />
+          </div>
+        )}
       </Link>
     </li>
   );

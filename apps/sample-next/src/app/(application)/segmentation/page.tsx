@@ -10,6 +10,9 @@ import { Button } from "@/components/button";
 import { InputField } from "@/components/input-field";
 import { PageHeader } from "@/components/page-header";
 import { ProgressIndicator } from "@/components/progress-indicator";
+import { toast } from "@/components/toast";
+import { Tooltip } from "@/components/tooltip";
+import { logger } from "@/utils/logger";
 
 export default function Segmentation() {
   const state = useActitoState();
@@ -29,7 +32,10 @@ export default function Segmentation() {
             setSegmentationState({ status: "empty" });
           }
         })
-        .catch(() => setSegmentationState({ status: "failure" }));
+        .catch((error) => {
+          setSegmentationState({ status: "failure" });
+          logger.error(`It was not possible to fetch the device tags: ${error}`);
+        });
     },
     [state, reloadTrigger],
   );
@@ -40,8 +46,18 @@ export default function Segmentation() {
       await addTag(tag);
       setTag("");
       setReloadTrigger((prevState) => prevState + 1);
-    } catch {
+      toast({
+        title: "The tag was created.",
+        variant: "success",
+      });
+    } catch (error) {
       setSegmentationState({ status: "failure" });
+      toast({
+        title: "It was not possible to create a new tag.",
+        description: `${error}`,
+        variant: "error",
+      });
+      logger.error(`It was not possible to create a new tag: ${error}`);
     }
   }, [tag]);
 
@@ -50,8 +66,18 @@ export default function Segmentation() {
       setSegmentationState({ status: "loading" });
       await removeTag(tag);
       setReloadTrigger((prevState) => prevState + 1);
-    } catch {
+      toast({
+        title: "The tag was removed.",
+        variant: "success",
+      });
+    } catch (error) {
       setSegmentationState({ status: "failure" });
+      toast({
+        title: "It was not possible to remove the tag.",
+        description: `${error}`,
+        variant: "error",
+      });
+      logger.error(`It was not possible to remove the tag: ${error}`);
     }
   }, []);
 
@@ -131,11 +157,16 @@ function TagCard({ tag, onClick }: { tag: string; onClick: () => void }) {
 
       <p className="grow text-lg font-medium text-gray-900 truncate dark:text-white">{tag}</p>
 
-      <button className="p-2.5 text-gray-400 hover:text-gray-500" onClick={onClick}>
-        <div className="relative">
-          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-        </div>
-      </button>
+      <div className="mr-1.5">
+        <Tooltip label="Remove">
+          <button
+            type="button"
+            className="cursor-pointer hover:bg-neutral-100 hover:dark:bg-neutral-700 text-red-600 dark:text-red-400 rounded-md p-0.5"
+          >
+            <XMarkIcon className="w-6.5 h-6.5" onClick={onClick} />
+          </button>
+        </Tooltip>
+      </div>
     </div>
   );
 }
