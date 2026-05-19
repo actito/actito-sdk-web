@@ -12,6 +12,7 @@ const config = {
     ],
   },
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['../../configs/library-config/jest.setup.js'],
 };
 
 export default config;
