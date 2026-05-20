@@ -1,14 +1,6 @@
-import baseConfig from '@actito/library-config/jest';
-import { pathsToModuleNameMapper } from 'ts-jest';
 import tsconfig from './tsconfig.json' with { type: 'json' };
+import { configureJest } from '@actito/library-config/jest';
 
 const { compilerOptions } = tsconfig;
 
-/** @type {import('@jest/types').Config.InitialOptions} **/
-const config = {
-  ...baseConfig,
-  roots: ['<rootDir>/src', '<rootDir>/tests'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
-};
-
-export default config;
+export default configureJest(compilerOptions.paths);
