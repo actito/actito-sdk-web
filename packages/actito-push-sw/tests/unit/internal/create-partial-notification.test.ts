@@ -16,7 +16,7 @@ describe('test createPartialNotification', () => {
     notificationType: 're.notifica.notification.WebView',
   };
 
-  const MINIMAL_ACTITO_NOTIFICATION = {
+  const MINIMAL_ACTITO_NOTIFICATION_WITHOUT_TIME = {
     id: 'a8f04c19e7b632d5f0c9b21a',
     partial: true,
     type: 're.notifica.notification.WebView',
@@ -30,8 +30,8 @@ describe('test createPartialNotification', () => {
   };
 
   test('when a minimal ActitoWorkerNotification object is provided, it returns an ActitoNotification object as expected', () => {
-    const input: ActitoWorkerNotification = MINIMAL_ACTITO_WORKER_NOTIFICATION;
-    const expectedOutput = MINIMAL_ACTITO_NOTIFICATION;
+    const input = MINIMAL_ACTITO_WORKER_NOTIFICATION;
+    const expectedOutput = MINIMAL_ACTITO_NOTIFICATION_WITHOUT_TIME;
 
     // ignore time because it is auto generated
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -49,7 +49,7 @@ describe('test createPartialNotification', () => {
     };
 
     const expectedOutput = {
-      ...MINIMAL_ACTITO_NOTIFICATION,
+      ...MINIMAL_ACTITO_NOTIFICATION_WITHOUT_TIME,
       extra: {
         'extra-attribute-1': 'string',
         'extra-attribute-2': true,
@@ -64,7 +64,7 @@ describe('test createPartialNotification', () => {
     expect(outputWithoutTime).toStrictEqual(expectedOutput);
   });
 
-  test('when an ActitoWorkerNotification object is provided with properties that must NOT be considered as extra, it returns an ActitoNotification object without including those properties as extra', () => {
+  test('when an ActitoWorkerNotification object is provided with properties that must not be considered as extra, it returns an ActitoNotification object without including those properties as extra', () => {
     const input: ActitoWorkerNotification = {
       // none of this properties should be included inside 'extra' property in the final object
       'x-sender': 'notificare',

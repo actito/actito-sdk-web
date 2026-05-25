@@ -42,7 +42,7 @@ describe('test resolveUrl', () => {
   );
 
   test.each(['http://my-domain.com/page', 'https://my-domain.com/page'])(
-    'when the content data is an HTTP/HTTPS URL, it should resolve it as an In-app Browser type notification',
+    'when the content data is an HTTP/HTTPS URL (%s), it should resolve it as an In-app Browser type notification',
     (url) => {
       const input: ActitoNotification = {
         ...MINIMAL_ACTITO_NOTIFICATION,
@@ -64,7 +64,7 @@ describe('test resolveUrl', () => {
     'http://my-domain.com?notificareWebView=1',
     'https://my-domain.com?notificareWebView=1',
   ])(
-    'when the content data is an HTTP/HTTPS URL with notificareWebView=1 query parameter, it should resolve it as an Web View type notification',
+    'when the content data is an HTTP/HTTPS URL with notificareWebView=1 query parameter (%s), it should resolve it as an Web View type notification',
     (url) => {
       const input: ActitoNotification = {
         ...MINIMAL_ACTITO_NOTIFICATION,

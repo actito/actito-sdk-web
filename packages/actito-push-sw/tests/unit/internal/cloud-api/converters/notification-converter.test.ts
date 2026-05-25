@@ -102,8 +102,8 @@ describe('test convertCloudApplicationToPublic', () => {
   });
 
   test('when a minimal CloudNotification object is provided, it includes the optional fields in the final ActitoNotification object as expected', () => {
-    const input: CloudNotification = MINIMAL_CLOUD_NOTIFICATION;
-    const expectedOutput: ActitoNotification = MINIMAL_ACTITO_NOTIFICATION;
+    const input = MINIMAL_CLOUD_NOTIFICATION;
+    const expectedOutput = MINIMAL_ACTITO_NOTIFICATION;
 
     expect(convertCloudNotificationToPublic(input)).toStrictEqual(expectedOutput);
   });
