@@ -240,8 +240,10 @@ __metadata:
   dependencies:
     "@actito/library-config": "workspace:^"
     "@arethetypeswrong/cli": "npm:^0.18.2"
+    "@jest/globals": "npm:^30.4.1"
     concurrently: "npm:^9.2.0"
     eslint: "npm:^9.33.0"
+    jest: "npm:^30.4.2"
     rollup: "npm:^4.46.3"
     tsc-alias: "npm:^1.8.16"
     tslib: "npm:^2.8.1"
@@ -9877,7 +9879,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^30.3.0, jest@npm:^30.4.1":
+"jest@npm:^30.3.0, jest@npm:^30.4.1, jest@npm:^30.4.2":
   version: 30.4.2
   resolution: "jest@npm:30.4.2"
   dependencies:
