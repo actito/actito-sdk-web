@@ -1,4 +1,10 @@
-import type { CloudApplication } from '@actito/web-cloud-api';
+import type {
+  CloudApplication,
+  CloudApplicationWebsitePushConfigInfo,
+  CloudApplicationWebsitePushConfigLaunchConfigAutoOnboarding,
+  CloudApplicationActionCategory,
+  CloudApplicationUserDataField,
+} from '@actito/web-cloud-api';
 import { describe, expect, test } from '@jest/globals';
 import { convertCloudApplicationToPublic } from '~/internal/cloud-api/converters/application-converter';
 import type { ActitoApplication } from '~/models/actito-application';
@@ -212,8 +218,8 @@ describe('test convertCloudApplicationToPublic', () => {
   });
 
   test('when a minimal CloudApplication object is provided, it includes the optional fields in the final ActitoApplication object as expected', () => {
-    const input: CloudApplication = MINIMAL_CLOUD_APPLICATION;
-    const expectedOutput: ActitoApplication = MINIMAL_ACTITO_APPLICATION;
+    const input = MINIMAL_CLOUD_APPLICATION;
+    const expectedOutput = MINIMAL_ACTITO_APPLICATION;
 
     expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
@@ -284,59 +290,50 @@ describe('test convertCloudApplicationToPublic', () => {
     expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
-  test('when the website push config has incomplete subject info, it sets it as undefined in the final object', () => {
-    const input: CloudApplication = {
-      ...MINIMAL_CLOUD_APPLICATION,
-      websitePushConfig: {
-        icon: 'https://free-icons.com/some-icon-123',
-        allowedDomains: ['http://localhost:3000'],
-        info: {
-          subject: {
-            C: 'BE',
-            CN: 'Apple Development IOS Push Services: web.com.actito.push',
-            OU: 'ABCDE',
-            O: 'Actito',
-            UID: 'web.com.actito.push',
-          },
-        },
-      },
-    };
-
-    const expectedOutput: ActitoApplication = {
-      ...MINIMAL_ACTITO_APPLICATION,
-      websitePushConfig: {
-        icon: 'https://free-icons.com/some-icon-123',
-        allowedDomains: ['http://localhost:3000'],
-        urlFormatString: undefined,
-        info: undefined,
-        vapid: undefined,
-        launchConfig: undefined,
-        ignoreTemporaryDevices: undefined,
-        ignoreUnsupportedWebPushDevices: undefined,
-      },
-    };
-
-    const inputInfoSubject = input.websitePushConfig?.info?.subject ?? {};
-
-    // Delete a single subject key from the Cloud Application object and compare it with the final Actito Application object each time
-    for (const key of Object.keys(inputInfoSubject)) {
-      const newCloudApplication: CloudApplication = {
-        ...input,
+  test.each([
+    ['no C (Country)', { C: undefined }],
+    ['no CN (Common Name)', { CN: undefined }],
+    ['no OU (Organizational Unit)', { OU: undefined }],
+    ['no O (Organization)', { O: undefined }],
+    ['no UID (User ID)', { UID: undefined }],
+  ])(
+    'when the website push config has incomplete subject info (%s), it sets it as undefined in the final object',
+    (_, subjectOverride: CloudApplicationWebsitePushConfigInfo['subject']) => {
+      const input: CloudApplication = {
+        ...MINIMAL_CLOUD_APPLICATION,
         websitePushConfig: {
-          ...input.websitePushConfig,
+          icon: 'https://free-icons.com/some-icon-123',
+          allowedDomains: ['http://localhost:3000'],
           info: {
-            ...input.websitePushConfig?.info,
             subject: {
-              ...input.websitePushConfig?.info?.subject,
-              [key]: undefined,
+              C: 'BE',
+              CN: 'Apple Development IOS Push Services: web.com.actito.push',
+              OU: 'ABCDE',
+              O: 'Actito',
+              UID: 'web.com.actito.push',
+              ...subjectOverride,
             },
           },
         },
       };
 
-      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(expectedOutput);
-    }
-  });
+      const expectedOutput: ActitoApplication = {
+        ...MINIMAL_ACTITO_APPLICATION,
+        websitePushConfig: {
+          icon: 'https://free-icons.com/some-icon-123',
+          allowedDomains: ['http://localhost:3000'],
+          urlFormatString: undefined,
+          info: undefined,
+          vapid: undefined,
+          launchConfig: undefined,
+          ignoreTemporaryDevices: undefined,
+          ignoreUnsupportedWebPushDevices: undefined,
+        },
+      };
+
+      expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
+    },
+  );
 
   test('when the website push config has a vapid config without a public key, it sets it as undefined in the final object', () => {
     const input: CloudApplication = {
@@ -365,7 +362,7 @@ describe('test convertCloudApplicationToPublic', () => {
     expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
-  test('when the website push config does not provide auto onboarding options or floating button options in the launch config, it sets the launch config as undefined in the final object', () => {
+  test('when the launch config does not have auto onboarding options or floating button options, it sets the launch config as undefined in the final object', () => {
     const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       websitePushConfig: {
@@ -392,149 +389,109 @@ describe('test convertCloudApplicationToPublic', () => {
     expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
   });
 
-  test('when the website push config only has auto onboarding options lacking mandatory properties (message, accept button and cancel button texts) in the launch config, it sets the launch config as undefined in the final object', () => {
-    const input: CloudApplication = {
-      ...MINIMAL_CLOUD_APPLICATION,
-      websitePushConfig: {
-        icon: 'https://free-icons.com/some-icon-123',
-        allowedDomains: ['http://localhost:3000'],
-        launchConfig: {
-          autoOnboardingOptions: {
-            message: 'Would you like to receive notifications from our website?',
-            cancelButton: 'No, thanks',
-            acceptButton: 'Yes',
-            retryAfterHours: 1,
-            showAfterSeconds: 5,
-          },
-        },
-      },
-    };
-
-    const expectedOutput: ActitoApplication = {
-      ...MINIMAL_ACTITO_APPLICATION,
-      websitePushConfig: {
-        icon: 'https://free-icons.com/some-icon-123',
-        allowedDomains: ['http://localhost:3000'],
-        urlFormatString: undefined,
-        info: undefined,
-        vapid: undefined,
-        launchConfig: undefined,
-        ignoreTemporaryDevices: undefined,
-        ignoreUnsupportedWebPushDevices: undefined,
-      },
-    };
-
-    const inputAutoOnboardingOptions =
-      input.websitePushConfig?.launchConfig?.autoOnboardingOptions ?? {};
-
-    const autoOnboardingOptionsKeysToExclude: (keyof typeof inputAutoOnboardingOptions)[] = [
-      'message',
-      'acceptButton',
-      'cancelButton',
-    ];
-
-    // Delete a single auto onboarding option from the Cloud Application object and compare it with the final Actito Application object each time
-    for (const key of autoOnboardingOptionsKeysToExclude) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [key]: _, ...incompleteAutoOnboardingOptions } = inputAutoOnboardingOptions;
-
-      const newCloudApplication: CloudApplication = {
-        ...input,
+  test.each([
+    ['no message', { message: undefined }],
+    ['no acceptButton', { acceptButton: undefined }],
+    ['no cancelButton', { cancelButton: undefined }],
+  ])(
+    'when the launch config has auto onboarding options lacking a mandatory property (%s), it sets the launch config as undefined in the final object',
+    (
+      _,
+      autoOnboardingOptionsOverride: CloudApplicationWebsitePushConfigLaunchConfigAutoOnboarding,
+    ) => {
+      const input: CloudApplication = {
+        ...MINIMAL_CLOUD_APPLICATION,
         websitePushConfig: {
-          ...input.websitePushConfig,
+          icon: 'https://free-icons.com/some-icon-123',
+          allowedDomains: ['http://localhost:3000'],
           launchConfig: {
-            ...input.websitePushConfig?.launchConfig,
-            autoOnboardingOptions: incompleteAutoOnboardingOptions,
+            autoOnboardingOptions: {
+              message: 'Would you like to receive notifications from our website?',
+              cancelButton: 'No, thanks',
+              acceptButton: 'Yes',
+              retryAfterHours: 1,
+              showAfterSeconds: 5,
+              ...autoOnboardingOptionsOverride,
+            },
           },
         },
       };
 
-      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(expectedOutput);
-    }
-  });
-
-  test('when the user data fields have a field with missing properties, it does not include that field in the final object', () => {
-    const input: CloudApplication = {
-      ...MINIMAL_CLOUD_APPLICATION,
-      userDataFields: [
-        {
-          type: 'string',
-          key: 'firstName',
-          label: 'First Name',
+      const expectedOutput: ActitoApplication = {
+        ...MINIMAL_ACTITO_APPLICATION,
+        websitePushConfig: {
+          icon: 'https://free-icons.com/some-icon-123',
+          allowedDomains: ['http://localhost:3000'],
+          urlFormatString: undefined,
+          info: undefined,
+          vapid: undefined,
+          launchConfig: undefined,
+          ignoreTemporaryDevices: undefined,
+          ignoreUnsupportedWebPushDevices: undefined,
         },
-      ],
-    };
+      };
 
-    const expectedOutput: ActitoApplication = {
-      ...MINIMAL_ACTITO_APPLICATION,
-      userDataFields: [],
-    };
+      expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
+    },
+  );
 
-    const userDataFields = input.userDataFields ?? [];
-
-    const userDataFieldKeysToExclude = Object.keys(
-      userDataFields[0],
-    ) as (keyof (typeof userDataFields)[0])[];
-
-    // Delete a single user data field property from the Cloud Application object and compare it with the final Actito Application object each time
-    for (const key of userDataFieldKeysToExclude) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [key]: _, ...incompleteUserDataField } = userDataFields[0];
-
-      const newCloudApplication: CloudApplication = {
-        ...input,
+  test.each([
+    ['no type', { type: undefined }],
+    ['no key', { key: undefined }],
+    ['no label', { label: undefined }],
+  ])(
+    'when there is a user data field with a missing property (%s), it is not included in the final object',
+    (_, userDataFieldOverride: CloudApplicationUserDataField) => {
+      const input: CloudApplication = {
+        ...MINIMAL_CLOUD_APPLICATION,
         userDataFields: [
           {
-            ...incompleteUserDataField,
+            type: 'string',
+            key: 'firstName',
+            label: 'First Name',
+            ...userDataFieldOverride,
           },
         ],
       };
 
-      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(expectedOutput);
-    }
-  });
+      const expectedOutput: ActitoApplication = {
+        ...MINIMAL_ACTITO_APPLICATION,
+        userDataFields: [],
+      };
 
-  test('when the action categories have a category without a type or name, it does not include that category in the final object', () => {
-    const input: CloudApplication = {
-      ...MINIMAL_CLOUD_APPLICATION,
-      actionCategories: [
-        {
-          type: 're.notifica.notification.Alert',
-          name: 'Alert template',
-          description: 'Alert template description',
-          actions: [],
-        },
-      ],
-    };
+      expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
+    },
+  );
 
-    const expectedOutput: ActitoApplication = {
-      ...MINIMAL_ACTITO_APPLICATION,
-      actionCategories: [],
-    };
-
-    const actionCategories = input.actionCategories ?? [];
-
-    const actionCategoryKeysToExclude: (keyof (typeof actionCategories)[0])[] = ['type', 'name'];
-
-    // Delete a single action category property from the Cloud Application object and compare it with the final Actito Application object each time
-    for (const key of actionCategoryKeysToExclude) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [key]: _, ...incompleteActionCategory } = actionCategories[0];
-
-      const newCloudApplication: CloudApplication = {
-        ...input,
+  test.each([
+    ['no type', { type: undefined }],
+    ['no name', { name: undefined }],
+  ])(
+    'when there is an action category missing a mandatory property (%s), it is not included in the final object',
+    (_, actionCategoryOverride: CloudApplicationActionCategory) => {
+      const input: CloudApplication = {
+        ...MINIMAL_CLOUD_APPLICATION,
         actionCategories: [
           {
-            ...incompleteActionCategory,
+            type: 're.notifica.notification.Alert',
+            name: 'Alert template',
+            description: 'Alert template description',
+            actions: [],
+            ...actionCategoryOverride,
           },
         ],
       };
 
-      expect(convertCloudApplicationToPublic(newCloudApplication)).toStrictEqual(expectedOutput);
-    }
-  });
+      const expectedOutput: ActitoApplication = {
+        ...MINIMAL_ACTITO_APPLICATION,
+        actionCategories: [],
+      };
 
-  test('when the action categories have a category that has an action without a label, it does not include that action in the final object', () => {
+      expect(convertCloudApplicationToPublic(input)).toStrictEqual(expectedOutput);
+    },
+  );
+
+  test('when there is an action category that has an action without a label, it does not include that action in the final object', () => {
     const input: CloudApplication = {
       ...MINIMAL_CLOUD_APPLICATION,
       actionCategories: [

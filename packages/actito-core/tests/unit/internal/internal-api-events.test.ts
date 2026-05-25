@@ -98,6 +98,30 @@ describe('test logCustom', () => {
     } as Response);
   });
 
+  test.each([
+    ...INVALID_EVENT_NAMES_WITH_RESTRICTIONS.map((value) => value[1]),
+    ...VALID_EVENT_NAMES_WITH_RESTRICTIONS,
+  ])(
+    "when the enforceEventNameRestrictions flag is false and the provided event name is '%s', it should log the event successfully",
+    async (inputEventName: string) => {
+      mockGetApplication.mockReturnValue({
+        ...DEFAULT_ACTITO_APPLICATION,
+        enforceEventNameRestrictions: false,
+      });
+
+      const { logCustom } = await import('~/public-api-events');
+      await logCustom(inputEventName);
+
+      const [, expectedOptions] = mockFetch.mock.calls[0];
+
+      // @ts-expect-error check if the event is sent as expected
+      expect(JSON.parse(expectedOptions.body)).toMatchObject({
+        type: `re.notifica.event.custom.${inputEventName}`,
+        timestamp: expect.any(Number),
+      });
+    },
+  );
+
   test.each(VALID_EVENT_NAMES_WITH_RESTRICTIONS)(
     "when the enforceEventNameRestrictions flag is true and the event name is valid ('%s'), it should log the event successfully",
     async (inputEventName: string) => {
@@ -120,7 +144,7 @@ describe('test logCustom', () => {
   );
 
   test.each(INVALID_EVENT_NAMES_WITH_RESTRICTIONS)(
-    "when the enforceEventNameRestrictions flag is true and the provided event name is invalid ('%s': %s), it should throw an error",
+    "when the enforceEventNameRestrictions flag is true and the provided event name is invalid (%s: '%s'), it should throw an error",
     async (_, inputEventName: string) => {
       expect.assertions(1);
 
@@ -136,30 +160,6 @@ describe('test logCustom', () => {
       } catch (error) {
         expect(error?.constructor.name).toBe('ActitoInvalidArgumentError');
       }
-    },
-  );
-
-  test.each([
-    ...INVALID_EVENT_NAMES_WITH_RESTRICTIONS.map((value) => value[1]),
-    ...VALID_EVENT_NAMES_WITH_RESTRICTIONS,
-  ])(
-    "when the enforceEventNameRestrictions flag is false and the provided event name is '%s', it should log the event successfully",
-    async (inputEventName: string) => {
-      mockGetApplication.mockReturnValue({
-        ...DEFAULT_ACTITO_APPLICATION,
-        enforceEventNameRestrictions: false,
-      });
-
-      const { logCustom } = await import('~/public-api-events');
-      await logCustom(inputEventName);
-
-      const [, expectedOptions] = mockFetch.mock.calls[0];
-
-      // @ts-expect-error check if the event is sent as expected
-      expect(JSON.parse(expectedOptions.body)).toMatchObject({
-        type: `re.notifica.event.custom.${inputEventName}`,
-        timestamp: expect.any(Number),
-      });
     },
   );
 

@@ -105,19 +105,19 @@ describe('test addTags', () => {
       enforceTagRestrictions: false,
     });
 
-    const inputTags = [
+    const input = [
       ...INVALID_TAG_NAMES_WITH_RESTRICTIONS.map((value) => value[1]),
       ...VALID_TAG_NAMES_WITH_RESTRICTIONS,
     ];
 
     const { addTags } = await import('~/public-api-device');
-    await addTags(inputTags);
+    await addTags(input);
 
     const [, expectedOptions] = mockFetch.mock.calls[0];
 
     // @ts-expect-error check if the tags are sent as expected
     expect(JSON.parse(expectedOptions.body)).toStrictEqual({
-      tags: inputTags,
+      tags: input,
     });
   });
 
@@ -126,27 +126,27 @@ describe('test addTags', () => {
     ...VALID_TAG_NAMES_WITH_RESTRICTIONS,
   ])(
     "when the enforceTagRestrictions flag is false and the provided tag is '%s', it should add it successfully",
-    async (inputTag: string) => {
+    async (input: string) => {
       mockGetStoredApplication.mockReturnValue({
         ...DEFAULT_ACTITO_APPLICATION,
         enforceTagRestrictions: false,
       });
 
       const { addTags } = await import('~/public-api-device');
-      await addTags([inputTag]);
+      await addTags([input]);
 
       const [, expectedOptions] = mockFetch.mock.calls[0];
 
       // @ts-expect-error check if the tags are sent as expected
       expect(JSON.parse(expectedOptions.body)).toStrictEqual({
-        tags: [inputTag],
+        tags: [input],
       });
     },
   );
 
   test.each(INVALID_TAG_NAMES_WITH_RESTRICTIONS)(
-    "when the enforceTagRestrictions flag is true and the provided tag is invalid ('%s': %s), it should throw an error",
-    async (_, inputTag: string) => {
+    "when the enforceTagRestrictions flag is true and the provided tag is invalid (%s: '%s'), it should throw an error",
+    async (_, input: string) => {
       mockGetStoredApplication.mockReturnValue({
         ...DEFAULT_ACTITO_APPLICATION,
         enforceTagRestrictions: true,
@@ -155,7 +155,7 @@ describe('test addTags', () => {
       const { addTags } = await import('~/public-api-device');
 
       try {
-        await addTags([inputTag]);
+        await addTags([input]);
       } catch (error) {
         expect(error?.constructor.name).toBe('ActitoInvalidArgumentError');
       }
@@ -164,20 +164,20 @@ describe('test addTags', () => {
 
   test.each(VALID_TAG_NAMES_WITH_RESTRICTIONS)(
     "when the enforceTagRestrictions flag is true and the provided tag is valid ('%s'), it should add it successfully",
-    async (inputTag: string) => {
+    async (input: string) => {
       mockGetStoredApplication.mockReturnValue({
         ...DEFAULT_ACTITO_APPLICATION,
         enforceTagRestrictions: true,
       });
 
       const { addTags } = await import('~/public-api-device');
-      await addTags([inputTag]);
+      await addTags([input]);
 
       const [, expectedOptions] = mockFetch.mock.calls[0];
 
       // @ts-expect-error check if the tags are sent as expected
       expect(JSON.parse(expectedOptions.body)).toStrictEqual({
-        tags: [inputTag],
+        tags: [input],
       });
     },
   );
@@ -186,12 +186,12 @@ describe('test addTags', () => {
     mockGetStoredApplication.mockReturnValue(DEFAULT_ACTITO_APPLICATION);
     mockGetStoredApplication.mockReturnValue(undefined);
 
-    const inputTag = 'tag-test';
+    const input = 'tag-test';
 
     const { addTags } = await import('~/public-api-device');
 
     try {
-      await addTags([inputTag]);
+      await addTags([input]);
     } catch (error) {
       expect(error?.constructor.name).toBe('ActitoDeviceUnavailableError');
     }

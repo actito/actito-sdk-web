@@ -56,12 +56,12 @@ describe('test validate', () => {
     'http://:3000',
   ];
 
-  test.each(VALID_HOSTS)('when both hosts are valid, it does nothing', (host) => {
+  test.each(VALID_HOSTS)('when both hosts are valid, it does nothing', (inputHost) => {
     const input: ActitoInternalOptions = {
       ...MINIMAL_ACTITO_INTERNAL_OPTIONS,
       hosts: {
-        cloudApi: host,
-        restApi: host,
+        cloudApi: inputHost,
+        restApi: inputHost,
       },
     };
 
@@ -70,17 +70,37 @@ describe('test validate', () => {
     }).not.toThrow();
   });
 
-  test.each(INVALID_HOSTS)('when there is an invalid host, it throws an error', (host) => {
-    const input: ActitoInternalOptions = {
-      ...MINIMAL_ACTITO_INTERNAL_OPTIONS,
-      hosts: {
-        cloudApi: host,
-        restApi: host,
-      },
-    };
+  test.each(INVALID_HOSTS)(
+    'when the Cloud API host is invalid, it should throw an error',
+    (inputInvalidHost) => {
+      const input: ActitoInternalOptions = {
+        ...MINIMAL_ACTITO_INTERNAL_OPTIONS,
+        hosts: {
+          cloudApi: inputInvalidHost,
+          restApi: 'https://my-rest-api.com',
+        },
+      };
 
-    expect(() => {
-      validate(input);
-    }).toThrow();
-  });
+      expect(() => {
+        validate(input);
+      }).toThrow('Invalid CLOUD API host.');
+    },
+  );
+
+  test.each(INVALID_HOSTS)(
+    'when the Rest API host is invalid, it should throw an error',
+    (inputInvalidHost) => {
+      const input: ActitoInternalOptions = {
+        ...MINIMAL_ACTITO_INTERNAL_OPTIONS,
+        hosts: {
+          cloudApi: 'https://my-cloud-api.com',
+          restApi: inputInvalidHost,
+        },
+      };
+
+      expect(() => {
+        validate(input);
+      }).toThrow('Invalid REST API host.');
+    },
+  );
 });
