@@ -86,8 +86,8 @@ describe('test convertCloudInboxItemToPublic', () => {
   });
 
   test('when a minimal CloudDeviceInboxItem object is provided, it includes the optional fields in the final ActitoInboxItem object as expected', () => {
-    const input: CloudDeviceInboxItem = MINIMAL_CLOUD_DEVICE_INBOX_ITEM;
-    const expectedOutput: ActitoInboxItem = MINIMAL_ACTITO_INBOX_ITEM;
+    const input = MINIMAL_CLOUD_DEVICE_INBOX_ITEM;
+    const expectedOutput = MINIMAL_ACTITO_INBOX_ITEM;
 
     expect(convertCloudInboxItemToPublic(input)).toStrictEqual(expectedOutput);
   });
