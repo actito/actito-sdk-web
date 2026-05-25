@@ -12,11 +12,11 @@
     "attw": "attw --pack .",
     "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
-    "build:types": "tsc && tsc-alias",
+    "build:types": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "clean": "rm -rf dist/",
     "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
     "dev:sources": "rollup -c -w",
-    "dev:types": "tsc --watch",
+    "dev:types": "tsc -p tsconfig.build.json --watch",
     "lint": "eslint .",
     "lint:staged": "lint-staged",
     "test": "NODE_OPTIONS='--experimental-vm-modules' yarn jest"
