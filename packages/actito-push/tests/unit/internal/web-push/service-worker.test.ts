@@ -94,7 +94,9 @@ describe('test registerServiceWorker', () => {
 
       const { registerServiceWorker } = await import('~/internal/web-push/service-worker');
 
-      await expect(registerServiceWorker(input)).rejects.toThrow(Error);
+      await expect(registerServiceWorker(input)).rejects.toThrow(
+        'Service workers are only available over HTTPS or localhost.',
+      );
     },
   );
 
