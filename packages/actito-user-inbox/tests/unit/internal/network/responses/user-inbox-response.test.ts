@@ -89,8 +89,8 @@ describe('test convertNetworkUserInboxItemToPublic', () => {
   });
 
   test('when a minimal CloudDeviceInboxItem object is provided, it includes the optional fields in the final ActitoUserInboxItem object as expected', () => {
-    const input: NetworkUserInboxItem = MINIMAL_NETWORK_USER_INBOX_ITEM;
-    const expectedOutput: ActitoUserInboxItem = MINIMAL_ACTITO_USER_INBOX_ITEM;
+    const input = MINIMAL_NETWORK_USER_INBOX_ITEM;
+    const expectedOutput = MINIMAL_ACTITO_USER_INBOX_ITEM;
 
     expect(convertNetworkUserInboxItemToPublic(input)).toStrictEqual(expectedOutput);
   });
