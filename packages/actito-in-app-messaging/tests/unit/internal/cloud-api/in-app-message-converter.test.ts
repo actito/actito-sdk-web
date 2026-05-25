@@ -73,8 +73,8 @@ describe('test convertCloudInAppMessageToPublic', () => {
   });
 
   test('when a minimal CloudInAppMessage object is provided, it includes the optional fields in the final ActitoInAppMessage object as expected', () => {
-    const input: CloudInAppMessage = MINIMAL_CLOUD_IN_APP_MESSAGE;
-    const expectedOutput: ActitoInAppMessage = MINIMAL_ACTITO_IN_APP_MESSAGE;
+    const input = MINIMAL_CLOUD_IN_APP_MESSAGE;
+    const expectedOutput = MINIMAL_ACTITO_IN_APP_MESSAGE;
 
     expect(convertCloudInAppMessageToPublic(input)).toStrictEqual(expectedOutput);
   });
