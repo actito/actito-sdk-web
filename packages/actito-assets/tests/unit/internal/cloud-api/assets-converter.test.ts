@@ -66,8 +66,8 @@ describe('test convertCloudAssetToPublic', () => {
   });
 
   test('when a minimal CloudAsset object is provided, it includes the optional fields in the final ActitoAsset object as expected', () => {
-    const input: CloudAsset = MINIMAL_CLOUD_ASSET;
-    const expectedOutput: ActitoAsset = MINIMAL_ACTITO_ASSET;
+    const input = MINIMAL_CLOUD_ASSET;
+    const expectedOutput = MINIMAL_ACTITO_ASSET;
 
     expect(convertCloudAssetToPublic(input)).toStrictEqual(expectedOutput);
   });
