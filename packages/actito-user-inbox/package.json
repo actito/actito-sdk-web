@@ -12,13 +12,14 @@
     "attw": "attw --pack .",
     "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
-    "build:types": "tsc && tsc-alias",
+    "build:types": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "clean": "rm -rf dist/",
     "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
     "dev:sources": "rollup -c -w",
-    "dev:types": "tsc --watch",
+    "dev:types": "tsc -p tsconfig.build.json --watch",
     "lint": "eslint .",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' yarn jest"
   },
   "files": [
     "dist",
@@ -45,8 +46,10 @@
   "devDependencies": {
     "@actito/library-config": "workspace:^",
     "@arethetypeswrong/cli": "^0.18.2",
+    "@jest/globals": "^30.4.1",
     "concurrently": "^9.2.0",
     "eslint": "^9.33.0",
+    "jest": "^30.4.1",
     "rollup": "^4.46.3",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.2"
