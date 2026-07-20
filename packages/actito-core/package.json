@@ -9,6 +9,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.cts",
   "scripts": {
+    "attw": "attw --pack .",
     "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
     "build:types": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",

@@ -23,7 +23,7 @@
     "inbox"
   ],
   "scripts": {
-    "attw": "attw --pack .",
+    "attw": "attw --pack . --exclude-entrypoints ./in-app-messaging/in-app-messaging.css ./push/push.css ./push-ui/push-ui.css",
     "build": "yarn build:types && yarn build:sources",
     "build:sources": "rollup -c",
     "build:types": "tsc",
