@@ -87,7 +87,7 @@ function buildNpmPackage(pkg, component) {
       },
     ),
     buildTypeDefinitions({
-      input: `dist/intermediate/${component}/index.d.ts`,
+      input: `${component}/index.ts`,
       outDir: `${component}/dist`,
     }),
   ];
