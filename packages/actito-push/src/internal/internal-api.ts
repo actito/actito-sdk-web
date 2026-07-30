@@ -88,6 +88,13 @@ export async function enableRemoteNotifications(): Promise<void> {
     const device = getCurrentDevice();
 
     if (hasWebPushSupport()) {
+      if (Notification.permission !== 'granted') {
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+          throw new Error('The user denied the WebPush permission.');
+        }
+      }
+
       let token = await enableWebPushNotifications(application, options);
 
       if (!device && application.websitePushConfig.ignoreTemporaryDevices) {
