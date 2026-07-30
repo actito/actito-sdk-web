@@ -29,6 +29,8 @@ export function DoNotDisturbCard() {
     autoLaunched.current = true;
 
     const device = getCurrentDevice();
+    if (!device) return;
+
     const isLocalDeviceDndEnabled = device?.dnd !== undefined;
     const localDeviceDndData = { start: device?.dnd?.start ?? "", end: device?.dnd?.end ?? "" };
 
