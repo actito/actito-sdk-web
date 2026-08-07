@@ -12,6 +12,7 @@ import {
   ActitoNotConfiguredError,
   type ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions,
   type ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonOptions,
+  type CreateDeviceCommandData,
 } from '@actito/web-core';
 import { notifyNotificationSettingsChanged, notifySubscriptionChanged } from './consumer-events';
 import { logPushRegistration } from './internal-api-events';
@@ -98,9 +99,10 @@ export async function enableRemoteNotifications(): Promise<void> {
       let token = await enableWebPushNotifications(application, options);
 
       if (!device && application.websitePushConfig.ignoreTemporaryDevices) {
-        await executeComponentCommand({
-          component: 'device',
-          command: 'createDevice',
+        await createDeviceSubscription({
+          transport: 'WebPush',
+          token: token.endpoint,
+          keys: token.keys,
         });
 
         // The first service worker registration won't register with a deviceId when ignoreTemporaryDevices
@@ -127,16 +129,16 @@ export async function enableRemoteNotifications(): Promise<void> {
       const token = await enableSafariPushNotifications();
 
       if (!device && application.websitePushConfig.ignoreTemporaryDevices) {
-        await executeComponentCommand({
-          component: 'device',
-          command: 'createDevice',
+        await createDeviceSubscription({
+          transport: 'WebsitePush',
+          token,
+        });
+      } else {
+        await updateDeviceSubscription({
+          transport: 'WebsitePush',
+          token,
         });
       }
-
-      await updateDeviceSubscription({
-        transport: 'WebsitePush',
-        token,
-      });
     }
   } finally {
     ongoingPushRegistration = false;
@@ -224,6 +226,41 @@ function getOnboardingLastAttempt(): number | undefined {
   if (!lastAttemptStr) return undefined;
 
   return parseInt(lastAttemptStr, 10);
+}
+
+async function createDeviceSubscription({
+  transport,
+  token,
+  keys,
+}: {
+  transport: ActitoTransport;
+  token?: string;
+  keys?: object;
+}) {
+  const application = getApplication();
+  if (!application) throw new ActitoApplicationUnavailableError();
+
+  const device = getCurrentDevice();
+  if (device) {
+    throw new Error('Cannot create the device subscription when the device is already registered.');
+  }
+
+  const isPushCapable = transport !== 'Notificare';
+  const allowedUI = isPushCapable && getPushPermissionStatus() === 'granted';
+
+  const data: CreateDeviceCommandData = {
+    transport,
+    subscriptionId: token,
+    keys: keys,
+    allowedUI,
+    webPushCapable: hasWebPushCapabilities(),
+  };
+
+  await executeComponentCommand({
+    component: 'device',
+    command: 'createDevice',
+    data,
+  });
 }
 
 async function updateDeviceSubscription({

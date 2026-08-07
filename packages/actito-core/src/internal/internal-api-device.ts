@@ -22,9 +22,11 @@ import {
 import { SDK_VERSION } from './version';
 import { ActitoDeviceUnavailableError } from '~/errors/actito-device-unavailable-error';
 import { ActitoNotReadyError } from '~/errors/actito-not-ready-error';
+import type { CreateDeviceCommandData } from '~/internal/components/device-component';
 
-export async function createDevice() {
+export async function createDevice(data?: CreateDeviceCommandData) {
   const payload: CloudCreateDevicePayload = {
+    ...data,
     language: getDeviceLanguage(),
     region: getDeviceRegion(),
     platform: 'Web',

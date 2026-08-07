@@ -1,4 +1,4 @@
-import { ActitoNetworkRequestError } from '@actito/web-cloud-api';
+import { ActitoNetworkRequestError, type CloudCreateDevicePayload } from '@actito/web-cloud-api';
 import { Component } from '~/internal/component';
 import { components } from '~/internal/component-cache';
 import { notifyDeviceRegistered } from '~/internal/consumer-events';
@@ -104,10 +104,9 @@ export class DeviceComponent extends Component {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async executeCommand(command: string, data?: unknown): Promise<unknown> {
     if (command === 'createDevice') {
-      await this.handleCreateDeviceWithSession();
+      await this.handleCreateDeviceWithSession(data as CreateDeviceCommandData);
       return;
     }
 
@@ -130,8 +129,8 @@ export class DeviceComponent extends Component {
       .catch((error) => logger.error(`Failed to register the test device: ${error}`));
   }
 
-  private async handleCreateDeviceWithSession() {
-    await createDevice();
+  private async handleCreateDeviceWithSession(data?: CreateDeviceCommandData) {
+    await createDevice(data);
 
     if (isReady()) {
       const device = getStoredDevice();
@@ -170,3 +169,8 @@ export class DeviceComponent extends Component {
     localStorage.removeItem('re.notifica.unload_timestamp');
   }
 }
+
+export type CreateDeviceCommandData = Pick<
+  CloudCreateDevicePayload,
+  'transport' | 'subscriptionId' | 'keys' | 'allowedUI' | 'webPushCapable'
+>;
