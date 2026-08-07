@@ -61,9 +61,9 @@ export async function enableRemoteNotifications(): Promise<void> {
   const application = getApplication();
   if (!application) throw new ActitoApplicationUnavailableError();
 
-  if (!application.websitePushConfig?.icon) {
+  if (!application.websitePushConfig) {
     throw new Error(
-      'Missing application icon. Please check your Website Push configurations in our dashboard before proceeding.',
+      'Web Push is not configured for this application. Please check your Website Push configurations in our dashboard before proceeding.',
     );
   }
 
@@ -126,6 +126,12 @@ export async function enableRemoteNotifications(): Promise<void> {
         logger.warning('Failed to send a message to the service worker.', e);
       }
     } else if (hasSafariPushSupport()) {
+      if (!application.websitePushConfig.icon) {
+        throw new Error(
+          'Missing application icon. Please check your Website Push configurations in our dashboard before proceeding.',
+        );
+      }
+
       const token = await enableSafariPushNotifications();
 
       if (!device && application.websitePushConfig.ignoreTemporaryDevices) {
