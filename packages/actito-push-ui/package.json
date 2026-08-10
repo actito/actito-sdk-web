@@ -1,6 +1,6 @@
 {
   "name": "@actito/web-push-ui",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "The push ui package for the 'actito-web' umbrella package.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
   "license": "MIT",
@@ -9,20 +9,17 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.cts",
   "scripts": {
-    "attw": "attw --pack .",
-    "build": "yarn build:types && yarn build:sources",
-    "build:sources": "rollup -c",
-    "build:types": "tsc && tsc-alias",
+    "attw": "attw --pack . --exclude-entrypoints ./dist/actito-push-ui.css",
+    "build": "rollup -c",
     "clean": "rm -rf dist/",
-    "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
-    "dev:sources": "rollup -c -w",
-    "dev:types": "tsc --watch",
+    "dev": "rollup -c -w",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit",
     "lint": "eslint .",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' yarn jest"
   },
   "files": [
-    "dist",
-    "!dist/intermediate"
+    "dist"
   ],
   "exports": {
     ".": {
@@ -38,20 +35,20 @@
     "./dist/actito-push-ui.css": "./dist/actito-push-ui.css"
   },
   "dependencies": {
-    "@actito/web-cloud-api": "^5.0.0",
-    "@actito/web-core": "^5.0.0",
-    "@actito/web-logger": "^5.0.0",
-    "@actito/web-ui": "^5.0.0",
+    "@actito/web-cloud-api": "^5.0.1",
+    "@actito/web-core": "^5.0.1",
+    "@actito/web-logger": "^5.0.1",
+    "@actito/web-ui": "^5.0.1",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@actito/library-config": "workspace:^",
     "@arethetypeswrong/cli": "^0.18.2",
+    "@jest/globals": "^30.3.0",
     "@types/google.maps": "^3.58.1",
-    "concurrently": "^9.2.0",
     "eslint": "^9.33.0",
+    "jest": "^30.3.0",
     "rollup": "^4.46.3",
-    "tsc-alias": "^1.8.16",
     "typescript": "^5.9.2"
   },
   "publishConfig": {

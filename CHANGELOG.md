@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 5.0.1
+
+- Fix device creation when `ignoreTemporaryDevices` is set to `true`.
+- Fix a bug where a new Service Worker was always registered even when there was already one with the same configuration.
+
 ## 5.0.0
 
 Prior to upgrading to v5.x, consult the [Migration Guide](./MIGRATION.md), which outlines all necessary changes and procedures to ensure a smooth migration.

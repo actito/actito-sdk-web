@@ -23,7 +23,7 @@ export function parseWorkerConfiguration(encoded: string): WorkerConfiguration |
 
   return {
     cloudHost,
-    applicationId: config.applicationKey,
+    applicationId: config.applicationId,
     applicationKey,
     applicationSecret,
     deviceId: config.deviceId,

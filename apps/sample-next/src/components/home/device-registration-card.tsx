@@ -1,37 +1,46 @@
 import { useCallback, useState } from "react";
-import { getCurrentDevice, updateUser } from "actito-web/core";
-import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registered";
+import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/outline";
+import { updateUser } from "actito-web/core";
 import { Button } from "@/components/button";
 import { Card, CardActions, CardContent, CardHeader } from "@/components/card";
 import { InputField } from "@/components/input-field";
+import { toast } from "@/components/toast";
+import { useCurrentUser } from "@/context/current-user";
 import { logger } from "@/utils/logger";
 
 export function DeviceRegistrationCard() {
-  const device = getCurrentDevice();
+  const { user, setUser } = useCurrentUser();
 
-  const [userId, setUserId] = useState<string>(device?.userId ?? "");
-  const [userName, setUserName] = useState<string>(device?.userName ?? "");
+  const [userId, setUserId] = useState<string>(user?.userId ?? "");
+  const [userName, setUserName] = useState<string>(user?.userName ?? "");
   const [loading, setLoading] = useState<boolean>(false);
-
-  useOnDeviceRegistered((device) => {
-    setUserId(device.userId ?? "");
-    setUserName(device.userName ?? "");
-  });
 
   const onRegisterClick = useCallback(() => {
     setLoading(true);
 
     updateUser({ userId: userId.trim() || null, userName: userName.trim() || null })
-      .then(() => setLoading(false))
-      .catch((e) => {
-        logger.error(`Unable to register device: ${e}`);
+      .then(() => {
         setLoading(false);
+        setUser({ userId: userId, userName: userName });
+        toast({
+          title: "The device was registered.",
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast({
+          title: "Unable to register the device.",
+          description: `${error}`,
+          variant: "error",
+        });
+        logger.error(`Unable to register the device: ${error}`);
       });
-  }, [userId, userName]);
+  }, [setUser, userId, userName]);
 
   return (
     <Card>
-      <CardHeader title="Device registration" />
+      <CardHeader title="Device registration" icon={ArrowRightEndOnRectangleIcon} />
 
       <CardContent>
         <InputField
@@ -54,7 +63,12 @@ export function DeviceRegistrationCard() {
       </CardContent>
 
       <CardActions>
-        <Button text="Register" disabled={loading} onClick={onRegisterClick} />
+        <Button
+          text="Register user"
+          loading={loading}
+          onClick={onRegisterClick}
+          className="w-full"
+        />
       </CardActions>
     </Card>
   );

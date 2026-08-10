@@ -93,14 +93,25 @@ export interface ActitoNotificationContent {
    *
    * Supported content types:
    *
+   * - `re.notifica.content.Text`
    * - `re.notifica.content.HTML`
+   * - `re.notifica.content.URL`
+   * - `re.notifica.content.GIF`
+   * - `re.notifica.content.JPEG`
+   * - `re.notifica.content.PNG`
+   * - `re.notifica.content.Marker`
    * - `re.notifica.content.PKPass`
+   * - `re.notifica.content.Pass`
+   * - `re.notifica.content.YouTube`
+   * - `re.notifica.content.Vimeo`
+   * - `re.notifica.content.HTML5Video`
    * - `re.notifica.content.GooglePlayDetails`
    * - `re.notifica.content.GooglePlayDeveloper`
    * - `re.notifica.content.GooglePlaySearch`
    * - `re.notifica.content.GooglePlayCollection`
    * - `re.notifica.content.AppGalleryDetails`
    * - `re.notifica.content.AppGallerySearch`
+   * - `re.notifica.content.AppStore`
    */
   readonly type: string;
 

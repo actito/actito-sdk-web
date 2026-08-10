@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { updateUser } from "actito-web/core";
+import { getCurrentDevice, updateUser } from "actito-web/core";
 import { useActitoState } from "@/actito/hooks/actito-state";
 import { logger } from "@/utils/logger";
 
@@ -13,6 +13,9 @@ export function useSampleUser() {
     const userName = process.env.NEXT_PUBLIC_SAMPLE_USER_NAME;
 
     if (userId === undefined && userName === undefined) return;
+
+    const device = getCurrentDevice();
+    if (!device) return;
 
     updateUser({ userId: userId ?? null, userName: userName ?? null })
       .then(() => logger.info("Updated registered user."))

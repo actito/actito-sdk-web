@@ -7,6 +7,7 @@ export {
   broadcastComponentEvent,
   executeComponentCommand,
 } from './internal/component-cache';
+export { type CreateDeviceCommandData } from './internal/components/device-component';
 export { getOptions } from './internal/options';
 export type { ActitoInternalOptions } from './internal/options';
 export { logInternal, logNotificationOpen } from './internal/internal-api-events';

@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   clearDoNotDisturb,
   fetchDoNotDisturb,
@@ -9,6 +10,7 @@ import { Button } from "@/components/button";
 import { Card, CardActions, CardContent, CardHeader } from "@/components/card";
 import { InputField } from "@/components/input-field";
 import { Switch } from "@/components/switch";
+import { toast } from "@/components/toast";
 import { logger } from "@/utils/logger";
 
 const DEFAULT_DND_START = "23:00";
@@ -16,91 +18,186 @@ const DEFAULT_DND_END = "08:00";
 const TIME_REGEX = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 
 export function DoNotDisturbCard() {
-  const [enabled, setEnabled] = useState(false);
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [state, setState] = useState<DoNotDisturbState>({ status: "idle" });
+  const autoLaunched = useRef(false);
 
   useEffect(() => {
-    const device = getCurrentDevice();
+    // Strict mode will (un)mount each component twice.
+    // Prevent the fetch from being performed in duplicate.
+    if (autoLaunched.current) return;
 
-    setEnabled(device?.dnd !== undefined);
-    if (device?.dnd?.start) setStart(device.dnd.start);
-    if (device?.dnd?.end) setEnd(device.dnd.end);
+    autoLaunched.current = true;
+
+    const device = getCurrentDevice();
+    if (!device) return;
+
+    const isLocalDeviceDndEnabled = device?.dnd !== undefined;
+    const localDeviceDndData = { start: device?.dnd?.start ?? "", end: device?.dnd?.end ?? "" };
+
+    setState(
+      isLocalDeviceDndEnabled
+        ? { status: "initializing-enabled", data: localDeviceDndData }
+        : { status: "initializing-disabled" },
+    );
 
     fetchDoNotDisturb()
       .then((dnd) => {
-        setEnabled(!!dnd);
-        if (dnd?.start) setStart(dnd.start);
-        if (dnd?.end) setEnd(dnd.end);
+        setState(
+          !!dnd
+            ? { status: "enabled", data: { start: dnd.start, end: dnd.end } }
+            : { status: "disabled" },
+        );
       })
-      .catch((e) => logger.error(`Failed to fetch to dnd: ${e}`));
+      .catch((error) => {
+        setState(
+          isLocalDeviceDndEnabled
+            ? { status: "enabled", data: localDeviceDndData }
+            : { status: "disabled" },
+        );
+        toast({
+          title:
+            "Failed to fetch the 'Do not disturb' state. Instead, it's using local device information.",
+          description: `${error}`,
+          variant: "warning",
+        });
+        logger.error(`Failed to fetch the 'Do not disturb' state: ${error}`);
+      });
   }, []);
 
   const updateDoNotDisturbCallback = useCallback(() => {
-    // TODO: notify the user about failures
+    if (state.status === "disabled") {
+      setState({ status: "saving-disabled" });
 
-    if (!enabled) {
       clearDoNotDisturb()
         .then(() => {
-          setEnabled(false);
-          setStart("");
-          setEnd("");
+          toast({
+            title: "The 'Do not disturb' mode has been disabled.",
+            variant: "success",
+          });
         })
-        .catch((e) => `Failed to clear the dnd: ${e}`);
-
-      return;
+        .catch((error) => {
+          toast({
+            title: "Failed to disable the 'Do not disturb' mode.",
+            description: `${error}`,
+            variant: "error",
+          });
+          logger.error(`Failed to disable the 'Do not disturb' mode: ${error}`);
+        })
+        .finally(() => setState({ status: "disabled" }));
     }
 
-    updateDoNotDisturb({
-      start,
-      end,
-    }).catch((e) => `Failed to update the dnd: ${e}`);
-  }, [enabled, start, end]);
+    if (state.status === "enabled") {
+      setState({ ...state, status: "saving-enabled" });
 
-  const isValid = useMemo<boolean>(() => {
-    if (!enabled) return true;
+      updateDoNotDisturb({
+        start: state.data.start,
+        end: state.data.end,
+      })
+        .then(() => {
+          toast({
+            title: "The 'Do not disturb' mode has been enabled.",
+            variant: "success",
+          });
+        })
+        .catch((error) => {
+          toast({
+            title: "Failed to enable the 'Do not disturb' mode.",
+            description: `${error}`,
+            variant: "error",
+          });
+          logger.error(`Failed to enable the 'Do not disturb' mode: ${error}`);
+        })
+        .finally(() => setState({ status: "enabled", data: state.data }));
+    }
 
-    if (!start.match(TIME_REGEX)) return false;
-    // noinspection RedundantIfStatementJS
-    if (!end.match(TIME_REGEX)) return false;
+    return;
+  }, [state]);
 
-    return true;
-  }, [enabled, start, end]);
+  function setTimePeriod(data: { start?: string; end?: string }) {
+    if (state.status === "enabled") {
+      setState({
+        ...state,
+        data: {
+          start: data.start ?? state.data.start,
+          end: data.end ?? state.data.end,
+        },
+      });
+    }
+  }
+
+  const isSaving = state.status === "saving-enabled" || state.status === "saving-disabled";
+  const isInitializing =
+    state.status === "initializing-enabled" || state.status === "initializing-disabled";
+  const isEnabled =
+    state.status === "initializing-enabled" ||
+    state.status === "saving-enabled" ||
+    state.status === "enabled";
+  const isDisabled =
+    state.status === "initializing-disabled" ||
+    state.status === "saving-disabled" ||
+    state.status === "disabled";
+  const isValid =
+    !isEnabled || (TIME_REGEX.test(state.data.start) && TIME_REGEX.test(state.data.end));
 
   return (
-    <Card>
-      <CardHeader title="Do not disturb" />
+    <Card loading={isInitializing}>
+      <CardHeader title="Do not disturb" icon={NoSymbolIcon} />
 
       <CardContent>
         <Switch
           label="Enabled"
-          checked={enabled}
-          onChange={(checked) => {
-            setEnabled(checked);
-            setStart(checked ? DEFAULT_DND_START : "");
-            setEnd(checked ? DEFAULT_DND_END : "");
-          }}
+          disabled={isSaving || isInitializing}
+          checked={isEnabled}
+          onChange={(checked) =>
+            checked
+              ? setState({
+                  status: "enabled",
+                  data: {
+                    start: DEFAULT_DND_START,
+                    end: DEFAULT_DND_END,
+                  },
+                })
+              : setState({ status: "disabled" })
+          }
         />
 
         <InputField
           id="dnd-start"
           label="Start"
-          value={start}
-          disabled={!enabled}
-          onChange={(event) => setStart(event.target.value)}
+          value={isEnabled ? state.data.start : ""}
+          disabled={isSaving || isInitializing || isDisabled}
+          onChange={(event) => setTimePeriod({ start: event.target.value })}
         />
 
         <InputField
           id="dnd-end"
           label="End"
-          value={end}
-          disabled={!enabled}
-          onChange={(event) => setEnd(event.target.value)}
+          value={isEnabled ? state.data.end : ""}
+          disabled={isSaving || isInitializing || isDisabled}
+          onChange={(event) => setTimePeriod({ end: event.target.value })}
         />
       </CardContent>
       <CardActions>
-        <Button text="Save" disabled={!isValid} onClick={updateDoNotDisturbCallback} />
+        <Button
+          text="Save"
+          disabled={isSaving || isInitializing || !isValid}
+          onClick={updateDoNotDisturbCallback}
+          loading={isSaving}
+          className="w-full"
+        />
       </CardActions>
     </Card>
   );
 }
+
+type DoNotDisturbState =
+  | {
+      status: "idle" | "initializing-disabled" | "saving-disabled" | "disabled";
+    }
+  | {
+      status: "initializing-enabled" | "saving-enabled" | "enabled";
+      data: {
+        start: string;
+        end: string;
+      };
+    };

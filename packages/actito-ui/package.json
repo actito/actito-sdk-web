@@ -1,6 +1,6 @@
 {
   "name": "@actito/web-ui",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "The core UI package for use in the Actito Web SDK.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
   "license": "MIT",
@@ -9,20 +9,17 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.cts",
   "scripts": {
-    "attw": "attw --pack .",
-    "build": "yarn build:types && yarn build:sources",
-    "build:sources": "rollup -c",
-    "build:types": "tsc && tsc-alias",
+    "attw": "attw --pack . --exclude-entrypoints ./dist/actito-ui.css",
+    "build": "rollup -c",
     "clean": "rm -rf dist/",
-    "dev": "concurrently \"yarn dev:types\" \"yarn dev:sources\"",
-    "dev:sources": "rollup -c -w",
-    "dev:types": "tsc --watch",
+    "dev": "rollup -c -w",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit",
     "lint": "eslint .",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' yarn jest"
   },
   "files": [
-    "dist",
-    "!dist/intermediate"
+    "dist"
   ],
   "exports": {
     ".": {
@@ -43,10 +40,10 @@
   "devDependencies": {
     "@actito/library-config": "workspace:^",
     "@arethetypeswrong/cli": "^0.18.2",
-    "concurrently": "^9.2.0",
+    "@jest/globals": "^30.4.1",
     "eslint": "^9.33.0",
+    "jest": "^30.4.2",
     "rollup": "^4.46.3",
-    "tsc-alias": "^1.8.16",
     "typescript": "^5.9.2"
   },
   "publishConfig": {

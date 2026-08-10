@@ -1,6 +1,6 @@
 {
   "name": "actito-web",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "type": "module",
   "description": "The official Actito JS library.",
   "author": "Actito <mobile@actito.com> (https://actito.com)",
@@ -23,10 +23,9 @@
     "inbox"
   ],
   "scripts": {
-    "attw": "attw --pack .",
-    "build": "yarn build:types && yarn build:sources",
-    "build:sources": "rollup -c",
-    "build:types": "tsc",
+    "attw": "attw --pack . --exclude-entrypoints ./in-app-messaging/in-app-messaging.css ./push/push.css ./push-ui/push-ui.css",
+    "build": "rollup -c",
+    "typecheck": "tsc --noEmit",
     "clean": "rm -rf .build dist '**/dist' '**/**/dist'",
     "lint": "eslint .",
     "lint:staged": "lint-staged",
@@ -139,19 +138,18 @@
     }
   },
   "dependencies": {
-    "@actito/web-assets": "^5.0.0",
-    "@actito/web-core": "^5.0.0",
-    "@actito/web-geo": "^5.0.0",
-    "@actito/web-in-app-messaging": "^5.0.0",
-    "@actito/web-inbox": "^5.0.0",
-    "@actito/web-push": "^5.0.0",
-    "@actito/web-push-ui": "^5.0.0",
-    "@actito/web-user-inbox": "^5.0.0"
+    "@actito/web-assets": "^5.0.1",
+    "@actito/web-core": "^5.0.1",
+    "@actito/web-geo": "^5.0.1",
+    "@actito/web-in-app-messaging": "^5.0.1",
+    "@actito/web-inbox": "^5.0.1",
+    "@actito/web-push": "^5.0.1",
+    "@actito/web-push-ui": "^5.0.1",
+    "@actito/web-user-inbox": "^5.0.1"
   },
   "devDependencies": {
     "@actito/library-config": "workspace:^",
     "@arethetypeswrong/cli": "^0.18.2",
-    "concurrently": "^9.2.0",
     "eslint": "^9.33.0",
     "rollup": "^4.46.3",
     "typescript": "^5.9.2"

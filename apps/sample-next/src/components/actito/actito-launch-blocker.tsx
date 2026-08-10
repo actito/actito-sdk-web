@@ -22,6 +22,14 @@ export function ActitoLaunchBlocker({ children }: PropsWithChildren) {
         />
       )}
 
+      {state.status === "launch-failed" && (
+        <Alert variant="error" message="Actito failed to launch." />
+      )}
+
+      {state.status === "unlaunch-failed" && (
+        <Alert variant="error" message="Actito failed to unlaunch." />
+      )}
+
       {state.status === "launching" && (
         <ProgressIndicator
           title="Launch flow in progress"
