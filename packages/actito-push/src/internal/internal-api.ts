@@ -12,6 +12,7 @@ import {
   ActitoNotConfiguredError,
   type ActitoApplicationWebsitePushConfigLaunchConfigAutoOnboardingOptions,
   type ActitoApplicationWebsitePushConfigLaunchConfigFloatingButtonOptions,
+  type CreateDeviceCommandData,
 } from '@actito/web-core';
 import { notifyNotificationSettingsChanged, notifySubscriptionChanged } from './consumer-events';
 import { logPushRegistration } from './internal-api-events';
@@ -60,9 +61,9 @@ export async function enableRemoteNotifications(): Promise<void> {
   const application = getApplication();
   if (!application) throw new ActitoApplicationUnavailableError();
 
-  if (!application.websitePushConfig?.icon) {
+  if (!application.websitePushConfig) {
     throw new Error(
-      'Missing application icon. Please check your Website Push configurations in our dashboard before proceeding.',
+      'Web Push is not configured for this application. Please check your Website Push configurations in our dashboard before proceeding.',
     );
   }
 
@@ -88,12 +89,20 @@ export async function enableRemoteNotifications(): Promise<void> {
     const device = getCurrentDevice();
 
     if (hasWebPushSupport()) {
+      if (Notification.permission !== 'granted') {
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+          throw new Error('The user denied the WebPush permission.');
+        }
+      }
+
       let token = await enableWebPushNotifications(application, options);
 
       if (!device && application.websitePushConfig.ignoreTemporaryDevices) {
-        await executeComponentCommand({
-          component: 'device',
-          command: 'createDevice',
+        await createDeviceSubscription({
+          transport: 'WebPush',
+          token: token.endpoint,
+          keys: token.keys,
         });
 
         // The first service worker registration won't register with a deviceId when ignoreTemporaryDevices
@@ -117,19 +126,25 @@ export async function enableRemoteNotifications(): Promise<void> {
         logger.warning('Failed to send a message to the service worker.', e);
       }
     } else if (hasSafariPushSupport()) {
+      if (!application.websitePushConfig.icon) {
+        throw new Error(
+          'Missing application icon. Please check your Website Push configurations in our dashboard before proceeding.',
+        );
+      }
+
       const token = await enableSafariPushNotifications();
 
       if (!device && application.websitePushConfig.ignoreTemporaryDevices) {
-        await executeComponentCommand({
-          component: 'device',
-          command: 'createDevice',
+        await createDeviceSubscription({
+          transport: 'WebsitePush',
+          token,
+        });
+      } else {
+        await updateDeviceSubscription({
+          transport: 'WebsitePush',
+          token,
         });
       }
-
-      await updateDeviceSubscription({
-        transport: 'WebsitePush',
-        token,
-      });
     }
   } finally {
     ongoingPushRegistration = false;
@@ -217,6 +232,41 @@ function getOnboardingLastAttempt(): number | undefined {
   if (!lastAttemptStr) return undefined;
 
   return parseInt(lastAttemptStr, 10);
+}
+
+async function createDeviceSubscription({
+  transport,
+  token,
+  keys,
+}: {
+  transport: ActitoTransport;
+  token?: string;
+  keys?: object;
+}) {
+  const application = getApplication();
+  if (!application) throw new ActitoApplicationUnavailableError();
+
+  const device = getCurrentDevice();
+  if (device) {
+    throw new Error('Cannot create the device subscription when the device is already registered.');
+  }
+
+  const isPushCapable = transport !== 'Notificare';
+  const allowedUI = isPushCapable && getPushPermissionStatus() === 'granted';
+
+  const data: CreateDeviceCommandData = {
+    transport,
+    subscriptionId: token,
+    keys: keys,
+    allowedUI,
+    webPushCapable: hasWebPushCapabilities(),
+  };
+
+  await executeComponentCommand({
+    component: 'device',
+    command: 'createDevice',
+    data,
+  });
 }
 
 async function updateDeviceSubscription({

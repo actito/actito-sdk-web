@@ -50,13 +50,13 @@ export function buildSources(pkg, options) {
  * Builds type definition configurations for a module.
  *
  * @param {Object} [options] - Options object to configure type definition generation.
- * @param {string} [options.input] - The path to the input file for generating type definitions. Defaults to 'dist/intermediate/index.d.ts'.
+ * @param {string} [options.input] - The path to the input file for generating type definitions. Defaults to 'src/index.ts'.
  * @param {string} [options.outDir] - The output directory for the generated type definition files.
  * @return {RollupOptions} Configuration object for type definition generation.
  */
 export function buildTypeDefinitions(options) {
   return {
-    input: options?.input ?? 'dist/intermediate/index.d.ts',
+    input: options?.input ?? 'src/index.ts',
     output: [
       {
         file: options?.outDir ? resolve(options.outDir, 'index.d.cts') : 'dist/index.d.cts',
@@ -67,7 +67,12 @@ export function buildTypeDefinitions(options) {
         format: 'esm',
       },
     ],
-    plugins: [dts()],
+    plugins: [
+      alias({
+        entries: getPackageAliases(),
+      }),
+      dts(),
+    ],
   };
 }
 

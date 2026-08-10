@@ -6,7 +6,9 @@ import {
   hasRemoteNotificationsEnabled,
   getAllowedUI,
   getPushPermissionStatus,
+  getTransport,
   ActitoPushPermissionStatus,
+  ActitoTransport,
 } from "actito-web/push";
 import { useOnDeviceRegistered } from "@/actito/hooks/events/core/device-registered";
 import { useOnNotificationSettingsChanged } from "@/actito/hooks/events/push/notification-settings-changed";
@@ -20,6 +22,7 @@ export function NotificationsCard() {
   const [allowedUI, setAllowedUI] = useState(false);
   const [loading, setLoading] = useState(false);
   const [permissionStatus, setPermissionStatus] = useState<ActitoPushPermissionStatus>();
+  const [transport, setTransport] = useState<ActitoTransport>();
 
   useEffect(() => {
     const enabled = hasRemoteNotificationsEnabled();
@@ -27,6 +30,7 @@ export function NotificationsCard() {
 
     const allowedUI = getAllowedUI();
     setAllowedUI(allowedUI);
+    setTransport(getTransport());
 
     const permissionStatus = getPushPermissionStatus();
     setPermissionStatus(permissionStatus);
@@ -42,6 +46,7 @@ export function NotificationsCard() {
     setEnabled(enabled);
 
     setAllowedUI(allowedUI);
+    setTransport(getTransport());
 
     const permissionStatus = getPushPermissionStatus();
     setPermissionStatus(permissionStatus);
@@ -105,6 +110,13 @@ export function NotificationsCard() {
             Permission
           </p>
           <p className="text-sm font-mono lowercase text-gray-400">{permissionStatus}</p>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
+            Transport
+          </p>
+          <p className="text-sm font-mono text-gray-400">{transport}</p>
         </div>
       </CardContent>
     </Card>
