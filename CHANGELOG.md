@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Upcoming Release
+## 5.0.1
 
 - Fix device creation when `ignoreTemporaryDevices` is set to `true`.
 - Fix a bug where a new Service Worker was always registered even when there was already one with the same configuration.
