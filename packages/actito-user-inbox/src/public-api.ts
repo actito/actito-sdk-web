@@ -94,7 +94,7 @@ export async function openInboxItem(item: ActitoUserInboxItem): Promise<ActitoNo
 export async function markInboxItemAsRead(item: ActitoUserInboxItem): Promise<void> {
   checkPrerequisites();
 
-  await logNotificationOpen(item.notification.id);
+  await logNotificationOpen(item.notification.id, item.notification.trackerId);
 }
 
 /**
