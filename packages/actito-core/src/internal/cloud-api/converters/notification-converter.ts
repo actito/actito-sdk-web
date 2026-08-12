@@ -31,6 +31,7 @@ export function convertCloudNotificationToPublic(
     }, [] as ActitoNotificationAction[]),
     attachments: notification.attachments?.map(convertNotificationAttachmentToPublic) ?? [],
     extra: notification.extra ?? {},
+    trackerId: notification.trackerId,
   };
 }
 

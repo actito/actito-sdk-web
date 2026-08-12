@@ -25,6 +25,7 @@ export interface ActitoWorkerNotification {
   readonly sound?: string;
   readonly attachment?: ActitoWorkerNotificationAttachment;
   readonly actions?: ActitoWorkerNotificationAction[];
+  readonly trackerId?: string;
 
   // to represent the extras.
   readonly [key: string]: unknown;
