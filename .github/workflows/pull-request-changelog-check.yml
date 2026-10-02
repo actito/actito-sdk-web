@@ -76,7 +76,7 @@ jobs:
             const existingComment = comments.find(c => c.user.type === 'Bot' && c.body.includes(marker));
 
             if (!isChangelogModified) {
-              const warningMsg = `${marker}\n⚠️ **Changelog Warning:** This PR contains \`feat\` or \`fix\` commits, but the **CHANGELOG.md** file has not been updated.\n\nPlease update your changes.`;
+              const warningMsg = `${marker}\n⚠️ **Changelog Warning:** This PR contains \`feat\` or \`fix\` commits, but the **CHANGELOG.md** file has not been updated.\n\nPlease update the changelog accordingly.`;
             
               if (!existingComment) {
                 core.info('There is no warning comment. Posting warning...');
