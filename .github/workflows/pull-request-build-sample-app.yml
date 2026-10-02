@@ -88,6 +88,9 @@ jobs:
               core.info('Production URL added to comment.');
             }
             
+            const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 16) + ' UTC';
+            message += `\n*Last deploy: ${timestamp}*`;
+            
             core.endGroup();
             
             core.startGroup('Manage PR comment');
