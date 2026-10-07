@@ -28,7 +28,7 @@ export async function createAlertContent(notification: ActitoNotification): Prom
 
 function createAttachmentSection(notification: ActitoNotification): HTMLElement | undefined {
   const attachment = notification.attachments.find(({ mimeType }) => /image/.test(mimeType));
-  if (!attachment) return undefined;
+  if (!attachment?.uri) return undefined;
 
   const element = document.createElement('img');
   element.classList.add('actito__notification-alert-attachment');

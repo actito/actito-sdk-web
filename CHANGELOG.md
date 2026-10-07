@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Upcoming release
+
+- Fix a bug where a notification was presented with an attachment when its URI was null or empty.
+
 ## 5.0.1
 
 - Fix device creation when `ignoreTemporaryDevices` is set to `true`.
