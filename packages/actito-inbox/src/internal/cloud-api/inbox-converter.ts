@@ -22,6 +22,7 @@ export function convertCloudInboxItemToPublic(inboxItem: CloudDeviceInboxItem): 
         ? [convertNetworkInboxItemAttachmentToPublic(inboxItem.attachment)]
         : [],
       extra: inboxItem.extra ?? {},
+      trackerId: inboxItem.trackerId,
     },
   };
 }

@@ -147,7 +147,7 @@ async function handleServiceWorkerNotificationReceived(event: MessageEvent) {
     deliveryMechanism = event.data.content.message.push ? 'standard' : 'silent';
   } else {
     // Legacy format
-    await logNotificationReceived(event.data.message.notificationId);
+    await logNotificationReceived(event.data.message.notificationId, event.data.message.trackerId);
 
     notification = await fetchNotification(event.data.message.id);
     deliveryMechanism = event.data.message.push ? 'standard' : 'silent';
@@ -173,10 +173,11 @@ async function handleServiceWorkerNotificationClicked(event: MessageEvent) {
   }
 
   const notificationId = event.data.notification.id;
+  const notificationTrackerId = event.data.notification.trackerId;
 
   // Log the notification open event.
-  await logNotificationOpen(notificationId);
-  await logNotificationInfluenced(notificationId);
+  await logNotificationOpen(notificationId, notificationTrackerId);
+  await logNotificationInfluenced(notificationId, notificationTrackerId);
 
   // Notify the inbox to update itself.
   broadcastComponentEvent('notification_opened');
@@ -186,9 +187,12 @@ async function handleServiceWorkerNotificationClicked(event: MessageEvent) {
 }
 
 async function handleServiceWorkerNotificationReply(event: MessageEvent) {
+  const notificationId = event.data.notification.notificationId;
+  const notificationTrackerId = event.data.notification.trackerId;
+
   // Log the notification open event.
-  await logNotificationOpen(event.data.notification.notificationId);
-  await logNotificationInfluenced(event.data.notification.notificationId);
+  await logNotificationOpen(notificationId, notificationTrackerId);
+  await logNotificationInfluenced(notificationId, notificationTrackerId);
 
   // Notify the inbox to mark the item as read.
   // InboxIntegration.markItemAsRead(message)

@@ -5,7 +5,7 @@ import type { ActitoInAppMessage } from '~/models/actito-in-app-message';
 export async function logInAppMessageViewed(message: ActitoInAppMessage) {
   await logInternal({
     type: 're.notifica.event.inappmessage.View',
-    data: { message: message.id },
+    data: { message: message.id, trackerId: message.trackerId },
   });
 }
 
@@ -18,6 +18,7 @@ export async function logInAppMessageActionClicked(
     data: {
       message: message.id,
       action: actionType,
+      trackerId: message.trackerId,
     },
   });
 }

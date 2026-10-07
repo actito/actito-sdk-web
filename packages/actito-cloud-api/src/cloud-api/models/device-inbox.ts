@@ -11,6 +11,7 @@ export interface CloudDeviceInboxItem {
   readonly opened?: boolean;
   readonly visible?: boolean;
   readonly expires?: string;
+  readonly trackerId?: string;
 }
 
 export interface CloudDeviceInboxItemAttachment {

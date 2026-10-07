@@ -52,8 +52,11 @@ async function handleLegacyClick(event: NotificationEvent) {
 }
 
 async function handleStandardClick(event: NotificationEvent) {
-  await logNotificationOpen(event.notification.data.notificationId);
-  await logNotificationInfluenced(event.notification.data.notificationId);
+  const notificationId = event.notification.data.notificationId;
+  const trackerId = event.notification.data.trackerId;
+
+  await logNotificationOpen(notificationId, trackerId);
+  await logNotificationInfluenced(notificationId, trackerId);
   await broadcastInboxUpdate();
 
   const response = await fetchCloudNotification({

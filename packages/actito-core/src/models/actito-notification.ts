@@ -82,6 +82,8 @@ export interface ActitoNotification {
    * Collection of key-value pairs used to add extra information to the notification.
    */
   readonly extra: ActitoNotificationExtra;
+
+  readonly trackerId?: string;
 }
 
 /**
