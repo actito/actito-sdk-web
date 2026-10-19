@@ -71,6 +71,10 @@ export interface ActitoInAppMessage {
    */
   readonly secondaryAction?: ActitoInAppMessageAction;
 
+  /**
+   * Optional tracker identifier associated with the message, included in the
+   * message's events.
+   */
   readonly trackerId?: string;
 }
 
