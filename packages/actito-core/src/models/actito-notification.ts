@@ -83,6 +83,10 @@ export interface ActitoNotification {
    */
   readonly extra: ActitoNotificationExtra;
 
+  /**
+   * Optional tracker identifier associated with the notification, included in the
+   * notification's events.
+   */
   readonly trackerId?: string;
 }
 
