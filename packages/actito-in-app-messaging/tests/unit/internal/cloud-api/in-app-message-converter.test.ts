@@ -22,6 +22,7 @@ describe('test convertCloudInAppMessageToPublic', () => {
     delaySeconds: 0,
     primaryAction: undefined,
     secondaryAction: undefined,
+    trackerId: undefined,
   };
 
   test('when a full CloudInAppMessage object is provided, it converts it into an ActitoInAppMessage object as expected', () => {
@@ -45,6 +46,7 @@ describe('test convertCloudInAppMessageToPublic', () => {
         url: 'http://example.com',
         destructive: true,
       },
+      trackerId: 'tracker-id',
     };
 
     const expectedOutput: ActitoInAppMessage = {
@@ -67,6 +69,7 @@ describe('test convertCloudInAppMessageToPublic', () => {
         url: 'http://example.com',
         destructive: true,
       },
+      trackerId: 'tracker-id',
     };
 
     expect(convertCloudInAppMessageToPublic(input)).toStrictEqual(expectedOutput);

@@ -29,6 +29,7 @@ describe('test convertCloudInboxItemToPublic', () => {
       actions: [],
       attachments: [],
       extra: {},
+      trackerId: undefined,
     },
   };
 
@@ -52,6 +53,7 @@ describe('test convertCloudInboxItemToPublic', () => {
       opened: true,
       visible: true,
       expires: '2026-04-27T17:19:20Z',
+      trackerId: 'tracker-id',
     };
 
     const expectedOutput: ActitoInboxItem = {
@@ -79,6 +81,7 @@ describe('test convertCloudInboxItemToPublic', () => {
           key1: 'value1',
           key2: 'value2',
         },
+        trackerId: 'tracker-id',
       },
     };
 
