@@ -2,6 +2,8 @@
 
 ## Upcoming release
 
+- Add `trackerId` property to `ActitoNotification` and include it in notification event logs.
+- Add `trackerId` property to `ActitoInAppMessage` and include it in in-app message event logs.
 - Fix a bug where a notification was presented with an attachment when its URI was null or empty.
 
 ## 5.0.1

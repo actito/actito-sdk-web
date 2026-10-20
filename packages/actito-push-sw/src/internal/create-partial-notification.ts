@@ -23,6 +23,7 @@ export function createPartialNotification(message: ActitoWorkerNotification): Ac
     'sound',
     'attachment',
     'actions',
+    'trackerId',
   ];
 
   const extras = Object.keys(message)
@@ -44,5 +45,6 @@ export function createPartialNotification(message: ActitoWorkerNotification): Ac
     actions: [],
     attachments: message.attachment ? [message.attachment] : [],
     extra: extras,
+    trackerId: message.trackerId,
   };
 }

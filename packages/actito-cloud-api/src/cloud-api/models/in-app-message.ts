@@ -10,6 +10,7 @@ export interface CloudInAppMessage {
   readonly delaySeconds?: number;
   readonly primaryAction?: CloudInAppMessageAction;
   readonly secondaryAction?: CloudInAppMessageAction;
+  readonly trackerId?: string;
 }
 
 export interface CloudInAppMessageAction {

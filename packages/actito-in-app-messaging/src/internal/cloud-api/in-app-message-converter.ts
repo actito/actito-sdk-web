@@ -14,6 +14,7 @@ export function convertCloudInAppMessageToPublic(message: CloudInAppMessage): Ac
     delaySeconds: message.delaySeconds ?? 0,
     primaryAction: convertCloudInAppMessageActionToPublic(message.primaryAction),
     secondaryAction: convertCloudInAppMessageActionToPublic(message.secondaryAction),
+    trackerId: message.trackerId,
   };
 }
 

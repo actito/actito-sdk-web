@@ -20,6 +20,7 @@ export interface NetworkUserInboxItem {
   readonly opened?: boolean;
   readonly visible?: boolean;
   readonly expires?: string;
+  readonly trackerId?: string;
 }
 
 export interface NetworkUserInboxItemAttachment {
@@ -49,6 +50,7 @@ export function convertNetworkUserInboxItemToPublic(
         ? [convertNetworkInboxItemAttachmentToPublic(inboxItem.attachment)]
         : [],
       extra: inboxItem.extra ?? {},
+      trackerId: inboxItem.trackerId,
     },
   };
 }

@@ -98,7 +98,7 @@ async function handleNotification(workerNotification: ActitoWorkerNotification) 
     return;
   }
 
-  await logNotificationReceived(workerNotification.notificationId);
+  await logNotificationReceived(workerNotification.notificationId, workerNotification.trackerId);
   await updateApplicationBadge(workerNotification);
   await showNotificationPreview(workerNotification);
 

@@ -48,10 +48,11 @@ export async function logApplicationClose(
   });
 }
 
-export async function logNotificationOpen(notificationId: string) {
+export async function logNotificationOpen(notificationId: string, trackerId?: string) {
   await logInternal({
     type: 're.notifica.event.notification.Open',
     notificationId,
+    data: { trackerId },
   });
 }
 

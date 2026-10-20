@@ -10,6 +10,7 @@ export interface CloudNotification {
   readonly actions?: CloudNotificationAction[];
   readonly attachments?: CloudNotificationAttachment[];
   readonly extra?: CloudNotificationExtra;
+  readonly trackerId?: string;
 }
 
 export interface CloudNotificationContent {

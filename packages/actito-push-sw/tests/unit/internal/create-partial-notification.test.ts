@@ -27,6 +27,7 @@ describe('test createPartialNotification', () => {
     actions: [],
     attachments: [],
     extra: {},
+    trackerId: undefined,
   };
 
   test('when a minimal ActitoWorkerNotification object is provided, it returns an ActitoNotification object as expected', () => {
@@ -100,6 +101,7 @@ describe('test createPartialNotification', () => {
           camera: false,
         },
       ],
+      trackerId: 'tracker-id',
       // custom properties starting with 'x-' should also be ignored
       'x-attribute-1': 'string',
       'x-attribute-2': true,
@@ -126,6 +128,7 @@ describe('test createPartialNotification', () => {
         },
       ],
       extra: {},
+      trackerId: 'tracker-id',
     };
 
     // ignore time because it is auto generated

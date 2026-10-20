@@ -139,7 +139,7 @@ export async function openInboxItem(item: ActitoInboxItem): Promise<ActitoNotifi
 export async function markInboxItemAsRead(item: ActitoInboxItem): Promise<void> {
   checkPrerequisites();
 
-  await logNotificationOpen(item.notification.id);
+  await logNotificationOpen(item.notification.id, item.notification.trackerId);
   await refreshBadge();
 }
 

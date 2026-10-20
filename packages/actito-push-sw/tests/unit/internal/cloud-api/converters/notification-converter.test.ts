@@ -23,6 +23,7 @@ describe('test convertCloudApplicationToPublic', () => {
     actions: [],
     attachments: [],
     extra: {},
+    trackerId: undefined,
   };
 
   test('when a full CloudNotification object is provided, it converts it into an ActitoNotification object as expected', () => {
@@ -60,6 +61,7 @@ describe('test convertCloudApplicationToPublic', () => {
         key1: 'value1',
         key2: true,
       },
+      trackerId: 'tracker-id',
     };
 
     const expectedOutput: ActitoNotification = {
@@ -96,6 +98,7 @@ describe('test convertCloudApplicationToPublic', () => {
         key1: 'value1',
         key2: true,
       },
+      trackerId: 'tracker-id',
     };
 
     expect(convertCloudNotificationToPublic(input)).toStrictEqual(expectedOutput);
